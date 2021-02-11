@@ -68,14 +68,16 @@ def calc_struct_sdk(data, freq, plot):
 
 #Function for plotting observed curves against predicted for the test subsets
 
-def plot_results(model_name, test_inputs, test_outputs, no_samples, title):
+def plot_results(predictions_arr, observed_arr, no_samples, title):
 
-    predictions = model_name.predict(test_inputs)
-
-    predicted = pd.DataFrame(predictions)
+#    predictions = model_name.predict(test_inputs)
+    predicted = np.read(predictions_arr)
+    predicted = pd.DataFrame(predicted)
     predicted = predicted.transpose()
 
-    observed = pd.DataFrame(test_outputs.numpy())
+#    observed = pd.DataFrame(test_outputs.numpy())
+    observed = np.read(observed_arr)
+    observed = pd.DataFrame(observed)
     observed = observed.transpose()
 
     fig, axs = plt.subplots(1, no_samples, sharey=True)
