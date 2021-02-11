@@ -71,12 +71,12 @@ def calc_struct_sdk(data, freq, plot):
 def plot_results(predictions_arr, observed_arr, no_samples, title):
 
 #    predictions = model_name.predict(test_inputs)
-    predicted = np.read(predictions_arr)
+    predicted = np.load(predictions_arr)
     predicted = pd.DataFrame(predicted)
     predicted = predicted.transpose()
 
 #    observed = pd.DataFrame(test_outputs.numpy())
-    observed = np.read(observed_arr)
+    observed = np.load(observed_arr)
     observed = pd.DataFrame(observed)
     observed = observed.transpose()
 
