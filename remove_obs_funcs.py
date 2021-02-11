@@ -72,8 +72,8 @@ def remove_chunks_df(df, proportion, chunks, sigma):
     all_removes = [int(x) for x in all_removes] #Converting decimals to integers
     final_dataset = df.drop(df.index[all_removes])
 
-    print("The indexes of the removed observations are:")
-    print(all_removes)
+#    print("The indexes of the removed observations are:")
+#    print(all_removes)
     print("The proportion of data removed is:", format(1 - len(final_dataset)/len(df)))
     return final_dataset
 
