@@ -4,12 +4,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import random
 import math
-from parashar_functions import read_cdfs, date_1d_dict, read_asc_ts
 from remove_obs_funcs import remove_chunks_df, remove_obs_df
-from scipy.fft import fft, ifft
-from statsmodels.graphics import tsaplots
-from scipy import signal
-import Hampel
 
 # voyager_data_raw = read_cdfs(["voyager/voyager1_48s_mag-vim_20090101_v01.cdf", 
 #             "voyager/voyager1_48s_mag-vim_20100101_v01.cdf", 
@@ -111,23 +106,3 @@ def normalize(data):
     nd = data - np.mean(data)
     return nd/nd.std()
 
-#Example
-
-# voyager1_data_raw = read_cdfs(["voyager/voyager1_48s_mag-vim_20090101_v01.cdf", 
-#             "voyager/voyager1_48s_mag-vim_20100101_v01.cdf", 
-#             "voyager/voyager1_48s_mag-vim_20110101_v01.cdf",
-#             "voyager/voyager1_48s_mag-vim_20120101_v01.cdf",
-#             "voyager/voyager1_48s_mag-vim_20130101_v01.cdf"],
-#             ['Epoch', 'F1', 'BT', 'BR', 'BN'])
-
-# voyager1_data = date_1d_dict(voyager1_data_raw, '48S') #Resampling with freq means we do not get lines drawn between missing data points on line plots, however it does require some averaging which puts the time points slightly off
-            
-# clean_short = voyager1_data['2009-05-10 12:38':'2009-05-10 23:59']['F1'].dropna()
-# print(clean_short)
-
-# calc_struct_sdk(clean_short, 1/48, plot = True) #Period of 12 hours (no missing data)
-# values = calc_struct_sdk(clean_short, 1/48, plot = False)
-# values.dropna()
-
-# values.plot()
-# plt.show()
