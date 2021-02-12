@@ -62,10 +62,10 @@ def remove_chunks_df(df, proportion, chunks, sigma):
                 if remove[i] in all_removes :
                     x = 1
             if x > 0:
-                print("This chunk overlaps with another chunk")
+#                print("This chunk overlaps with another chunk")
                 y = 0 #In this case, random starting point will run again and chunk will be re-selected
             else:
-                print("This chunk does not overlap with another chunk")
+#                print("This chunk does not overlap with another chunk")
                 y = 1 #In this case, will proceed to creating next chunk
         all_removes.extend(remove)
         
