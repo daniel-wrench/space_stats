@@ -79,8 +79,14 @@ def plot_results(predictions_arr, observed_arr, no_samples, title):
     observed = np.load(observed_arr)
     observed = pd.DataFrame(observed)
     observed = observed.transpose()
+    
+# plots will be shown on a nplotx,nplotx grid
+    if np.modf(np.sqrt(no_samples))[0] == 0:
+       nplotx=int(np.modf(np.sqrt(no_samples))[1])
+    else: 
+       nplotx=int(np.modf(np.sqrt(no_samples))[1]+1)
 
-    fig, axs = plt.subplots(1, no_samples, sharey=True)
+    fig, axs = plt.subplots(nplotx,nplotx,sharey=True)
 
     for i in np.arange(0, no_samples):
         #axs[0].plot(test_inputs[i], label = "subset" + str(i+1))
