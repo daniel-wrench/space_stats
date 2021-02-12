@@ -87,21 +87,23 @@ def plot_results(predictions_arr, observed_arr, no_samples, title):
        nplotx=int(np.modf(np.sqrt(no_samples))[1]+1)
 
     fig, axs = plt.subplots(nplotx,nplotx,sharey=True)
+    ## axs[] NEEDS TWO DIMENSIONS
 
     for i in np.arange(0, no_samples):
+        r, c = int(np.arange(0, no_samples)[i]/nplotx), np.mod(np.arange(0, no_samples)[i],nplotx)
         #axs[0].plot(test_inputs[i], label = "subset" + str(i+1))
-        axs[i].plot(observed[i], label = "observed subset" )
-        axs[i].plot(predicted[i], label = "predicted subset")
-        axs[i].semilogx()
-        axs[i].semilogy()
+        axs[r, c].plot(observed[i], label = "observed subset" )
+        axs[r, c].plot(predicted[i], label = "predicted subset")
+        axs[r, c].semilogx()
+        axs[r, c].semilogy()
 
     
-    axs[1].legend()
+    axs[1,1].legend()
 
     # axs[0].legend()
     # axs[1].legend()
     # axs[2].legend()
-    axs[0].set(title =title)
+    axs[1,1].set(title =title)
     # axs[1].set(title = 'Next 20 time steps', xlabel = 'Time')
     # axs[2].set(title = 'PREDICTED next 20 time steps', xlabel = 'Time')
     #plt.title(title)
