@@ -74,7 +74,7 @@ def remove_chunks_df(df, proportion, chunks, sigma):
 
 #    print("The indexes of the removed observations are:")
 #    print(all_removes)
-    print("The proportion of data removed is:", format(1 - len(final_dataset)/len(df)))
+#    print("The proportion of data removed is:", format(1 - len(final_dataset)/len(df)))
     return final_dataset
 
 ###TESTING FUNCTION
