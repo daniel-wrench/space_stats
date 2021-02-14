@@ -98,12 +98,12 @@ def plot_results(predictions_arr, observed_arr, no_samples, title):
         axs[r, c].semilogy()
 
     
-    axs[0,0].legend()
+    axs[0,1].legend()
 
     # axs[0].legend()
     # axs[1].legend()
     # axs[2].legend()
-    axs[0,0].set(title =title)
+    axs[0,1].set(title =title)
     # axs[1].set(title = 'Next 20 time steps', xlabel = 'Time')
     # axs[2].set(title = 'PREDICTED next 20 time steps', xlabel = 'Time')
     #plt.title(title)
