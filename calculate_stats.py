@@ -97,7 +97,7 @@ def plot_results(predictions_arr, observed_arr, no_samples, gapped = False):
     
     observations_dataset = observed
     predictions_dataset = predicted
-    math_obs_dataset = math_obs
+#    math_obs_dataset = math_obs
     title = 'Predictions from NN of test set of complete and gapped data'
     
     if gapped == True:
