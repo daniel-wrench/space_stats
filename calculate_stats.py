@@ -89,14 +89,21 @@ def plot_results(predictions_arr, observed_arr, no_samples, gapped = False):
     test_obs_gapped = observations[test_gapped_indices==1]
     gapped_observed = pd.DataFrame(test_obs_gapped)
     gapped_observed = gapped_observed.transpose()
+
+#These only work for if all are gapped datasets    
+#    math_arr = np.load(math_arr)
+#    math_obs = pd.DataFrame(math_arr)
+#    math_obs = math_obs.transpose()
     
     observations_dataset = observed
     predictions_dataset = predicted
+    math_obs_dataset = math_obs
     title = 'Predictions from NN of test set of complete and gapped data'
     
     if gapped == True:
       observations_dataset = gapped_observed
       predictions_dataset = gapped_predicted
+#      math_obs_dataset = math_obs
       title = 'Predictions from NN of test set of only gapped data'
     
 # plots will be shown on a nplotx,nplotx grid
@@ -113,6 +120,7 @@ def plot_results(predictions_arr, observed_arr, no_samples, gapped = False):
         #axs[0].plot(test_inputs[i], label = "subset" + str(i+1))
         axs[r, c].plot(observations_dataset[i], label = "observed subset" )
         axs[r, c].plot(predictions_dataset[i], label = "predicted subset")
+ #       axs[r, c].plot(math_obs_dataset[i], label = "observed from gapped subset")
         axs[r, c].semilogx()
         axs[r, c].semilogy()
 
