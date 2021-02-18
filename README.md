@@ -1,12 +1,12 @@
 # Daniel Wrench's Awesome Space Stats Repo
 
-Log-in to Raapoi. 
+### CODES
+**data_import_funcs.py**  Contains functions for importing CDF files and outputting dated pandas DataFrames.  
+**remove_obs_funcs.py** Contains functions to remove data from dataframes    
+**calculate_stats.py** Contains a function called plot_results() which is used for visualising the predictions of the neural network on the test data  
 
 
-*data_import_funcs.py*  
-*calculate_stats.py* contains a function called plot_results() which is used for visualising the predictions of the neural network on the test data
-
-**PROCESS**
+### PROCESS
 1. Set-up singularity tensorflow container in Linux on local computer. I had to do this using Linux on a Virtual Machine, following the instructions from https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example  
 2. Log into Raapoi (or relevant HPC cluster).
 3. (Set up bin/python_env file to source for running commands in ipython shell.)
@@ -15,7 +15,7 @@ Log-in to Raapoi.
 6. Run **terminal_pre-processing.py** code. (Currently, this is copied and pasted into the ipython --pylab shell. This is because we need access to the strfn() function from the TurbAn repository.)
 This code takes the raw data (currently majority PSP) and outputs the following arrays:  
 -PSP clean inputs: normalised subsets of a single magnetic field component (BR), each of length 10,000, with no gaps  
--PSP gapped inputs: normalised subsets of a single magnetic field component (BR), each of length 10,000, with artificial gaps of 20% removed in three chunks. *The gapped datasets are chosen to be the final 20% of the original datasets*. These are output in both filled (0 (mean) imputed) and unfilled versions.  
+-PSP gapped inputs: normalised subsets of a single magnetic field component (BR), each of length 10,000, with artificial gaps of between 10% and 40% removed in between 3 and 5 chunks. *The gapped datasets are chosen to be the final 20% of the original datasets*. These are output in both filled (0 (mean) imputed) and unfilled versions.  
 -PSP clean and gapped outputs: expected structure functions corresponding to each (original, ungapped) dataset. These are the second-order structure functions, and are calculated up to the lag equal to 20% of the input data length (2000 points). **Calculating these for all subsets takes around 15min.**
 -PSP (gapped) math outputs: structure functions for the gapped datasets, calculated *after* gapping took place.  
 -Voyager gappy inputs: a small number of normalised subsets of Voyager data. *These are already very gappy.* Voyager data is just for testing - there is no "expected" output because we do not have the complete datasets  
