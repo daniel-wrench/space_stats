@@ -32,3 +32,5 @@ This file does the following:
 --inputs_train and inputs_test: Full training and testing input data  
 --ann_test_predictions and ann_test_observed: Expected and predicted structure functions for the test data  
 --voyager_gapped_predictions: Predicted structure functions for the gappy Voyager data  
+8. Plot a series of expected and observed functions using the calc.plot_results() function in the ipython terminal
+9. Visualise a select few prediction curves against the expected and mathematical curves, using the **plotting.py** code
