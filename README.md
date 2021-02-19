@@ -16,7 +16,7 @@
 This code takes the raw data (currently majority PSP) and outputs the following arrays:  
 -PSP clean inputs: normalised subsets of a single magnetic field component (BR), each of length 10,000, with no gaps  
 -PSP gapped inputs: normalised subsets of a single magnetic field component (BR), each of length 10,000, with artificial gaps of between 10% and 40% removed in between 3 and 5 chunks. *The gapped datasets are chosen to be the final 20% of the original datasets*. These are output in both filled (0 (mean) imputed) and unfilled versions.  
--PSP clean and gapped outputs: expected structure functions corresponding to each (original, ungapped) dataset. These are the second-order structure functions, and are calculated up to the lag equal to 20% of the input data length (2000 points). **Calculating these for all subsets takes around 15min.**
+-PSP clean and gapped outputs: expected structure functions corresponding to each (original, ungapped) dataset. These are the second-order structure functions, and are calculated up to the lag equal to 20% of the input data length (2000 points). **Calculating these for all subsets takes around 15min.**  
 -PSP (gapped) math outputs: structure functions for the gapped datasets, calculated *after* gapping took place.  
 -Voyager gappy inputs: a small number of normalised subsets of Voyager data. *These are already very gappy.* Voyager data is just for testing - there is no "expected" output because we do not have the complete datasets  
 -Voyager (gapped) math outputs: structure functions for the gapped datasets  
