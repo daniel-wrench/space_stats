@@ -80,6 +80,6 @@ def plot_results(predictions_arr, observed_arr, no_samples, gapped = False):
 
 #Normalize data
 def normalize(data):
-    nd = data - np.mean(data)
-    return nd/nd.std()
+    step1 = data - np.mean(data)
+    return step1/data.std()
 
