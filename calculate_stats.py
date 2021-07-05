@@ -78,8 +78,12 @@ def plot_results(predictions_arr, observed_arr, no_samples, gapped = False):
 
 #calc_struct_sdk(real_data, 1/48)
 
-#Normalize data
+# Normalize data
 def normalize(data):
-    step1 = data - np.mean(data)
-    return step1/data.std()
+    # Remove any NA values to calculate mean and std, but leave them in the output set
+    clean_data = data[~np.isnan(data)]
+    mean = np.mean(clean_data)
+    std = clean_data.std()
+    result = (data - mean)/std
+    return result
 
