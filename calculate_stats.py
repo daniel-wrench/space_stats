@@ -28,7 +28,7 @@ def plot_results(predictions_arr, observed_arr, math_arr, no_samples):
     predictions_dataset = predicted
     math_obs_dataset = math_obs
 
-    title = 'Predictions from NN on test set of only gapped data'
+    title = 'ANN predictions for test set of gapped intervals'
     
 # plots will be shown on a nplotx,nplotx grid
     if np.modf(np.sqrt(no_samples))[0] == 0:
@@ -42,15 +42,14 @@ def plot_results(predictions_arr, observed_arr, math_arr, no_samples):
     for i in np.arange(0, no_samples):
         r, c = int(np.arange(0, no_samples)[i]/nplotx), np.mod(np.arange(0, no_samples)[i],nplotx)
         #axs[0].plot(test_inputs[i], label = "subset" + str(i+1))
-        axs[r, c].plot(observations_dataset[i], label = "observed subset" )
-        axs[r, c].plot(predictions_dataset[i], label = "predicted subset")
-        axs[r, c].plot(math_obs_dataset[i], label = "observed from gapped subset")
-        axs[r, c].semilogx()
-        axs[r, c].semilogy()
+        axs[r, c].plot(observations_dataset[i], label = "target" )
+        axs[r, c].plot(predictions_dataset[i], label = "predicted")
+        axs[r, c].plot(math_obs_dataset[i], label = "comparing with")
+        #axs[r, c].semilogx()
+        #axs[r, c].semilogy()
 
-    
-    axs[0,1].legend()
-    axs[0,1].set(title = title)
+    axs[0,0].legend()
+    axs[0,0].set(title = title)
     plt.show()
 
     
