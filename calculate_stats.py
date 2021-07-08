@@ -36,7 +36,7 @@ def plot_results(predictions_arr, observed_arr, math_arr, no_samples):
     else: 
        nplotx=int(np.modf(np.sqrt(no_samples))[1]+1)
 
-    fig, axs = plt.subplots(nplotx,nplotx,sharey=True)
+    fig, axs = plt.subplots(nplotx,nplotx)
     ## axs[] NEEDS TWO DIMENSIONS
 
     for i in np.arange(0, no_samples):
