@@ -42,9 +42,9 @@ def plot_results(predictions_arr, observed_arr, math_arr, no_samples):
     for i in np.arange(0, no_samples):
         r, c = int(np.arange(0, no_samples)[i]/nplotx), np.mod(np.arange(0, no_samples)[i],nplotx)
         #axs[0].plot(test_inputs[i], label = "subset" + str(i+1))
-        axs[r, c].plot(observations_dataset[i], label = "target" )
+        axs[r, c].plot(observations_dataset[i], label = "clean target" )
         axs[r, c].plot(predictions_dataset[i], label = "predicted")
-        axs[r, c].plot(math_obs_dataset[i], label = "compare with")
+        axs[r, c].plot(math_obs_dataset[i], label = "eqn on input")
         #axs[r, c].semilogx()
         #axs[r, c].semilogy()
 
