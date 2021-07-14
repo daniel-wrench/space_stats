@@ -8,7 +8,7 @@ from remove_obs_funcs import remove_chunks_df, remove_obs_df
 
 #Function for plotting observed curves against predicted for the test subsets
 
-def plot_results(predictions_arr, observed_arr, math_arr, no_samples):
+def plot_results(predictions_arr, observed_arr, math_arr, no_samples, plot_title = 'ANN predictions on test set'):
 
     predictions = np.load(predictions_arr)
     predicted = pd.DataFrame(predictions)
@@ -27,8 +27,6 @@ def plot_results(predictions_arr, observed_arr, math_arr, no_samples):
     observations_dataset = observed
     predictions_dataset = predicted
     math_obs_dataset = math_obs
-
-    title = 'ANN predictions for \n test set of gapped intervals'
     
 # plots will be shown on a nplotx,nplotx grid
     if np.modf(np.sqrt(no_samples))[0] == 0:
@@ -49,7 +47,7 @@ def plot_results(predictions_arr, observed_arr, math_arr, no_samples):
         #axs[r, c].semilogy()
 
     axs[0,0].legend(prop={'size': 7})
-    axs[0,1].set(title = title)
+    axs[0,1].set(title = plot_title)
     plt.show()
 
     
