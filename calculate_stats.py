@@ -48,7 +48,7 @@ def plot_results(predictions_arr, observed_arr, math_arr, no_samples):
         #axs[r, c].semilogx()
         #axs[r, c].semilogy()
 
-    axs[0,0].legend()
+    axs[0,0].legend(prop={'size': 7})
     axs[0,1].set(title = title)
     plt.show()
 
