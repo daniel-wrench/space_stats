@@ -4,7 +4,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 import random
 import math
-from remove_obs_funcs import remove_chunks_df, remove_obs_df
 
 #Function for plotting observed curves against predicted for the test subsets
 
