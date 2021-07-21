@@ -28,9 +28,9 @@ def remove_obs_df(df, percent):
 #   check if any of these values overlap with what is already there. If yes, y still = 0. If not, y = 1
 #append results to all_removes
 
-def remove_chunks_df(df, proportion, chunks, sigma):
-    '''Remove randomly-sized chunks from random points in a dataframe
 
+def remove_chunks_df(df, proportion, chunks, sigma):
+    '''Remove randomly-sized chunks from random points in a dataframe (such that at least the proportion specified is removed)
 
      Parameters:
      
@@ -47,6 +47,7 @@ def remove_chunks_df(df, proportion, chunks, sigma):
     mean_obs = num_obs/chunks
     std = sigma*0.341*2*mean_obs
     all_removes = []
+
     for i in range(chunks) :
         num_obs = round(random.gauss(mu = mean_obs, sigma = std))
         #Comment out the line above and replace num_obs below with mean_obs to revert to equal sized chunks
@@ -54,29 +55,40 @@ def remove_chunks_df(df, proportion, chunks, sigma):
             raise Exception('sigma too high, got negative obs')
         y = 0
         while y == 0:
-            start = random.randrange(start = num_obs, stop = len(df) - num_obs) #Starting point for each removal should be far enough from the start and end of the series
+            start = random.randrange(start = 1, stop = len(df) - num_obs) #Starting point for each removal should be far enough from the start and end of the series
             remove = np.arange(start, start + num_obs)
             # Check if any removes values are already in all_removes array
             x = 0
-            for i in range(len(remove)):
-                if remove[i] in all_removes :
-                    x = 1
+            # for i in range(len(remove)):
+            #     if remove[i] in all_removes :
+            #         x = 1
             if x > 0:
-#                print("This chunk overlaps with another chunk")
+               # print("This chunk overlaps with another chunk")
                 y = 0 #In this case, random starting point will run again and chunk will be re-selected
             else:
-#                print("This chunk does not overlap with another chunk")
+              #  print("This chunk does not overlap with another chunk")
                 y = 1 #In this case, will proceed to creating next chunk
         all_removes.extend(remove)
         
+    prop_missing = len(np.unique(all_removes))/len(df)
+    #print("Prop missing", prop_missing)
+
+    while prop_missing < proportion:
+        start = random.randrange(start = 1, stop = len(df) - num_obs) #Starting point for each removal should be far enough from the start and end of the series
+        remove = np.arange(start, start + num_obs)
+        all_removes.extend(remove)
+
+        prop_missing = len(np.unique(all_removes))/len(df)
+        #print("While loop: Prop missing", prop_missing)
+
     all_removes = [int(x) for x in all_removes] #Converting decimals to integers
     final_dataset = df.drop(df.index[all_removes])
 
-#    print("The indexes of the removed observations are:")
-#    print(all_removes)
-#    print("The proportion of data removed is:", format(1 - len(final_dataset)/len(df)))
+    #print("The indexes of the removed observations are:")
+    #print(all_removes)
+    #print("The proportion of data removed is:", format(1 - len(final_dataset)/len(df)))
     return final_dataset
-
+    #return(1 - len(final_dataset)/len(df))
 ###TESTING FUNCTION
 # returns = np.random.normal(loc=0.02, scale=0.05, size=1000)
 # df = pd.DataFrame(returns)
