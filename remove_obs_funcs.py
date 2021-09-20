@@ -20,18 +20,9 @@ def remove_obs_df(df, percent):
     print("The proportion of data removed is:", format(1 - len(final_dataset)/len(df)))
     return final_dataset
 
-
-#FOR EACH CHUNK
-#initialise y = 0
-#while y = 0:
-#   intialise starting point, calculate range of indices
-#   check if any of these values overlap with what is already there. If yes, y still = 0. If not, y = 1
-#append results to all_removes
-
-
 def remove_chunks_df(df, proportion, chunks, sigma):
     '''Remove randomly-sized chunks from random points in a dataframe (such that at least the proportion specified is removed)
-
+    Works for single column dataframes and multiple column dataframes, where it removes chunks in the same places
      Parameters:
      
         df = DataFrame
@@ -54,24 +45,12 @@ def remove_chunks_df(df, proportion, chunks, sigma):
         if num_obs < 0:
             raise Exception('sigma too high, got negative obs')
         y = 0
-        while y == 0:
-            start = random.randrange(start = 1, stop = len(df) - num_obs) #Starting point for each removal should be far enough from the start and end of the series
-            remove = np.arange(start, start + num_obs)
-            # Check if any removes values are already in all_removes array
-            x = 0
-            # for i in range(len(remove)):
-            #     if remove[i] in all_removes :
-            #         x = 1
-            if x > 0:
-               # print("This chunk overlaps with another chunk")
-                y = 0 #In this case, random starting point will run again and chunk will be re-selected
-            else:
-              #  print("This chunk does not overlap with another chunk")
-                y = 1 #In this case, will proceed to creating next chunk
+        start = random.randrange(start = 1, stop = len(df) - num_obs) #Starting point for each removal should be far enough from the start and end of the series
+        remove = np.arange(start, start + num_obs)
+
         all_removes.extend(remove)
         
     prop_missing = len(np.unique(all_removes))/len(df)
-    #print("Prop missing", prop_missing)
 
     while prop_missing < proportion:
         start = random.randrange(start = 1, stop = len(df) - num_obs) #Starting point for each removal should be far enough from the start and end of the series
@@ -79,29 +58,41 @@ def remove_chunks_df(df, proportion, chunks, sigma):
         all_removes.extend(remove)
 
         prop_missing = len(np.unique(all_removes))/len(df)
-        #print("While loop: Prop missing", prop_missing)
 
     all_removes = [int(x) for x in all_removes] #Converting decimals to integers
-    final_dataset = df.drop(df.index[all_removes])
+    
+    # Setting the chosen indices as NA
+    final_dataset = df
+    final_dataset.iloc[all_removes,:] = np.nan
+    len(final_dataset)
 
-    #print("The indexes of the removed observations are:")
-    #print(all_removes)
-    #print("The proportion of data removed is:", format(1 - len(final_dataset)/len(df)))
+    # Creating a binary indicator vector where values have been removed
+    indicator_vec = np.zeros(len(df))
+    indicator_vec[all_removes] = 1
+
+    #Adding this indicator vector as a column to the dataframe
+    final_dataset['missing'] = indicator_vec
+
+    #print("The proportion of data removed is:", sum(final_dataset.missing/len(df)))
     return final_dataset
-    #return(1 - len(final_dataset)/len(df))
+
 ###TESTING FUNCTION
+
 # returns = np.random.normal(loc=0.02, scale=0.05, size=1000)
-# df = pd.DataFrame(returns)
+# df = pd.DataFrame({'col1':returns, 'col2':returns+1})
 # dates = pd.date_range('2011', periods = len(returns))
 # df = df.set_index(dates)
 
 # df.plot()
 # plt.show()
 
-# new_data_2 = remove_chunks_df(df, 0.2, 5, 0.5) 
-# new_data_2 = new_data_2.resample('D').mean()
-# new_data_2.plot()
+# new_data_2 = remove_chunks_df(df, 0.3, 5, 0.5) 
+# #new_data_2 = new_data_2.resample('D').mean()
+# new_data_2.iloc[:,0:2].plot()
 # plt.show()
+
+#Proportion missing
+#new_data_2.iloc[:,1].isnull().sum()/len(new_data_2)
 
 #Array versions
 
@@ -122,5 +113,3 @@ def remove_chunks_array(array, percent, chunks):
     all_removes = [int(x) for x in all_removes]
     print(all_removes)
     return np.delete(array, all_removes)
-
-
