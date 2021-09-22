@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt
 import pandas as pd
 import numpy as np
 import random
+import copy
 
 #DataFrame versions (WORKING)
 
@@ -62,7 +63,9 @@ def remove_chunks_df(df, proportion, chunks, sigma):
     all_removes = [int(x) for x in all_removes] #Converting decimals to integers
     
     # Setting the chosen indices as NA
-    final_dataset = df
+    
+    #final_dataset = df.copy()
+    final_dataset = copy.deepcopy(df)
     final_dataset.iloc[all_removes,:] = np.nan
     len(final_dataset)
 
@@ -83,12 +86,13 @@ def remove_chunks_df(df, proportion, chunks, sigma):
 # dates = pd.date_range('2011', periods = len(returns))
 # df = df.set_index(dates)
 
-# df.plot()
+# plt.plot(df)
 # plt.show()
 
-# new_data_2 = remove_chunks_df(df, 0.3, 5, 0.5) 
-# #new_data_2 = new_data_2.resample('D').mean()
+# new_data_2 = remove_chunks_df(df, 0, 5, 0.5) 
+# new_data_2 = new_data_2.resample('D').mean()
 # new_data_2.iloc[:,0:2].plot()
+# new_data_2.plot()
 # plt.show()
 
 #Proportion missing
