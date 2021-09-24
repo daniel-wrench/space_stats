@@ -7,25 +7,15 @@ import math
 
 #Function for plotting observed curves against predicted for the test subsets
 
-def plot_results(predictions_arr, observed_arr, math_arr, no_samples, plot_title = 'ANN predictions on test set'):
+def plot_results(predictions_arr, observed_arr, no_samples, title=''):
 
-    predictions = np.load(predictions_arr)
-    predicted = pd.DataFrame(predictions)
+    predicted = np.load(predictions_arr)
+    predicted = pd.DataFrame(predicted)
     predicted = predicted.transpose()
-    
-    observations = np.load(observed_arr)
-    observed = pd.DataFrame(observations)
-    observed = observed.transpose()
-    
 
-    # These only work for if all are gapped datasets    
-    math_arr = np.load(math_arr)
-    math_obs = pd.DataFrame(math_arr)
-    math_obs = math_obs.transpose()
-    
-    observations_dataset = observed
-    predictions_dataset = predicted
-    math_obs_dataset = math_obs
+    observed = np.load(observed_arr)
+    observed = pd.DataFrame(observed)
+    observed = observed.transpose()
     
 # plots will be shown on a nplotx,nplotx grid
     if np.modf(np.sqrt(no_samples))[0] == 0:
@@ -33,20 +23,18 @@ def plot_results(predictions_arr, observed_arr, math_arr, no_samples, plot_title
     else: 
        nplotx=int(np.modf(np.sqrt(no_samples))[1]+1)
 
-    fig, axs = plt.subplots(nplotx,nplotx)
-    ## axs[] NEEDS TWO DIMENSIONS
+    fig, axs = plt.subplots(nplotx,nplotx,sharey=True, figsize = (10,10))
 
     for i in np.arange(0, no_samples):
         r, c = int(np.arange(0, no_samples)[i]/nplotx), np.mod(np.arange(0, no_samples)[i],nplotx)
         #axs[0].plot(test_inputs[i], label = "subset" + str(i+1))
-        axs[r, c].plot(observations_dataset[i], label = "clean target" )
-        axs[r, c].plot(predictions_dataset[i], label = "predicted")
-        axs[r, c].plot(math_obs_dataset[i], label = "eqn on input")
-        #axs[r, c].semilogx()
-        #axs[r, c].semilogy()
+        axs[r, c].plot(observed[i], label = "observed" )
+        axs[r, c].plot(predicted[i], label = "predicted")
+        axs[r, c].semilogx()
+        axs[r, c].semilogy()
 
-    axs[0,0].legend(prop={'size': 7})
-    axs[0,1].set(title = plot_title)
+    axs[0,0].legend()
+    axs[0,0].set(title=title)
     plt.show()
 
     
