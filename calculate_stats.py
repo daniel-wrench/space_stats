@@ -36,6 +36,7 @@ def plot_results(predictions_arr, observed_arr, no_samples, spacecraft, model):
     axs[0,0].legend()
     axs[0,0].set(title = "Model predictions on " + spacecraft + " test set")
     plt.savefig('results/' + model + spacecraft + '_predictions_plot.png')
+    plt.cla()
     plt.show()
 
 
@@ -64,4 +65,5 @@ def plot_validation_error(path):
     plt.title("Min validation loss of " + str(round(min_loss.iloc[0,0], 4)) + " at epoch " + str(min_loss.index[0]),
     fontsize = 10)
     plt.savefig(path + 'nn_training_plot.png')
+    plt.cla()
     plt.show()
