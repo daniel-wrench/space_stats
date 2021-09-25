@@ -7,7 +7,7 @@ import math
 
 #Function for plotting observed curves against predicted for the test subsets
 
-def plot_results(predictions_arr, observed_arr, no_samples, title=''):
+def plot_results(predictions_arr, observed_arr, no_samples, spacecraft, model):
 
     predicted = np.load(predictions_arr)
     predicted = pd.DataFrame(predicted)
@@ -34,8 +34,10 @@ def plot_results(predictions_arr, observed_arr, no_samples, title=''):
         axs[r, c].semilogy()
 
     axs[0,0].legend()
-    axs[0,0].set(title=title)
+    axs[0,0].set(title = "Model predictions on " + spacecraft + " test set")
+    plt.savefig('results/' + model + spacecraft + '_predictions_plot.png')
     plt.show()
+
 
     
 # Normalize data
