@@ -30,6 +30,37 @@ def plot_results(predictions_arr, observed_arr, no_samples, spacecraft, model):
         #axs[0].plot(test_inputs[i], label = "subset" + str(i+1))
         axs[r, c].plot(observed[i], label = "observed" )
         axs[r, c].plot(predicted[i], label = "predicted")
+
+    axs[0,0].legend()
+    axs[0,0].set(title = "Model predictions on " + spacecraft + " test set")
+    plt.savefig('results/' + model + spacecraft + '_predictions_plot.png')
+    plt.cla()
+    plt.show()
+    
+    
+def plot_log_results(predictions_arr, observed_arr, no_samples, spacecraft, model):
+
+    predicted = np.load(predictions_arr)
+    predicted = pd.DataFrame(predicted)
+    predicted = predicted.transpose()
+
+    observed = np.load(observed_arr)
+    observed = pd.DataFrame(observed)
+    observed = observed.transpose()
+    
+    # plots will be shown on a nplotx,nplotx grid
+    if np.modf(np.sqrt(no_samples))[0] == 0:
+       nplotx=int(np.modf(np.sqrt(no_samples))[1])
+    else: 
+       nplotx=int(np.modf(np.sqrt(no_samples))[1]+1)
+
+    fig, axs = plt.subplots(nplotx,nplotx,sharey=True, figsize = (10,10))
+
+    for i in np.arange(0, no_samples):
+        r, c = int(np.arange(0, no_samples)[i]/nplotx), np.mod(np.arange(0, no_samples)[i],nplotx)
+        #axs[0].plot(test_inputs[i], label = "subset" + str(i+1))
+        axs[r, c].plot(observed[i], label = "observed" )
+        axs[r, c].plot(predicted[i], label = "predicted")
         axs[r, c].semilogx()
         axs[r, c].semilogy()
 
