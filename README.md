@@ -44,9 +44,9 @@ All of the following is to be run in the Rāpoi terminal
 14. Download test data files and model results to local computer
 15. Run `05_results.py` to produce final plots and statistics
 
-# Pseudo-code
+## Pseudo-code
 
-## Pre-processing
+### Pre-processing
 
 **terminal_preprocessing.py,** to run in Rāpoi terminal
 
@@ -144,7 +144,7 @@ freq = ‘0.75S’
 10. Calculate structure functions for interpolated inputs (list of arrays)
     1. Transform interpolated outputs for outputting (**array of arrays**)
 
-## Training model
+### Training model
 
 **3_train_neural_net.py**, to submit as job to Rāpoi cluster
 
@@ -155,15 +155,14 @@ freq = ‘0.75S’
 5. Output training and validation loss curve
 6. Output training and validation losses, and test loss
 
-psp_outputs_test_predictions
+- `psp_outputs_test_predictions`
+- `psp_outputs_test_predictions_loss`
 
-psp_outputs_test_predictions_loss
-
-## Evaluating model
+### Evaluating model
 
 1. With each model training, plot 9 model predictions against true curves.
 
-## Plotting final results
+### Plotting final results
 
 1. For PSP and MMS:
     1. **Table with one row for every interval:**
@@ -176,7 +175,7 @@ psp_outputs_test_predictions_loss
 
 ---
 
-# Old documentation (could still be relevant)
+## Old documentation (could still be relevant)
 
 1. Run **terminal_pre-processing.py** code. (Currently, this is copied and pasted into the ipython --pylab shell. This is because we need access to the strfn() function from the TurbAn repository.)
 This code takes the raw data (currently majority PSP) and outputs the following arrays:
