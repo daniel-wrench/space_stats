@@ -10,11 +10,11 @@ This code was used to explore solar wind data and implement a study of using neu
 
 ### SET-UP
 
-1. Set-up a Singularity Tensorflow container in Linux on local computer. I had to do this using Linux on a Virtual Machine, following the instructions from [https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example](https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example)
+1. Set-up a Singularity Tensorflow container in Linux on local computer. I had to do this using Linux on a Virtual Machine, following the instructions from [https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example](https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example).
 2. Log into Raapoi (or relevant HPC cluster).
 3. (Set up `bin/python_env` file to source the galaxenv environment for loading the packages for running commands in the ipython shell.)
 4. Use `sftp`to copy across `tensor.sif` file
-5. Use `lftp`to download NASA datasets from SPDF into data/spacecraft folder.
+5. Use `lftp`to download NASA datasets from SPDF into `data/spacecraft` folder.
 
 ### SCRIPT EXECUTION PROCESS
 
@@ -197,4 +197,4 @@ This file does the following:
 -- ann_test_predictions and ann_test_observed: Expected and predicted structure functions for the test data
 -- voyager_gapped_predictions: Predicted structure functions for the gappy Voyager data
 1. Plot a series of expected and observed functions using the calc.plot_results() function in the ipython terminal
-2. Visualise a select few prediction curves against the expected and mathematical curves, using the **[plotting.py](http://plotting.py/)** code
+2. Visualise a select few prediction curves against the expected and mathematical curves, using the `plotting.py` code
