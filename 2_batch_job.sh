@@ -6,8 +6,8 @@
 ##SBATCH --reservation=spacejam
 #SBATCH --time=12:00:00
 #SBATCH --job-name="2_process_data"
-#SBATCH -o batch.out
-#SBATCH -e batch.err
+#SBATCH -o results/2_process-data.out
+#SBATCH -e results/2_process_data.err
 
 source ~/bin/python_env
 python 2_process_data.py

@@ -1,0 +1,180 @@
+2022-04-01 11:57:39.810906
+
+
+READING PSP DATA 
+
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110100_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110106_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110112_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110118_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110200_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110206_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110212_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110218_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110300_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110306_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110312_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110318_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110400_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110406_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110412_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110418_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110500_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110506_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110512_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110518_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110600_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110606_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110612_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110618_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110700_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110706_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110712_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110718_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110800_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110806_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110812_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110818_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110900_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110906_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110912_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018110918_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111000_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111006_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111012_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111018_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111100_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111106_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111112_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111118_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111200_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111206_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111212_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111218_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111300_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111306_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111312_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111318_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111400_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111406_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111412_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111418_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111500_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111506_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111512_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111518_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111600_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111606_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111612_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111618_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111700_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111706_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111712_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018111718_v01.cdf
+Done reading data
+
+Raw data (before re-sampling):
+                                     B_R        B_T       B_N
+Time                                                         
+2018-11-01 00:01:09.195181312 -35.542343  21.435947 -1.846028
+2018-11-01 00:01:09.208834560 -35.790783  21.425003 -1.974911
+2018-11-01 00:01:09.222487808 -35.785938  21.317816 -2.125000
+2018-11-01 00:01:09.236141056 -35.777985  20.968632 -2.166397
+2018-11-01 00:01:09.249794560 -35.686974  21.096418 -2.141253
+
+Length of raw data:
+B_R    166707125
+B_T    166707125
+B_N    166707125
+dtype: int64
+
+Number of missing values:
+B_R    0
+B_T    0
+B_N    0
+dtype: int64
+
+Re-sampled data:
+                               B_R        B_T       B_N
+Time                                                   
+2018-11-01 00:01:09.000 -35.502010  21.111488 -0.443302
+2018-11-01 00:01:09.750 -35.392270  20.853367 -2.334592
+2018-11-01 00:01:10.500 -34.591127  22.267569  0.659933
+2018-11-01 00:01:11.250 -34.329995  24.288267  0.716404
+2018-11-01 00:01:12.000 -33.293496  23.778765  1.368115
+
+Length of re-sampled data
+B_R    1958400
+B_T    1958400
+B_N    1958400
+dtype: int64
+
+Number of missing values:
+B_R    0
+B_T    0
+B_N    0
+dtype: int64
+2022-04-01 11:59:45.481277
+
+
+READING MMS DATA 
+
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226061243_v5.117.3.cdf
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226061513_v5.117.3.cdf
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226061743_v5.117.3.cdf
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226062013_v5.117.3.cdf
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226062233_v5.117.3.cdf
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226062503_v5.117.3.cdf
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226062733_v5.117.3.cdf
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226063003_v5.117.3.cdf
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226063233_v5.117.3.cdf
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226063503_v5.117.3.cdf
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226063733_v5.117.3.cdf
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226064003_v5.117.3.cdf
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226064223_v5.117.3.cdf
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226064453_v5.117.3.cdf
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226064723_v5.117.3.cdf
+reading file  data_raw/mms/mms1_fgm_brst_l2_20171226064953_v5.117.3.cdf
+Done reading data
+
+Raw data (before re-sampling):
+                                  Bx GSE     By GSE    Bz GSE
+Time                                                         
+2017-12-26 06:13:52.489364928  21.380621 -17.317924 -9.520889
+2017-12-26 06:13:52.497177536  21.371122 -17.333096 -9.504266
+2017-12-26 06:13:52.504990144  21.390606 -17.342211 -9.504417
+2017-12-26 06:13:52.512802752  21.410080 -17.375561 -9.503332
+2017-12-26 06:13:52.520615360  21.417620 -17.401833 -9.491417
+
+Length of raw data:
+Bx GSE    304512
+By GSE    304512
+Bz GSE    304512
+dtype: int64
+
+Number of missing values:
+Bx GSE    0
+By GSE    0
+Bz GSE    0
+dtype: int64
+
+Re-sampled data:
+                            Bx GSE     By GSE    Bz GSE
+Time                                                   
+2017-12-26 06:13:52.488  21.380621 -17.317924 -9.520889
+2017-12-26 06:13:52.496  21.371122 -17.333096 -9.504266
+2017-12-26 06:13:52.504  21.390606 -17.342211 -9.504417
+2017-12-26 06:13:52.512  21.410080 -17.375561 -9.503332
+2017-12-26 06:13:52.520  21.417620 -17.401833 -9.491417
+
+Length of re-sampled data
+Bx GSE    297379
+By GSE    297379
+Bz GSE    297379
+dtype: int64
+
+Number of missing values:
+Bx GSE    0
+By GSE    0
+Bz GSE    0
+dtype: int64

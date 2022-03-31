@@ -13,9 +13,10 @@
 # Loading packages, including those on Git in ~bin/python_env
 
 import warnings
-import space_stats.data_import_funcs as data_import
-import space_stats.calculate_stats as calcs
-import space_stats.remove_obs_funcs as removal
+import cdflib
+import data_import_funcs as data_import
+import calculate_stats as calcs
+import remove_obs_funcs as removal
 import TurbAn.Analysis.TimeSeries.OLLibs.F90.ftsa as ftsa
 import random
 import datetime
