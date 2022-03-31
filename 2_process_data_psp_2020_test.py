@@ -296,22 +296,22 @@ psp_gapped_inputs_test_prop_removed_2020
 
 # Saving psp test outputs
 
-np.save(file = 'data_processed/psp/psp_clean_inputs_test_2020', arr = psp_clean_inputs_test)
-np.save(file = 'data_processed/psp/psp_clean_outputs_test_2020', arr = psp_clean_outputs_test)
-np.save(file = 'data_processed/psp/psp_gapped_inputs_test_2020', arr = psp_gapped_inputs_test)
-np.save(file = 'data_processed/psp/psp_gapped_outputs_test_2020', arr = psp_gapped_outputs_test)
+np.save(file = 'data_processed/psp/psp_clean_inputs_test_2020', arr = psp_clean_inputs_test_2020)
+np.save(file = 'data_processed/psp/psp_clean_outputs_test_2020', arr = psp_clean_outputs_test_2020)
+np.save(file = 'data_processed/psp/psp_gapped_inputs_test_2020', arr = psp_gapped_inputs_test_2020)
+np.save(file = 'data_processed/psp/psp_gapped_outputs_test_2020', arr = psp_gapped_outputs_test_2020)
 
-np.save(file = 'data_processed/psp/psp_filled_inputs_test_2020', arr = psp_filled_inputs_test)
-np.save(file = 'data_processed/psp/psp_filled_inputs_test_flat_2020', arr = psp_filled_inputs_test_flat)
-np.save(file = 'data_processed/psp/psp_filled_inputs_test_flat_no_ind_2020', arr = psp_filled_inputs_test_flat_no_ind)
-np.save(file = 'data_processed/psp/psp_filled_outputs_test_2020', arr = psp_filled_outputs_test)
+np.save(file = 'data_processed/psp/psp_filled_inputs_test_2020', arr = psp_filled_inputs_test_2020)
+np.save(file = 'data_processed/psp/psp_filled_inputs_test_flat_2020', arr = psp_filled_inputs_test_flat_2020)
+np.save(file = 'data_processed/psp/psp_filled_inputs_test_flat_no_ind_2020', arr = psp_filled_inputs_test_flat_no_ind_2020)
+np.save(file = 'data_processed/psp/psp_filled_outputs_test_2020', arr = psp_filled_outputs_test_2020)
 
-np.save(file = 'data_processed/psp/psp_lint_inputs_test_2020', arr = psp_lint_inputs_test)
-np.save(file = 'data_processed/psp/psp_lint_inputs_test_flat_2020', arr = psp_lint_inputs_test_flat)
-np.save(file = 'data_processed/psp/psp_lint_inputs_test_flat_no_ind_2020', arr = psp_lint_inputs_test_flat_no_ind)
-np.save(file = 'data_processed/psp/psp_lint_outputs_test_2020', arr = psp_lint_outputs_test)
+np.save(file = 'data_processed/psp/psp_lint_inputs_test_2020', arr = psp_lint_inputs_test_2020)
+np.save(file = 'data_processed/psp/psp_lint_inputs_test_flat_2020', arr = psp_lint_inputs_test_flat_2020)
+np.save(file = 'data_processed/psp/psp_lint_inputs_test_flat_no_ind_2020', arr = psp_lint_inputs_test_flat_no_ind_2020)
+np.save(file = 'data_processed/psp/psp_lint_outputs_test_2020', arr = psp_lint_outputs_test_2020)
 
-np.save(file = 'data_processed/psp/psp_gapped_inputs_test_prop_removed_2020', arr = psp_gapped_inputs_test_prop_removed)
+np.save(file = 'data_processed/psp/psp_gapped_inputs_test_prop_removed_2020', arr = psp_gapped_inputs_test_prop_removed_2020)
 
 print("\nTIME: ", datetime.datetime.now())
 

@@ -38,16 +38,16 @@ random.seed(5)
 print("\n\nREADING PSP DATA \n")
 
 psp_data = data_import.read_cdfs([
-    "data\PSP\psp_fld_l2_mag_rtn_2020011700_v02.cdf",
-                    "data\PSP\psp_fld_l2_mag_rtn_2020011706_v02.cdf",
-                    "data\PSP\psp_fld_l2_mag_rtn_2020011712_v02.cdf",
-                    "data\PSP\psp_fld_l2_mag_rtn_2020011718_v02.cdf",
-                    "data\PSP\psp_fld_l2_mag_rtn_2020011800_v02.cdf",
-                    "data\PSP\psp_fld_l2_mag_rtn_2020011806_v02.cdf",
-                    "data\PSP\psp_fld_l2_mag_rtn_2020011812_v02.cdf",
-                    "data\PSP\psp_fld_l2_mag_rtn_2020011818_v02.cdf",
-                    "data\PSP\psp_fld_l2_mag_rtn_2020011900_v02.cdf",
-                    "data\PSP\psp_fld_l2_mag_rtn_2020011906_v02.cdf"
+    "data_raw/psp/psp_fld_l2_mag_rtn_2020011700_v02.cdf",
+                    "data_raw/psp/psp_fld_l2_mag_rtn_2020011706_v02.cdf",
+                    "data_raw/psp/psp_fld_l2_mag_rtn_2020011712_v02.cdf",
+                    "data_raw/psp/psp_fld_l2_mag_rtn_2020011718_v02.cdf",
+                    "data_raw/psp/psp_fld_l2_mag_rtn_2020011800_v02.cdf",
+                    "data_raw/psp/psp_fld_l2_mag_rtn_2020011806_v02.cdf",
+                    "data_raw/psp/psp_fld_l2_mag_rtn_2020011812_v02.cdf",
+                    "data_raw/psp/psp_fld_l2_mag_rtn_2020011818_v02.cdf",
+                    "data_raw/psp/psp_fld_l2_mag_rtn_2020011900_v02.cdf",
+                    "data_raw/psp/psp_fld_l2_mag_rtn_2020011906_v02.cdf"
     ],
     {'epoch_mag_RTN':(0), 'psp_fld_l2_mag_RTN':(0,3), 'label_RTN':(0,3)})
 
