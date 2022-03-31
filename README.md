@@ -13,8 +13,8 @@ This code was used to explore solar wind data and implement a study of using neu
 1. Set-up a Singularity Tensorflow container in Linux on local computer. I had to do this using Linux on a Virtual Machine, following the instructions from [https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example](https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example)
 2. Log into Raapoi (or relevant HPC cluster).
 3. (Set up `bin/python_env` file to source for running commands in ipython shell.)
-4. Use `sftp`to copy across `tensor.sif` file
-5. Use `lftp`to download NASA datasets from SPDF into data/spacecraft folder.
+4. Use `sftp` to copy across `tensor.sif` file
+5. Use `lftp` to download NASA datasets from SPDF into data/spacecraft folder.
 
 ### SCRIPT EXECUTION PROCESS
 

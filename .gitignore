@@ -1,0 +1,5 @@
+data_raw/psp/*
+data_raw/mms/*
+
+data_processed/psp/*
+data_processed/mms/*
