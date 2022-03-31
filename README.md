@@ -18,18 +18,19 @@ This code was used to explore solar wind data and implement a study of using neu
 
 ### SCRIPT EXECUTION PROCESS
 
-All of the following is to be run in the Rāpoi terminal
+All of the following is to be run in the Rāpoi terminal.
+View that state of cluster jobs with `vuw-myjobs`.
 
 1. `source ~/bin/python_env`
 2. `python 1_read_data.py` *Only have to do this once, depending on the size, number, and frequency of original unique intervals you want*
-3. Review plots
-    1. `…example_input_raw.png`
-    2. `…example_input_std.png`
 4. `python 2_process_data.py` *Only have to do this once, depending on the number of duplicate intervals to make, how much to gap each one, and what proportion of data to use for test set.* 
     
     This should be run in the cluster using a bash script. For now using `srun` produces a `MemoryError`. The next step will be to try either converting from float64 to float32 in the python script, *or* writing a `.sh` file according to Tulasi’s example to submit to the cluster. Using the `.sh` job I was able to produce 5 x 156 copies. This only took 1.5 seconds per interval, and would not work when running in interactive mode. At minimum, 8 is too much for the `2_singularity_submit.sh` job, with 64 cpus per task and 3G mem per CPU
     
-5. Review plot:`…test_preprocessed_plots.png`
+5. Review plots
+    - `results/…example_input_raw.png`
+    - `results/…example_input_std.png`
+    - `results/…test_preprocessed_plots.png`
 6. Create a folder for the results of this model:`mkdir results/date/mod_#`
 7. Update `3_train_neural_net.py` with the new model number and adjust the hyperparameters as needed
 8. Update `4_plot_predictions.py` with the new model number
