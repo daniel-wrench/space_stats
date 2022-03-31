@@ -1,5 +1,10 @@
 data_raw/psp/*
+data_raw/psp/.gitkeep
+
 data_raw/mms/*
+data_raw/mms/.gitkeep
 
 data_processed/psp/*
+data_processed/psp/.gitkeep
 data_processed/mms/*
+data_processed/mms/.gitkeep
