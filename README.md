@@ -20,29 +20,30 @@ This code was used to explore solar wind data and implement a study of using neu
 
 All of the following is to be run in the Rāpoi terminal
 
-1. `python 1_read_data.py` *Only have to do this once, depending on the size, number, and frequency of original unique intervals you want*
-2. Review plots
+1. `source ~/bin/python_env`
+2. `python 1_read_data.py` *Only have to do this once, depending on the size, number, and frequency of original unique intervals you want*
+3. Review plots
     1. `…example_input_raw.png`
     2. `…example_input_std.png`
-3. `python 2_process_data.py` *Only have to do this once, depending on the number of duplicate intervals to make, how much to gap each one, and what proportion of data to use for test set.* 
+4. `python 2_process_data.py` *Only have to do this once, depending on the number of duplicate intervals to make, how much to gap each one, and what proportion of data to use for test set.* 
     
     This should be run in the cluster using a bash script. For now using `srun` produces a `MemoryError`. The next step will be to try either converting from float64 to float32 in the python script, *or* writing a `.sh` file according to Tulasi’s example to submit to the cluster. Using the `.sh` job I was able to produce 5 x 156 copies. This only took 1.5 seconds per interval, and would not work when running in interactive mode. At minimum, 8 is too much for the `2_singularity_submit.sh` job, with 64 cpus per task and 3G mem per CPU
     
-4. Review plot:`…test_preprocessed_plots.png`
-5. Create a folder for the results of this model:`mkdir results/date/mod_#`
-6. Update `3_train_neural_net.py` with the new model number and adjust the hyperparameters as needed
-7. Update `4_plot_predictions.py` with the new model number
-8. `sbatch 3_singularity_submit.sh`
+5. Review plot:`…test_preprocessed_plots.png`
+6. Create a folder for the results of this model:`mkdir results/date/mod_#`
+7. Update `3_train_neural_net.py` with the new model number and adjust the hyperparameters as needed
+8. Update `4_plot_predictions.py` with the new model number
+9. `sbatch 3_singularity_submit.sh`
     
     Do not run this with fewer than 3GB of memory requested or when in `galaxenv` mode
     
-9. Review `3_train_neural_net.out`
-10. Produce plots of a sample of true vs. predicted test outputs with`python 4_plot_predictions.py`
-11. Review plots in `results/date/mod_#` to see how well the model is performing on unseen data
-12. Add model statistics (and plots if needed) to Results word doc
-13. Repeat 6-12 until a good model is found
-14. Download test data files and model results to local computer
-15. Run `05_results.py` to produce final plots and statistics
+10. Review `3_train_neural_net.out`
+11. Produce plots of a sample of true vs. predicted test outputs with`python 4_plot_predictions.py`
+12. Review plots in `results/date/mod_#` to see how well the model is performing on unseen data
+13. Add model statistics (and plots if needed) to Results word doc
+14. Repeat 6-12 until a good model is found
+15. Download test data files and model results to local computer
+16. Run `05_results.py` to produce final plots and statistics
 
 ## Pseudo-code
 
