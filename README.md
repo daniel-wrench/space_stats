@@ -2,7 +2,7 @@
 
 This code was used to explore solar wind data and implement a study of using neural networks (as well as simpler methods) to estimate structure functions of the solar wind from time series with gaps.
 
-### CODE DESCRIPTIONS
+### HELPER FUNCTIONS
 
 - **data_import_funcs.py**  Contains functions for importing CDF files and outputting dated pandas DataFrames.
 - **remove_obs_funcs.py** Contains functions to remove data from dataframes
@@ -18,33 +18,64 @@ This code was used to explore solar wind data and implement a study of using neu
 
 ### SCRIPT EXECUTION PROCESS
 
+The scripts can be run inside or outside of Rapoi. Currently scripts 1-3 have corresponding batch submission files (.sh) that allows them to be submitted as jobs to the Rapoi cluster.
+
 All of the following is to be run in the Rāpoi terminal.
 View that state of cluster jobs with `vuw-myjobs`.
 
 1. `source ~/bin/python_env`
-2. `python 1_read_data.py` *Only have to do this once, depending on the size, number, and frequency of original unique intervals you want*
-4. `python 2_process_data.py` *Only have to do this once, depending on the number of duplicate intervals to make, how much to gap each one, and what proportion of data to use for test set.* 
+2. `sbatch 1_batch_job.sh` *Only have to do this once, depending on the size, number, and frequency of original unique intervals you want*
+
+    `1_process_data.py` does the following:
+    1. Load data from CDF files, get time and date column formatted correctly
+    2. Re-sample dataframe to correct freq (dataframe)
+
+4. `python 2_batch_job.sh` *Only have to do this once, depending on the number of duplicate intervals to make, how much to gap each one, and what proportion of data to use for test set.* **Takes about 20min.**
     
     This should be run in the cluster using a bash script. For now using `srun` produces a `MemoryError`. The next step will be to try either converting from float64 to float32 in the python script, *or* writing a `.sh` file according to Tulasi’s example to submit to the cluster. Using the `.sh` job I was able to produce 5 x 156 copies. This only took 1.5 seconds per interval, and would not work when running in interactive mode. At minimum, 8 is too much for the `2_singularity_submit.sh` job, with 64 cpus per task and 3G mem per CPU
+
+    `2_process_data.py` does the following:
+    1. 
     
 5. Review plots
     - `results/…example_input_raw.png`
     - `results/…example_input_std.png`
     - `results/…test_preprocessed_plots.png`
-6. Create a folder for the results of this model:`mkdir results/date/mod_#`
+6. Create a folder for the results of this model: `mkdir results/date/mod_#`
 7. Update `3_train_neural_net.py` with the new model number and adjust the hyperparameters as needed
 8. Update `4_plot_predictions.py` with the new model number
 9. `sbatch 3_singularity_submit.sh`
     
-    Do not run this with fewer than 3GB of memory requested or when in `galaxenv` mode
+    Do not run this with fewer than 3GB of memory requested or when in the `galaxenv` environment
     
 10. Review `3_train_neural_net.out`
-11. Produce plots of a sample of true vs. predicted test outputs with`python 4_plot_predictions.py`
+
+    `3_train_neural_net.py` does the following
+    1. Load n x 40,000 training and test inputs, including MMS test
+    2. Load n x 2000 training and test outputs, including MMS test
+    3. Train model
+    4. Output test predictions
+    5. Output training and validation loss curve
+    6. Output training and validation losses, and test loss
+        - `psp_outputs_test_predictions`
+        - `psp_outputs_test_predictions_loss`
+
+
+11. Produce plots of a sample of true vs. predicted test **SHOULD BE VALIDATION** outputs with `python 4_plot_predictions.py`
 12. Review plots in `results/date/mod_#` to see how well the model is performing on unseen data
 13. Add model statistics (and plots if needed) to Results word doc
-14. Repeat 6-12 until a good model is found
+14. Repeat 5-12 until a good model is found
 15. Download test data files and model results to local computer
 16. Run `05_results.py` to produce final plots and statistics
+    - For PSP and MMS:
+        1. Table with one row for every interval:
+            1. Amount missing
+            2. MSE and MAPE for each of original, gapped, filled, lint, and predicted curves, compared with original curve
+        2. Regression analysis using above table:
+            1. Correlations between missingness against all other columns
+            2. Regression outputs of missingness against all other columns
+    - Scatterplots of missingness against all other columns
+
 
 ## Pseudo-code
 
@@ -52,8 +83,6 @@ View that state of cluster jobs with `vuw-myjobs`.
 
 **terminal_preprocessing.py,** to run in Rāpoi terminal
 
-1. Load data from CDF files, get time and date column formatted correctly
-2. Re-sample dataframe to correct freq (dataframe)
 
 *Steps 1-2 take 7 minutes in the Rāpoi terminal*
 
@@ -146,40 +175,9 @@ freq = ‘0.75S’
 10. Calculate structure functions for interpolated inputs (list of arrays)
     1. Transform interpolated outputs for outputting (**array of arrays**)
 
-### Training model
-
-**3_train_neural_net.py**, to submit as job to Rāpoi cluster
-
-1. Load n x 40,000 training and test inputs, including MMS test
-2. Load n x 2000 training and test outputs, including MMS test
-3. Train model
-4. Output test predictions
-5. Output training and validation loss curve
-6. Output training and validation losses, and test loss
-
-- `psp_outputs_test_predictions`
-- `psp_outputs_test_predictions_loss`
-
-### Evaluating model
-
-1. With each model training, plot 9 model predictions against true curves.
-
-### Plotting final results
-
-1. For PSP and MMS:
-    1. **Table with one row for every interval:**
-        1. Amount missing
-        2. MSE and MAPE for each of original, gapped, filled, lint, and predicted curves, compared with original curve
-    2. Regression analysis using above table:
-        1. Correlations between missingness against all other columns
-        2. Regression outputs of missingness against all other columns
-- Scatterplots of missingness against all other columns
-
----
-
 ## Old documentation (could still be relevant)
 
-1. Run **terminal_pre-processing.py** code. (Currently, this is copied and pasted into the ipython --pylab shell. This is because we need access to the strfn() function from the TurbAn repository.)
+1. Run **terminal_pre-processing.py** code.
 This code takes the raw data (currently majority PSP) and outputs the following arrays:
 - PSP clean inputs: normalised subsets of a single magnetic field component (BR), each of length 10,000, with no gaps
 - PSP gapped inputs: normalised subsets of a single magnetic field component (BR), each of length 10,000, with artificial gaps of between 10% and 40% removed in between 3 and 5 chunks. *The gapped datasets are chosen to be the final 20% of the original datasets*. These are output in both filled (0 (mean) imputed) and unfilled versions.
