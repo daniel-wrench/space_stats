@@ -19,7 +19,11 @@ import remove_obs_funcs as removal
 import TurbAn.Analysis.TimeSeries.OLLibs.F90.ftsa as ftsa
 import random
 import datetime
+
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+
 import numpy as np
 import pandas as pd
 
@@ -83,14 +87,14 @@ def mag_interval_pipeline_split(df, dataset_name, n_values, n_subsets, test_size
 
     plt.plot(inputs_list_raw[0])
     plt.title("Single clean vector interval pre-standardisation")
-    plt.savefig(dataset_name + "_example_input_raw.png")
+    plt.savefig("results/" + dataset_name + "_example_input_raw.png")
     plt.clf() #Try plt.cla() if this doesn't work
 
     inputs_list = [calcs.normalize(i) for i in inputs_list_raw]
 
     plt.plot(inputs_list[0])
     plt.title("Single clean vector interval post-standardisation")
-    plt.savefig(dataset_name + "_example_input_std.png")
+    plt.savefig("results/" + dataset_name + "_example_input_std.png")
     plt.clf()
 
     print("\n Means of a clean interval post-standardisation")
@@ -194,7 +198,7 @@ def mag_interval_pipeline_gap(inputs_list, dataset_name, n_copies, freq, dt, min
     axs[7,0].set_xticks([])
 
     fig.suptitle('Validating pre-processing')
-    plt.savefig(dataset_name + "_preprocessed_plots.png")
+    plt.savefig("results/" + dataset_name + "_preprocessed_plots.png")
     plt.show()
 
     clean_inputs = prepare_array_for_output(clean_inputs_list)[0]
@@ -311,6 +315,8 @@ np.save(file = 'data_processed/psp/psp_lint_outputs_train', arr = psp_lint_outpu
 
 np.save(file = 'data_processed/psp/psp_gapped_inputs_train_prop_removed', arr = psp_gapped_inputs_train_prop_removed)
 
+print("\nFINISHED PROCESSING PSP TRAINING DATA \n")
+
 print("\nTIME: ", datetime.datetime.now())
 
 
@@ -360,7 +366,7 @@ np.save(file = 'data_processed/psp/psp_lint_outputs_test', arr = psp_lint_output
 
 np.save(file = 'data_processed/psp/psp_gapped_inputs_test_prop_removed', arr = psp_gapped_inputs_test_prop_removed)
 
-
+print("\nFINISHED PROCESSING PSP TEST DATA \n")
 
 ## MMS (only used for testing final neural net)
 
@@ -427,4 +433,6 @@ np.save(file = 'data_processed/mms/mms_gapped_inputs_test_prop_removed', arr = m
 
 print("\nTIME: ", datetime.datetime.now())
 
-print("\nDONE")
+print("\nFINISHED PROCESSING MMS DATA \n")
+
+print("\n\n FINISHED SCRIPT \n")
