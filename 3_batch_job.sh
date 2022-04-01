@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #SBATCH --job-name=tf_ann
-#SBATCH -o 3_train_neural_net.out
-#SBATCH -e 3_train_neural_net.err
+#SBATCH -o results/3_train_neural_net.out
+#SBATCH -e results/3_train_neural_net.err
 #SBATCH --time=00:30:00
 #SBATCH --partition=parallel
 #SBATCH --constraint=Intel

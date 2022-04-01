@@ -1,0 +1,126 @@
+
+TIME:  2022-04-01 14:35:14.217612
+
+ Means of a clean interval post-standardisation
+B_R    4.493605e-15
+B_T   -1.336720e-15
+B_N   -2.654899e-15
+dtype: float64
+
+ Standard deviations of a clean interval post-standardisation
+B_R    1.0
+B_T    1.0
+B_N    1.0
+dtype: float64
+
+Input training data dimensions: 156 x (10000, 3)
+
+Input test data dimensions: 39 x (10000, 3)
+
+
+PROCESSING PSP TRAINING DATA 
+
+
+Unique input dimensions: 
+ 156 x (10000, 3)
+
+Final input dimensions: 
+  Clean: (2340, 3, 10000) 
+  Gapped: (2340, 4, 10000) 
+  Filled: (2340, 4, 10000) 
+  Lint: (2340, 4, 10000)
+
+Final flat input dimensions: 
+  Filled: (2340, 40000) 
+  Filled flat, no indicator vector: (2340, 30000) 
+  Lint: (2340, 40000) 
+  Lint flat, no indicator vector: (2340, 30000)
+
+Final output dimensions: 
+  Clean: (2340, 2000) 
+  Gapped: (2340, 2000) 
+  Filled: (2340, 2000) 
+  Lint: (2340, 2000)
+
+FINISHED PROCESSING PSP TRAINING DATA 
+
+
+TIME:  2022-04-01 14:53:06.012537
+
+
+PROCESSING PSP TEST DATA 
+
+
+Unique input dimensions: 
+ 39 x (10000, 3)
+
+Final input dimensions: 
+  Clean: (195, 3, 10000) 
+  Gapped: (195, 4, 10000) 
+  Filled: (195, 4, 10000) 
+  Lint: (195, 4, 10000)
+
+Final flat input dimensions: 
+  Filled: (195, 40000) 
+  Filled flat, no indicator vector: (195, 30000) 
+  Lint: (195, 40000) 
+  Lint flat, no indicator vector: (195, 30000)
+
+Final output dimensions: 
+  Clean: (195, 2000) 
+  Gapped: (195, 2000) 
+  Filled: (195, 2000) 
+  Lint: (195, 2000)
+
+FINISHED PROCESSING PSP TEST DATA 
+
+
+TIME:  2022-04-01 14:54:40.347045
+
+ Means of a clean interval post-standardisation
+Bx GSE    4.664770e-16
+By GSE   -5.545120e-16
+Bz GSE    1.281664e-15
+dtype: float64
+
+ Standard deviations of a clean interval post-standardisation
+Bx GSE    1.0
+By GSE    1.0
+Bz GSE    1.0
+dtype: float64
+
+Input test data dimensions: 29 x (10000, 3)
+
+
+PROCESSING MMS (TEST) DATA 
+
+
+Unique input dimensions: 
+ 29 x (10000, 3)
+
+Final input dimensions: 
+  Clean: (145, 3, 10000) 
+  Gapped: (145, 4, 10000) 
+  Filled: (145, 4, 10000) 
+  Lint: (145, 4, 10000)
+
+Final flat input dimensions: 
+  Filled: (145, 40000) 
+  Filled flat, no indicator vector: (145, 30000) 
+  Lint: (145, 40000) 
+  Lint flat, no indicator vector: (145, 30000)
+
+Final output dimensions: 
+  Clean: (145, 2000) 
+  Gapped: (145, 2000) 
+  Filled: (145, 2000) 
+  Lint: (145, 2000)
+
+TIME:  2022-04-01 14:55:54.621701
+
+FINISHED PROCESSING MMS DATA 
+
+
+
+ FINISHED SCRIPT 
+

@@ -199,7 +199,6 @@ def mag_interval_pipeline_gap(inputs_list, dataset_name, n_copies, freq, dt, min
 
     fig.suptitle('Validating pre-processing')
     plt.savefig("results/" + dataset_name + "_preprocessed_plots.png")
-    plt.show()
 
     clean_inputs = prepare_array_for_output(clean_inputs_list)[0]
     #cis = clean_inputs.shape

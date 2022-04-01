@@ -95,6 +95,7 @@ def plot_validation_error(path):
     plt.suptitle('MSE during training of neural network')
     plt.title("Min validation loss of " + str(round(min_loss.iloc[0,0], 4)) + " at epoch " + str(min_loss.index[0]),
     fontsize = 10)
+    plt.show()
     plt.savefig(path + 'nn_training_plot.png')
     plt.cla()
-    plt.show()
+ 
