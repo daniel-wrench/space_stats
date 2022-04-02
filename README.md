@@ -24,7 +24,7 @@ All of the following is to be run in the Rāpoi terminal.
 View that state of cluster jobs with `vuw-myjobs`.
 
 0. `source ~/bin/python_env` *if you are running anything in the terminal*
-1. `sbatch 1_batch_job.sh` *Only have to do this once, depending on the size, number, and frequency of original unique intervals you want*
+1. `sbatch 1_batch_job.sh` *Only have to do this once, depending on the size, number, and frequency of original unique intervals you want* **Takes about 4min with 20 CPUs and 10G per CPU.**
 
     `1_process_data.py` does the following:
     1. Load data from CDF files, get time and date column formatted correctly
@@ -32,7 +32,7 @@ View that state of cluster jobs with `vuw-myjobs`.
     3. Return the amount of missing data, both before and after re-sampling
     4. Output the final tidy data as pkl files
 
-2. `python 2_batch_job.sh` *Only have to do this once, depending on the number of duplicate intervals to make, how much to gap each one, and what proportion of data to use for test set.* **Takes about 20min.**
+2. `python 2_batch_job.sh` *Only have to do this once, depending on the number of duplicate intervals to make, how much to gap each one, and what proportion of data to use for test set.* **Takes about 20min with 10 CPUs and 50G per CPU.**
     
     This should be run in the cluster using a bash script. For now using `srun` produces a `MemoryError`. The next step will be to try either converting from float64 to float32 in the python script, *or* writing a `.sh` file according to Tulasi’s example to submit to the cluster. Using the `.sh` job I was able to produce 5 x 156 copies. This only took 1.5 seconds per interval, and would not work when running in interactive mode. At minimum, 8 is too much for the `2_singularity_submit.sh` job, with 64 cpus per task and 3G mem per CPU
 
