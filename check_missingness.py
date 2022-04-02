@@ -2,12 +2,6 @@
 
 import data_import_funcs as data_import
 import os
-import calculate_stats as calcs
-import remove_obs_funcs as removal
-import random
-import datetime
-import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 
 psp_list = [
@@ -16,7 +10,7 @@ psp_list = [
     "data_raw/psp/psp_fld_l2_mag_rtn_2018110112_v01.cdf"]
 
 psp_list_saved = os.listdir("data_raw/psp")
-psp_list_saved_complete = ["data_raw/psp/" + i for i in psp_list_saved[1:]]
+psp_list_saved_complete = ["data_raw/psp/" + i for i in psp_list_saved.remove('.gitkeep')]
 
 print("\nCHECKING PSP FILES \n")
 
@@ -49,7 +43,7 @@ print("\nCHECKING MMS FILES \n")
 #     "data_raw/psp/psp_fld_l2_mag_rtn_2018110112_v01.cdf"]
 
 mms_list_saved = os.listdir("data_raw/mms")
-mms_list_saved_complete = ["data_raw/mms/" + i for i in mms_list_saved[1:]]
+mms_list_saved_complete = ["data_raw/mms/" + i for i in mms_list_saved.remove('.gitkeep')]
 
 for i in range(len(mms_list_saved_complete)):
     data = data_import.read_cdfs([mms_list_saved_complete[i]],
