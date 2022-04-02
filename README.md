@@ -23,61 +23,32 @@ The scripts can be run inside or outside of Rapoi. Currently scripts 1-3 have co
 All of the following is to be run in the Rāpoi terminal.
 View that state of cluster jobs with `vuw-myjobs`.
 
-1. `source ~/bin/python_env`
-2. `sbatch 1_batch_job.sh` *Only have to do this once, depending on the size, number, and frequency of original unique intervals you want*
+0. `source ~/bin/python_env` *if you are running anything in the terminal*
+1. `sbatch 1_batch_job.sh` *Only have to do this once, depending on the size, number, and frequency of original unique intervals you want*
 
     `1_process_data.py` does the following:
     1. Load data from CDF files, get time and date column formatted correctly
     2. Re-sample dataframe to correct freq (dataframe)
+    3. Return the amount of missing data, both before and after re-sampling
+    4. Output the final tidy data as pkl files
 
-4. `python 2_batch_job.sh` *Only have to do this once, depending on the number of duplicate intervals to make, how much to gap each one, and what proportion of data to use for test set.* **Takes about 20min.**
+2. `python 2_batch_job.sh` *Only have to do this once, depending on the number of duplicate intervals to make, how much to gap each one, and what proportion of data to use for test set.* **Takes about 20min.**
     
     This should be run in the cluster using a bash script. For now using `srun` produces a `MemoryError`. The next step will be to try either converting from float64 to float32 in the python script, *or* writing a `.sh` file according to Tulasi’s example to submit to the cluster. Using the `.sh` job I was able to produce 5 x 156 copies. This only took 1.5 seconds per interval, and would not work when running in interactive mode. At minimum, 8 is too much for the `2_singularity_submit.sh` job, with 64 cpus per task and 3G mem per CPU
 
-    `2_process_data.py` takes the raw data (currently majority PSP) and outputs the following arrays:
+    `2_process_data.py` takes the .pkl data (currently majority PSP) and outputs the following arrays:
     - PSP clean inputs: normalised subsets of a single magnetic field component (BR), each of length 10,000, with no gaps
     - PSP gapped inputs: normalised subsets of a single magnetic field component (BR), each of length 10,000, with artificial gaps of between 10% and 40% removed in between 3 and 5 chunks. *The gapped datasets are chosen to be the final 20% of the original datasets*. These are output in both filled (0 (mean) imputed) and unfilled versions.
     - PSP clean and gapped outputs: expected structure functions corresponding to each (original, ungapped) dataset. These are the second-order structure functions, and are calculated up to the lag equal to 20% of the input data length (2000 points). **Calculating these for all subsets takes around 15min.**
     - PSP (gapped) math outputs: structure functions for the gapped datasets, calculated *after* gapping took place.
 
-    1. Run **mag_interval_pipeline_split()**
+    This pipeline consists of two major functions:
 
-    psp_inputs_train_list,
-    psp_inputs_test_list =
-    def **mag_interval_pipeline_split**(
-        df = psp_df,
-        n_values = 1950000
-        n_subsets = 1950000/10000
-        delta = 0.75,
-        test_size = 0.2
-    )
+    **`mag_interval_pipeline_split()`**, specifying the length of the data and the number of intervals to split it into, and the proportion to set aside for testing. This splits the dataset into standardised intervals, then groups them into a training and test set, both of which are lists of dataframes. The intermediate outputs are a plot and the summary statistics of the first interval, before and after standardisation, and the dimensions of the final outputs
+   
+    The arguments I have specified to this function are to separate out 80% of input-output pairs for training, 20% for testing, for PSP. For MMS, use 100% of intervals for testing.
 
-        1. Split dataframe into intervals of length 10,000 (list of dataframes)
-        2. Standardise each interval (list of dataframes)
-        3. Shuffle order of intervals (list of dataframes)
-        4. Calculate structure function for each interval (list of arrays)
-        5. Separate out 80% of input-output pairs for training, 20% for testing, for PSP. For MMS, use 100% of intervals for testing. Apply steps 7-14 to each set separately.
-
-    2. Run **mag_interval_pipeline_gap()**
-
-        psp_clean_inputs_train,
-        psp_clean_outputs_train,
-        psp_gapped_inputs_train,
-        psp_gapped_outputs_train,
-        psp_filled_inputs_train,
-        psp_filled_inputs_train_flat,
-        psp_filled_outputs_train,
-        psp_lint_inputs_train,
-        psp_lint_inputs_train_flat,
-        psp_lint_outputs_train =
-        def **mag_interval_pipeline_gap**(
-            inputs_list = psp_inputs_train_list,
-            n_values = 1950000,
-            n_subsets = 195000/10000,
-            n_copies = 20
-            delta = 0.75,
-            freq = ‘0.75S’
-        )
+    To each of these sets, the second major function **`mag_interval_pipeline_gap()`** is applied separately, specifying the number of copies to make of each interval, the re-sampling frequency applied in `1_read_data.py`, and the minimum and maximum proportion of data to remove from each artificially gapped interval.
 
         1. Make multiple copies of inputs (list of dataframes)
             1. Transform inputs for outputting (**array of arrays**)
@@ -99,18 +70,16 @@ View that state of cluster jobs with `vuw-myjobs`.
         10. Calculate structure functions for interpolated inputs (list of arrays)
             1. Transform interpolated outputs for outputting (**array of arrays**)
 
-5. Review plots
+2.1. Review plots
     - `results/…example_input_raw.png`
     - `results/…example_input_std.png`
     - `results/…test_preprocessed_plots.png`
-6. Create a folder for the results of this model: `mkdir results/date/mod_#`
-7. Update `3_train_neural_net.py` with the new model number and adjust the hyperparameters as needed
-8. Update `4_plot_predictions.py` with the new model number
-9. `sbatch 3_singularity_submit.sh`
+2.2.. Create a folder for the results of this model: `mkdir results/date/mod_#`
+3.1. Update `3_train_neural_net.py` with the new model number and adjust the hyperparameters as needed
+3.2. Update `4_plot_predictions.py` with the new model number
+3.3. `sbatch 3_singularity_submit.sh` *Do not run this with fewer than 3GB of memory requested or when in the `galaxenv` environment*
     
-    Do not run this with fewer than 3GB of memory requested or when in the `galaxenv` environment
-    
-10. Review `3_train_neural_net.out`
+3.4. Review `3_train_neural_net.out`
 
     `3_train_neural_net.py` does the following:
     1. Load n x 40,000 training and test inputs, including MMS test
@@ -122,12 +91,12 @@ View that state of cluster jobs with `vuw-myjobs`.
         - `psp_outputs_test_predictions`
         - `psp_outputs_test_predictions_loss`
 
-11. Produce plots of a sample of true vs. predicted test **SHOULD BE VALIDATION** outputs with `python 4_plot_predictions.py`
-12. Review plots in `results/date/mod_#` to see how well the model is performing on unseen data
-13. Add model statistics (and plots if needed) to Results word doc
-14. Repeat 5-12 until a good model is found
-15. Download test data files and model results to local computer
-16. Run `05_results.py` to produce final plots and statistics
+4. Produce plots of a sample of true vs. predicted test **SHOULD BE VALIDATION** outputs with `python 4_plot_predictions.py`
+4.1. Review plots in `results/date/mod_#` to see how well the model is performing on unseen data
+4.2. Add model statistics (and plots if needed) to Results word doc
+4.3. Repeat 5-12 until a good model is found
+4.4. Download test data files and model results to local computer
+5. Run `05_results.py` to produce final plots and statistics
     - For PSP and MMS:
         1. Table with one row for every interval:
             1. Amount missing
