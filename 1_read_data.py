@@ -108,7 +108,7 @@ psp_data = data_import.read_cdfs([
     "data_raw/psp/psp_fld_l2_mag_rtn_2018111706_v01.cdf",
     "data_raw/psp/psp_fld_l2_mag_rtn_2018111712_v01.cdf",
     "data_raw/psp/psp_fld_l2_mag_rtn_2018111718_v01.cdf"
-    #clean up to here AFTER 0.75S RESAMPLING
+    # clean up to here AFTER 0.75S RESAMPLING
 
     ################# MISSING DATA BELOW #################
     # "data_raw/psp/psp_fld_l2_mag_rtn_2018111800_v01.cdf",
