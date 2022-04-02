@@ -53,7 +53,7 @@ mms_list_saved_complete = ["data_raw/mms/" + i for i in mms_list_saved[1:]]
 
 for i in range(len(mms_list_saved_complete)):
     data = data_import.read_cdfs([mms_list_saved_complete[i]],
-        {'epoch_mag_RTN': (0), 'psp_fld_l2_mag_RTN': (0, 3), 'label_RTN': (0, 3)})
+        {'Epoch': (0), 'mms1_fgm_b_dmpa_brst_l2': (0, 4), 'label_b_gse': (0, 4)})
     mms_data = data_import.extract_components(
         data, var_name='mms1_fgm_b_dmpa_brst_l2', label_name='label_b_gse', time_var='Epoch', dim=4)
     mms_df = pd.DataFrame(mms_data)
