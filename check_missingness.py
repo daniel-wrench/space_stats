@@ -41,7 +41,7 @@ for i in range(len(psp_list_saved_complete)):
     print("\n")
 
 
-print("\n CHECKING MMS FILES \n")
+print("\nCHECKING MMS FILES \n")
 
 # mms_list = [
 #     "data_raw/psp/psp_fld_l2_mag_rtn_2018110100_v01.cdf",
