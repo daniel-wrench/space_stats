@@ -2,8 +2,6 @@
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
-import random
-import math
 
 #Function for plotting observed curves against predicted for the test subsets
 

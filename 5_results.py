@@ -8,20 +8,13 @@
 
 import numpy as np
 from matplotlib import pyplot as plt
-import matplotlib.units as munits
-import matplotlib.dates as mdates
 from numpy.core.numerictypes import sctype2char
 import pandas as pd
 pd.set_option('display.max_columns', 10)
-import pathlib
-import random
-import matplotlib
 from statsmodels.graphics.tsaplots import plot_acf
 from statsmodels.graphics.tsaplots import plot_pacf
 from statsmodels.formula.api import ols
 import seaborn as sns
-import sys
-import datetime
 
 #######################################
 

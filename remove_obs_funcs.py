@@ -3,7 +3,6 @@
 
 # https://docs.python.org/3/library/random.html#module-random 
 
-from matplotlib import pyplot as plt
 import pandas as pd
 import numpy as np
 import random

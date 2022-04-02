@@ -1,5 +1,6 @@
 tensorflow.sif
 gmon.out
+*.pyc
 
 __pycache__/
 
