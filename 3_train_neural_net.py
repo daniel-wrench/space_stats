@@ -81,7 +81,7 @@ sf_ann.add(tf.keras.layers.Dense(10, activation='relu'))
 sf_ann.add(tf.keras.layers.Dense(2000))
 
 # Specifying an optimizer, learning rate, and loss function
-sf_ann.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001), loss=tf.keras.losses.MeanAbsolutePercentageError())
+sf_ann.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001), loss=tf.keras.losses.MeanSquaredError())
 
 # Specifying early stopping criteria
 callbacks = [
