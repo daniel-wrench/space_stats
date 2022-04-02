@@ -80,9 +80,9 @@ def prepare_array_for_output(dataset):
 ################################################################################
 
 # First of two major pipeline functions
+
 # This one takes a time series and splits it into many intervals, normalises them,
 # then groups them into a training a test set
-
 
 def mag_interval_pipeline_split(df, dataset_name, n_values, n_subsets, test_size):
 
@@ -124,12 +124,12 @@ def mag_interval_pipeline_split(df, dataset_name, n_values, n_subsets, test_size
 
     return (inputs_train_list, inputs_test_list)
 
+
 # Second of two major pipeline functions
 
 # This one takes a set of intervals and copies each interval multiple times
 # Each interval in the new larger set has chunks removed, which is then both filled in with zeroes and linearly interpolated
 # The structure function is then calculated for each version of each interval
-
 
 def mag_interval_pipeline_gap(
         inputs_list,
@@ -145,15 +145,19 @@ def mag_interval_pipeline_gap(
     clean_inputs_list = inputs_list * n_copies
 
     gapped_inputs_list = []
-    gapped_inputs_list = []
     filled_inputs_list = []
     lint_inputs_list = []
     prop_removed = np.array([])
 
     for input in clean_inputs_list:
 
-        gapped_input_raw = removal.remove_chunks_df(input, random.randint(
-            min_removal_percent, max_removal_percent)/100, random.randint(3, 20), 0.1)
+        gapped_input_raw = removal.remove_chunks_df(input,
+                                                    random.randint(
+                                                        min_removal_percent,
+                                                        max_removal_percent)/100,
+                                                    random.randint(3, 20),
+                                                    0.1)
+
         gapped_input = gapped_input_raw.resample(freq).mean()
         prop_removed = np.append(prop_removed, gapped_input_raw.missing.mean())
 
@@ -178,9 +182,12 @@ def mag_interval_pipeline_gap(
     filled_outputs_list = calc_strfn(filled_inputs_list, dt)
     lint_outputs_list = calc_strfn(lint_inputs_list, dt)
 
+    # Intermediate output: plot of each input and output version of an interval 
+    # and of its copies
+
     ind = len(inputs_list)
 
-    fig, axs = plt.subplots(8, 2, figsize=(10, 30))
+    fig, axs = plt.subplots(8, 2, figsize=(10, 25))
 
     axs[0, 0].plot(clean_inputs_list[0])
     axs[1, 0].plot(clean_inputs_list[ind])
@@ -213,6 +220,7 @@ def mag_interval_pipeline_gap(
 
     fig.suptitle('Validating pre-processing')
     plt.savefig("results/" + dataset_name + "_preprocessed_plots.png")
+
 
     clean_inputs = prepare_array_for_output(clean_inputs_list)[0]
     #cis = clean_inputs.shape
@@ -270,11 +278,9 @@ def mag_interval_pipeline_gap(
 
 # PSP (used for training and testing the neural net)
 
-
 print("\nTIME: ", datetime.datetime.now())
 
 # Loading the data
-
 psp_df = pd.read_pickle("data_processed/psp/psp_df.pkl")
 
 # Splitting into training and test sets
@@ -488,4 +494,4 @@ print("\nTIME: ", datetime.datetime.now())
 
 print("\nFINISHED PROCESSING MMS DATA \n")
 
-print("\n\n FINISHED SCRIPT \n")
+print("\n\n FINISHED PROCESSING ALL DATA \n")

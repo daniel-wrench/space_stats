@@ -36,67 +36,56 @@ View that state of cluster jobs with `vuw-myjobs`.
     
     This should be run in the cluster using a bash script. For now using `srun` produces a `MemoryError`. The next step will be to try either converting from float64 to float32 in the python script, *or* writing a `.sh` file according to Tulasi’s example to submit to the cluster. Using the `.sh` job I was able to produce 5 x 156 copies. This only took 1.5 seconds per interval, and would not work when running in interactive mode. At minimum, 8 is too much for the `2_singularity_submit.sh` job, with 64 cpus per task and 3G mem per CPU
 
-    `2_process_data.py` takes the .pkl data (currently majority PSP) and outputs the following arrays:
-    - PSP clean inputs: normalised subsets of a single magnetic field component (BR), each of length 10,000, with no gaps
-    - PSP gapped inputs: normalised subsets of a single magnetic field component (BR), each of length 10,000, with artificial gaps of between 10% and 40% removed in between 3 and 5 chunks. *The gapped datasets are chosen to be the final 20% of the original datasets*. These are output in both filled (0 (mean) imputed) and unfilled versions.
-    - PSP clean and gapped outputs: expected structure functions corresponding to each (original, ungapped) dataset. These are the second-order structure functions, and are calculated up to the lag equal to 20% of the input data length (2000 points). **Calculating these for all subsets takes around 15min.**
-    - PSP (gapped) math outputs: structure functions for the gapped datasets, calculated *after* gapping took place.
+    `2_process_data.py` takes the .pkl data (currently majority PSP) applies two major functions. **`mag_interval_pipeline_split()`** specifies the length of the data and the number of intervals to split it into, and the proportion to set aside for testing. This function splits the dataset into standardised intervals, then groups them into a training and test set, both of which are lists of dataframes. The intermediate outputs are a plot and the summary statistics of the first interval, before and after standardisation, and the dimensions of the final outputs. *The arguments I have specified to this function are to separate out 80% of input-output pairs for training, 20% for testing, for PSP. For MMS, use 100% of intervals for testing.*
 
-    This pipeline consists of two major functions:
+    To each of these sets, the second major function **`mag_interval_pipeline_gap()`** is applied separately, specifying the number of copies to make of each interval, the re-sampling frequency applied in `1_read_data.py`, and the minimum and maximum proportion of data to remove from each artificially gapped interval. 
 
-    **`mag_interval_pipeline_split()`**, specifying the length of the data and the number of intervals to split it into, and the proportion to set aside for testing. This splits the dataset into standardised intervals, then groups them into a training and test set, both of which are lists of dataframes. The intermediate outputs are a plot and the summary statistics of the first interval, before and after standardisation, and the dimensions of the final outputs
-   
-    The arguments I have specified to this function are to separate out 80% of input-output pairs for training, 20% for testing, for PSP. For MMS, use 100% of intervals for testing.
+    This function copies the inputs the specified number of items to create `clean_inputs_list`, then initialises several empty lists. It then loops over every interval in this list and
+    - removes 3-20 gaps according to the % specified, normalising the result and saving it to `gapped_inputs_list`.
+    - mean (0) imputes the gapped input, saving it to `filled_inputs_list`.
+    - linearly interpolates the gapped input, saving it to `lint_inputs_list`.
 
-    To each of these sets, the second major function **`mag_interval_pipeline_gap()`** is applied separately, specifying the number of copies to make of each interval, the re-sampling frequency applied in `1_read_data.py`, and the minimum and maximum proportion of data to remove from each artificially gapped interval.
+    The function then calculates the structure functions for each input interval in each of these lists, saving the results to equivalent `..._outputs_lists`.
 
-        1. Make multiple copies of inputs (list of dataframes)
-            1. Transform inputs for outputting (**array of arrays**)
-        2. Make multiple copies of outputs (list of arrays)
-            1. Transform outputs for outputting (**array of arrays**)
-        3. Gap each input interval, adding a missing indicator column (list of dataframes)
-        4. Re-standardise each component of each input interval (list of dataframes)
-        5. Fix standardised missing indicator column for each input interval (list of dataframes)
-            1. Transform gapped inputs for outputting (**array of arrays**)
-            2. Output proportion missing for each interval
-        6. Calculate structure functions for gapped inputs (list of arrays)
-            1. Transform gapped outputs for outputting (**array of arrays**)
-        7. Fill missing values with zeroes in a copy of the gapped intervals (list of dataframes)
-            1. Transform filled inputs for outputting (**array of arrays + array of flat arrays**)
-        8. Calculate structure functions for filled inputs (list of arrays)
-            1. Transform filled outputs for outputting (**array of arrays**)
-        9. Linearly interpolate missing values in a copy of the gapped intervals (list of dataframes)
-            1. Transform inputs for outputting (**array of arrays + array of flat arrays**)
-        10. Calculate structure functions for interpolated inputs (list of arrays)
-            1. Transform interpolated outputs for outputting (**array of arrays**)
+    After this, an intermediate output of a plot of each input and output version of an interval and one of its copies is produced.
 
-2.1. Review plots
+    Next, the function `prepare_array_for_output()` is called on each input list, which converts the lists of dataframes into three arrays of vectors: 4-dimensional vectors, 1-d vectors including the missing indicator vector, and 1-d vectors excluding the missing indicator vector. (Only the first of these are output for un-gapped and un-filled input lists.)'
+
+    The simple 1-d outputs are prepared for output simply using the function `np.array(list)`.
+
+    The dimensions of these final arrays are output as intermediate output, and then these arrays are saved.
+
+3. Review plots
     - `results/…example_input_raw.png`
     - `results/…example_input_std.png`
     - `results/…test_preprocessed_plots.png`
-2.2.. Create a folder for the results of this model: `mkdir results/date/mod_#`
-3.1. Update `3_train_neural_net.py` with the new model number and adjust the hyperparameters as needed
-3.2. Update `4_plot_predictions.py` with the new model number
-3.3. `sbatch 3_singularity_submit.sh` *Do not run this with fewer than 3GB of memory requested or when in the `galaxenv` environment*
+
+4. Create a folder for the results of this model: `mkdir results/date/mod_#`
+
+5. Update `3_train_neural_net.py` with the new model number and adjust the hyperparameters as needed
+
+6. Update `4_plot_predictions.py` with the new model number
+
+7. `sbatch 3_singularity_submit.sh` *Do not run this with fewer than 3GB of memory requested or when in the `galaxenv` environment*
     
-3.4. Review `3_train_neural_net.out`
+8. Review `3_train_neural_net.out`
 
     `3_train_neural_net.py` does the following:
-    1. Load n x 40,000 training and test inputs, including MMS test
-    2. Load n x 2000 training and test outputs, including MMS test
-    3. Train model (feed-forward ANN/MLP). The number of nodes in the output layer is equal to the length each structure function. As well as the number of nodes, we specify the dropout layers, optimizer, learning rate, loss function, validation split, and number of epochs to train for.
-    4. Output test predictions
-    5. Output training and validation loss curve
-    6. Output training and validation losses, and test loss
-        - `psp_outputs_test_predictions`
-        - `psp_outputs_test_predictions_loss`
+        1. Load n x 40,000 training and test inputs, including MMS test
+        2. Load n x 2000 training and test outputs, including MMS test
+        3. Train model (feed-forward ANN/MLP). The number of nodes in the output layer is equal to the length each structure function (2000). As well as the number of nodes, we specify the dropout layers, optimizer, learning rate, loss function, validation split, and number of epochs to train for.
+        4. Output test predictions
+        5. Output training and validation loss curve
+        6. Output training and validation losses, and test loss
+            - `psp_outputs_test_predictions`
+            - `psp_outputs_test_predictions_loss`.
 
 4. Produce plots of a sample of true vs. predicted test **SHOULD BE VALIDATION** outputs with `python 4_plot_predictions.py`
-4.1. Review plots in `results/date/mod_#` to see how well the model is performing on unseen data
-4.2. Add model statistics (and plots if needed) to Results word doc
-4.3. Repeat 5-12 until a good model is found
-4.4. Download test data files and model results to local computer
-5. Run `05_results.py` to produce final plots and statistics
+5. Review plots in `results/date/mod_#` to see how well the model is performing on unseen data
+6. Add model statistics (and plots if needed) to Results word doc
+7. Repeat 5-12 until a good model is found
+8. Download test data files and model results to local computer
+9. Run `05_results.py` to produce final plots and statistics
     - For PSP and MMS:
         1. Table with one row for every interval:
             1. Amount missing

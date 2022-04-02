@@ -28,13 +28,11 @@ import pandas as pd
 
 # Reading in data from CDF files, resampling to correct frequency and checking for missing data
 
-# PSP DATA TAKES ~ 7 MINUTES TO READ
-
 print(datetime.datetime.now())
 
 random.seed(5)
 
-# PSP
+# PSP DATA: TAKES ~ 7 MINUTES TO READ
 
 print("\n\nREADING PSP DATA \n")
 
