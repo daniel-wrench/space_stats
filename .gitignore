@@ -1,6 +1,6 @@
 tensorflow.sif
 
-__pycache__/
+#__pycache__/
 
 data_raw/psp/*
 !data_raw/psp/.gitkeep
