@@ -20,7 +20,7 @@ psp_list_saved_complete = ["data_raw/psp/" + i for i in psp_list_saved[1:]]
 
 print("\nCHECKING PSP FILES \n")
 
-for i in range(10):
+for i in range(len(psp_list_saved_complete)):
     data = data_import.read_cdfs([psp_list_saved_complete[i]],
     {'epoch_mag_RTN': (0), 'psp_fld_l2_mag_RTN': (0, 3), 'label_RTN': (0, 3)})
     
