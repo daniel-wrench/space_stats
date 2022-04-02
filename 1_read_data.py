@@ -12,8 +12,6 @@
 
 # Loading packages, including those on Git in ~bin/python_env
 
-import warnings
-import cdflib
 import data_import_funcs as data_import
 import calculate_stats as calcs
 import remove_obs_funcs as removal

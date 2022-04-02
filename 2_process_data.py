@@ -15,7 +15,6 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import warnings
 import data_import_funcs as data_import
 import calculate_stats as calcs
 import remove_obs_funcs as removal
