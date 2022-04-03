@@ -77,7 +77,6 @@ psp_data = data_import.read_cdfs([
     "data_raw/psp/psp_fld_l2_mag_rtn_2018111018_v01.cdf",
     "data_raw/psp/psp_fld_l2_mag_rtn_2018111100_v01.cdf",
     "data_raw/psp/psp_fld_l2_mag_rtn_2018111106_v01.cdf",
-    # clean up to here AFTER 0.02S RESAMPLING
     "data_raw/psp/psp_fld_l2_mag_rtn_2018111112_v01.cdf",
     "data_raw/psp/psp_fld_l2_mag_rtn_2018111118_v01.cdf",
     "data_raw/psp/psp_fld_l2_mag_rtn_2018111200_v01.cdf",
@@ -104,10 +103,8 @@ psp_data = data_import.read_cdfs([
     "data_raw/psp/psp_fld_l2_mag_rtn_2018111706_v01.cdf",
     "data_raw/psp/psp_fld_l2_mag_rtn_2018111712_v01.cdf",
     "data_raw/psp/psp_fld_l2_mag_rtn_2018111718_v01.cdf"
-    # clean up to here AFTER 0.75S RESAMPLING
 
-    ################# MISSING DATA BELOW #################
-    # "data_raw/psp/psp_fld_l2_mag_rtn_2018111800_v01.cdf",
+    # "data_raw/psp/psp_fld_l2_mag_rtn_2018111800_v01.cdf", # missing data after 0.75s resampling
     # "data_raw/psp/psp_fld_l2_mag_rtn_2018111806_v01.cdf",
     # "data_raw/psp/psp_fld_l2_mag_rtn_2018111812_v01.cdf",
     # "data_raw/psp/psp_fld_l2_mag_rtn_2018111818_v01.cdf",
@@ -122,7 +119,7 @@ psp_data = data_import.read_cdfs([
     # "data_raw/psp/psp_fld_l2_mag_rtn_2018112000_v01.cdf",
     # "data_raw/psp/psp_fld_l2_mag_rtn_2018112006_v01.cdf",
     # "data_raw/psp/psp_fld_l2_mag_rtn_2018112012_v01.cdf",
-    # "data_raw/psp/psp_fld_l2_mag_rtn_2018112018_v01.cdf"
+    # "data_raw/psp/psp_fld_l2_mag_rtn_2018112018_v01.cdf"  # missing data after 0.75s resampling
 ],
     {'epoch_mag_RTN': (0), 'psp_fld_l2_mag_RTN': (0, 3), 'label_RTN': (0, 3)})
 
