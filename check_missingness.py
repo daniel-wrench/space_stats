@@ -10,7 +10,10 @@ psp_list = [
     "data_raw/psp/psp_fld_l2_mag_rtn_2018110112_v01.cdf"]
 
 psp_list_saved = os.listdir("data_raw/psp")
-psp_list_saved_complete = ["data_raw/psp/" + i for i in psp_list_saved.remove('.gitkeep')]
+psp_list_saved.remove('.gitkeep')
+if 'gmon.out' in psp_list_saved:
+  psp_list_saved.remove('gmon.out')
+psp_list_saved_complete = ["data_raw/psp/" + i for i in psp_list_saved]
 
 print("\nCHECKING PSP FILES \n")
 
@@ -43,7 +46,10 @@ print("\nCHECKING MMS FILES \n")
 #     "data_raw/psp/psp_fld_l2_mag_rtn_2018110112_v01.cdf"]
 
 mms_list_saved = os.listdir("data_raw/mms")
-mms_list_saved_complete = ["data_raw/mms/" + i for i in mms_list_saved.remove('.gitkeep')]
+mms_list_saved.remove('.gitkeep')
+if 'gmon.out' in mms_list_saved:
+  mms_list_saved.remove('gmon.out')
+mms_list_saved_complete = ["data_raw/mms/" + i for i in mms_list_saved]
 
 for i in range(len(mms_list_saved_complete)):
     data = data_import.read_cdfs([mms_list_saved_complete[i]],
