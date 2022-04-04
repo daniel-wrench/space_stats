@@ -3,6 +3,7 @@ gmon.out
 *.pyc
 
 __pycache__/
+my_dir/
 
 data_raw/psp/*
 !data_raw/psp/.gitkeep

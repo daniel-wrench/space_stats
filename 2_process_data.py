@@ -3,10 +3,10 @@
 
 # DATA PROCESSING PART 2: PREPARING INTERVALS FOR NEURAL NETWORK APPROXIMATION
 
-###################### Daniel Wrench, September 2021 #########################
+###################### Daniel Wrench, April 2022 #########################
 
-# This is being run in the Raapoi terminal
-# The outputs are fed into a Tensorflow script to train a neural network model
+# This is submitted as a job to the Raapoi cluster via a .sh script
+# The outputs are fed into Part 3: 3_train_neural_net.py, a Tensorflow script to train a neural network model
 
 ##############################################################################
 
@@ -42,18 +42,6 @@ def calc_strfn(input_intervals, dt):
                               dt=dt)  # Second order structure function
         sfs.append(s[0])
     return sfs
-
-# def prepare_array_for_output(dataset):
-#            list_of_vectors = []
-#            list_of_flat_vectors = []
-#            for i in range(len(dataset)):
-#                vector = np.array(dataset)[i].transpose()
-#                list_of_vectors.append(vector)
-#                list_of_flat_vectors.append(vector.flatten())
-#            array_of_vectors = np.array(list_of_vectors)
-#            array_of_flat_vectors = np.array(list_of_flat_vectors)
-#            return(array_of_vectors, array_of_flat_vectors)
-
 
 def prepare_array_for_output(dataset):
     list_of_vectors = []
@@ -292,15 +280,13 @@ print("\nTIME: ", datetime.datetime.now())
 psp_df_1 = pd.read_pickle("data_processed/psp/psp_df_1.pkl")
 psp_df_2 = pd.read_pickle("data_processed/psp/psp_df_2.pkl")
 
-
 # Splitting into training and test sets
-
 (psp_inputs_train_list,
- psp_inputs_test_list) = mag_interval_pipeline_split(df_list=[psp_df_1],
+ psp_inputs_test_list) = mag_interval_pipeline_split(df_list=[psp_df_1, psp_df_2],
                                                      dataset_name="psp",
                                                      # Previously 1950000
-                                                     n_values=[1950000],
-                                                     n_subsets=[1950000/10000],
+                                                     n_values=[1950000, 1150000],
+                                                     n_subsets=[1950000/10000, 1150000/10000],
                                                      test_size=0.2)
 
 # Duplicating, gapping, and calculating structure functions for training set
@@ -443,10 +429,10 @@ mms_df_4 = pd.read_pickle("data_processed/mms/mms_df_4.pkl")
 
 (mms_inputs_train_list,
  mms_inputs_test_list) = mag_interval_pipeline_split(
-    df_list=[mms_df_1],
+    df_list=[mms_df_1, mms_df_2],
     dataset_name="mms",
-    n_values=[290000],
-    n_subsets=[290000/10000],
+    n_values=[290000, 210000],
+    n_subsets=[290000/10000, 210000/10000],
     test_size=1)
 
 # Duplicating, gapping, and calculating structure functions for MMS test set

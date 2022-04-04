@@ -1,7 +1,6 @@
 # Identify the location of any missing data in and between the CDFs
 # in the PSP and MMS directories
 
-from datetime import datetime
 import data_import_funcs as data_import
 import os
 import pandas as pd
@@ -96,7 +95,7 @@ mms_timestamp_diffs = np.diff(mms_timestamps)
 mms_timestamp_diffs = np.append(mms_timestamp_diffs, dt.timedelta(0))
 # Getting array of those files that are followed by a gap
 gaps_between_files = np.array(mms_timestamps_int)[mms_timestamp_diffs >
-                                          2 * np.median(mms_timestamp_diffs)]                                          
+                                          1.5 * np.median(mms_timestamp_diffs)]                                          
 
 for i in range(len(mms_list_saved_complete)):
     data = data_import.read_cdfs([mms_list_saved_complete[i]],

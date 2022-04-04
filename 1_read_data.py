@@ -3,9 +3,9 @@
 
 # DATA PROCESSING PART 1: READING MAGNETIC FIELD DATASETS
 
-###################### Daniel Wrench, September 2021 #########################
+###################### Daniel Wrench, April 2022 #########################
 
-# This is being run in the Raapoi terminal
+# This is submitted as a job to the Raapoi cluster via a .sh script
 # The outputs are fed into Part 2: 2_process_data.py
 
 ##############################################################################
@@ -13,13 +13,8 @@
 # Loading packages, including those on Git in ~bin/python_env
 
 import data_import_funcs as data_import
-import calculate_stats as calcs
-import remove_obs_funcs as removal
-import TurbAn.Analysis.TimeSeries.OLLibs.F90.ftsa as ftsa
 import random
 import datetime
-import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 
 ##############################################################################
