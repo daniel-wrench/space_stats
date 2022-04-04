@@ -136,7 +136,7 @@ print(psp_df_resampled.isnull().sum())
 psp_df_resampled.to_pickle("data_processed/psp/psp_df_1.pkl")
 
 
-## 2ND PSP INTERVAL
+# 2ND PSP INTERVAL
 
 psp_data = data_import.read_cdfs([
     "data_raw\psp\psp_fld_l2_mag_rtn_2018112100_v01.cdf",
@@ -179,7 +179,7 @@ psp_data = data_import.read_cdfs([
     "data_raw\psp\psp_fld_l2_mag_rtn_2018113006_v01.cdf",
     "data_raw\psp\psp_fld_l2_mag_rtn_2018113012_v01.cdf",
     "data_raw\psp\psp_fld_l2_mag_rtn_2018113018_v01.cdf"
- ],
+],
     {'epoch_mag_RTN': (0), 'psp_fld_l2_mag_RTN': (0, 3), 'label_RTN': (0, 3)})
 
 psp_data_ready = data_import.extract_components(
@@ -236,7 +236,7 @@ mms_data_raw = data_import.read_cdfs([
     "data_raw/mms/mms1_fgm_brst_l2_20171226064453_v5.117.3.cdf",
     "data_raw/mms/mms1_fgm_brst_l2_20171226064723_v5.117.3.cdf",
     "data_raw/mms/mms1_fgm_brst_l2_20171226064953_v5.117.3.cdf"
-    ],
+],
     {'Epoch': (0), 'mms1_fgm_b_dmpa_brst_l2': (0, 4), 'label_b_gse': (0, 4)})
 
 mms_data = data_import.extract_components(
@@ -268,8 +268,7 @@ print(mms_df_resampled.isnull().sum())
 mms_df_resampled.to_pickle("data_processed/mms/mms_df_1.pkl")
 
 
-
-## 2ND MMS INTERVAL
+# 2ND MMS INTERVAL
 
 mms_data_raw = data_import.read_cdfs([
     "data_raw/mms/mms1_fgm_brst_l2_20171226194913_v5.118.0.cdf",
@@ -284,7 +283,7 @@ mms_data_raw = data_import.read_cdfs([
     "data_raw/mms/mms1_fgm_brst_l2_20171226201023_v5.118.0.cdf",
     "data_raw/mms/mms1_fgm_brst_l2_20171226201243_v5.118.0.cdf",
     "data_raw/mms/mms1_fgm_brst_l2_20171226201503_v5.118.0.cdf"
-    ],
+],
     {'Epoch': (0), 'mms1_fgm_b_dmpa_brst_l2': (0, 4), 'label_b_gse': (0, 4)})
 
 mms_data = data_import.extract_components(
@@ -316,7 +315,7 @@ print(mms_df_resampled.isnull().sum())
 mms_df_resampled.to_pickle("data_processed/mms/mms_df_2.pkl")
 
 
-## 3rd MMS INTERVAL
+# 3rd MMS INTERVAL
 
 mms_data_raw = data_import.read_cdfs([
     "data_raw\mms\mms1_fgm_brst_l2_20171224015313_v5.117.0.cdf",
@@ -334,7 +333,7 @@ mms_data_raw = data_import.read_cdfs([
     "data_raw\mms\mms1_fgm_brst_l2_20171224022213_v5.117.0.cdf",
     "data_raw\mms\mms1_fgm_brst_l2_20171224022433_v5.117.0.cdf",
     "data_raw\mms\mms1_fgm_brst_l2_20171224022643_v5.117.0.cdf"
-    ],
+],
     {'Epoch': (0), 'mms1_fgm_b_dmpa_brst_l2': (0, 4), 'label_b_gse': (0, 4)})
 
 mms_data = data_import.extract_components(
@@ -366,23 +365,22 @@ print(mms_df_resampled.isnull().sum())
 mms_df_resampled.to_pickle("data_processed/mms/mms_df_3.pkl")
 
 
-
-## 4th MMS INTERVAL
+# 4th MMS INTERVAL
 
 mms_data_raw = data_import.read_cdfs([
-"data_raw\mms\mms1_fgm_brst_l2_20171224012233_v5.117.3.cdf",
-"data_raw\mms\mms1_fgm_brst_l2_20171224012453_v5.117.3.cdf",
-"data_raw\mms\mms1_fgm_brst_l2_20171224012723_v5.117.3.cdf",
-"data_raw\mms\mms1_fgm_brst_l2_20171224012753_v5.117.3.cdf",
-"data_raw\mms\mms1_fgm_brst_l2_20171224013003_v5.117.3.cdf",
-"data_raw\mms\mms1_fgm_brst_l2_20171224013213_v5.117.3.cdf",
-"data_raw\mms\mms1_fgm_brst_l2_20171224013413_v5.117.3.cdf",
-"data_raw\mms\mms1_fgm_brst_l2_20171224013623_v5.117.3.cdf",
-"data_raw\mms\mms1_fgm_brst_l2_20171224013953_v5.117.3.cdf",
-"data_raw\mms\mms1_fgm_brst_l2_20171224014143_v5.117.3.cdf",
-"data_raw\mms\mms1_fgm_brst_l2_20171224014323_v5.117.0.cdf",
-"data_raw\mms\mms1_fgm_brst_l2_20171224014713_v5.117.3.cdf"
-    ],
+    "data_raw\mms\mms1_fgm_brst_l2_20171224012233_v5.117.3.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224012453_v5.117.3.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224012723_v5.117.3.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224012753_v5.117.3.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224013003_v5.117.3.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224013213_v5.117.3.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224013413_v5.117.3.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224013623_v5.117.3.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224013953_v5.117.3.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224014143_v5.117.3.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224014323_v5.117.0.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224014713_v5.117.3.cdf"
+],
     {'Epoch': (0), 'mms1_fgm_b_dmpa_brst_l2': (0, 4), 'label_b_gse': (0, 4)})
 
 mms_data = data_import.extract_components(
@@ -412,7 +410,6 @@ print(mms_df_resampled.isnull().sum())
 
 # Saving final dataframe to directory
 mms_df_resampled.to_pickle("data_processed/mms/mms_df_4.pkl")
-
 
 
 #######################################

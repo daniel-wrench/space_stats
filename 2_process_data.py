@@ -83,16 +83,18 @@ def prepare_array_for_output(dataset):
 # This one takes a time series and splits it into many intervals, normalises them,
 # then groups them into a training a test set
 
+
 def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_list, test_size):
 
-    
-    inputs_list_raw = np.split(df_list[0][:n_values_list[0]], n_subsets_list[0])
-    # Recent additional feature that allows multiple dfs to be imported, useful for when using 
+    inputs_list_raw = np.split(
+        df_list[0][:n_values_list[0]], n_subsets_list[0])
+    # Recent additional feature that allows multiple dfs to be imported, useful for when using
     # multiple non-adjacent intervals
     if len(df_list) > 1:
-        for i in range(1,len(df_list)):
-                inputs_list_raw_next = np.split(df_list[i][:n_values_list[i]], n_subsets_list[i])
-                inputs_list_raw.extend(inputs_list_raw_next)
+        for i in range(1, len(df_list)):
+            inputs_list_raw_next = np.split(
+                df_list[i][:n_values_list[i]], n_subsets_list[i])
+            inputs_list_raw.extend(inputs_list_raw_next)
 
     plt.plot(inputs_list_raw[0])
     plt.title("Single clean vector interval pre-standardisation")
@@ -188,7 +190,7 @@ def mag_interval_pipeline_gap(
     filled_outputs_list = calc_strfn(filled_inputs_list, dt)
     lint_outputs_list = calc_strfn(lint_inputs_list, dt)
 
-    # Intermediate output: plot of each input and output version of an interval 
+    # Intermediate output: plot of each input and output version of an interval
     # and of its copies
 
     ind = len(inputs_list)
@@ -287,15 +289,18 @@ def mag_interval_pipeline_gap(
 print("\nTIME: ", datetime.datetime.now())
 
 # Loading the data
-psp_df = pd.read_pickle("data_processed/psp/psp_df.pkl")
+psp_df_1 = pd.read_pickle("data_processed/psp/psp_df_1.pkl")
+psp_df_2 = pd.read_pickle("data_processed/psp/psp_df_2.pkl")
+
 
 # Splitting into training and test sets
 
 (psp_inputs_train_list,
- psp_inputs_test_list) = mag_interval_pipeline_split(psp_df,
+ psp_inputs_test_list) = mag_interval_pipeline_split(df_list=[psp_df_1],
                                                      dataset_name="psp",
-                                                     n_values=1950000,  # Previously 1950000
-                                                     n_subsets=1950000/10000,
+                                                     # Previously 1950000
+                                                     n_values=[1950000],
+                                                     n_subsets=[1950000/10000],
                                                      test_size=0.2)
 
 # Duplicating, gapping, and calculating structure functions for training set
@@ -427,7 +432,10 @@ print("\nTIME: ", datetime.datetime.now())
 
 # Loading the data
 
-mms_df = pd.read_pickle("data_processed/mms/mms_df_1.pkl")
+mms_df_1 = pd.read_pickle("data_processed/mms/mms_df_1.pkl")
+mms_df_2 = pd.read_pickle("data_processed/mms/mms_df_2.pkl")
+mms_df_3 = pd.read_pickle("data_processed/mms/mms_df_3.pkl")
+mms_df_4 = pd.read_pickle("data_processed/mms/mms_df_4.pkl")
 
 #################
 
@@ -435,10 +443,10 @@ mms_df = pd.read_pickle("data_processed/mms/mms_df_1.pkl")
 
 (mms_inputs_train_list,
  mms_inputs_test_list) = mag_interval_pipeline_split(
-    mms_df,
+    df_list=[mms_df_1],
     dataset_name="mms",
-    n_values=290000,
-    n_subsets=290000/10000,
+    n_values=[290000],
+    n_subsets=[290000/10000],
     test_size=1)
 
 # Duplicating, gapping, and calculating structure functions for MMS test set
