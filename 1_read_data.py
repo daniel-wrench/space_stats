@@ -160,7 +160,12 @@ print(datetime.datetime.now())
 
 print("\n\nREADING MMS DATA \n")
 
+#NB: continuous MMS intervals have no more than 300 between timestamps
+
 mms_data_raw = data_import.read_cdfs([
+    #"data_raw\mms\mms1_fgm_brst_l2_20171226055813_v5.117.3.cdf",
+    #"data_raw\mms\mms1_fgm_brst_l2_20171226060043_v5.117.3.cdf",
+    # GAP HERE
     "data_raw/mms/mms1_fgm_brst_l2_20171226061243_v5.117.3.cdf",
     "data_raw/mms/mms1_fgm_brst_l2_20171226061513_v5.117.3.cdf",
     "data_raw/mms/mms1_fgm_brst_l2_20171226061743_v5.117.3.cdf",
@@ -176,7 +181,11 @@ mms_data_raw = data_import.read_cdfs([
     "data_raw/mms/mms1_fgm_brst_l2_20171226064223_v5.117.3.cdf",
     "data_raw/mms/mms1_fgm_brst_l2_20171226064453_v5.117.3.cdf",
     "data_raw/mms/mms1_fgm_brst_l2_20171226064723_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226064953_v5.117.3.cdf"],
+    "data_raw/mms/mms1_fgm_brst_l2_20171226064953_v5.117.3.cdf",
+    # GAP HERE
+    #"data_raw\mms\mms1_fgm_brst_l2_20171226082223_v5.117.3.cdf"
+    #"data_raw\mms\mms1_fgm_brst_l2_20171226083053_v5.117.3.cdf"
+    ],
     {'Epoch': (0), 'mms1_fgm_b_dmpa_brst_l2': (0, 4), 'label_b_gse': (0, 4)})
 
 mms_data = data_import.extract_components(

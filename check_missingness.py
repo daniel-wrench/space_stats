@@ -1,4 +1,4 @@
-# Identify the location of any missing data in the CDFs
+# Identify the location of any missing data in and between the CDFs
 # in the PSP and MMS directories
 
 from datetime import datetime
