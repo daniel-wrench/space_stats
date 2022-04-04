@@ -316,6 +316,104 @@ print(mms_df_resampled.isnull().sum())
 mms_df_resampled.to_pickle("data_processed/mms/mms_df_2.pkl")
 
 
+## 3rd MMS INTERVAL
+
+mms_data_raw = data_import.read_cdfs([
+    "data_raw\mms\mms1_fgm_brst_l2_20171224015313_v5.117.0.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224015733_v5.117.3.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224015943_v5.117.3.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224020023_v5.117.3.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224020213_v5.117.3.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224020403_v5.117.3.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224020823_v5.117.0.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224021043_v5.117.0.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224021303_v5.117.0.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224021513_v5.117.0.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224021733_v5.117.0.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224021953_v5.117.0.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224022213_v5.117.0.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224022433_v5.117.0.cdf",
+    "data_raw\mms\mms1_fgm_brst_l2_20171224022643_v5.117.0.cdf"
+    ],
+    {'Epoch': (0), 'mms1_fgm_b_dmpa_brst_l2': (0, 4), 'label_b_gse': (0, 4)})
+
+mms_data = data_import.extract_components(
+    mms_data_raw, var_name='mms1_fgm_b_dmpa_brst_l2', label_name='label_b_gse', time_var='Epoch', dim=4)
+mms_df = pd.DataFrame(mms_data)
+mms_df['Time'] = pd.to_datetime(
+    '2000-01-01 12:00') + pd.to_timedelta(mms_df['Epoch'], unit='ns')
+mms_df = mms_df.drop(columns='Epoch').set_index('Time')
+mms_df = mms_df.drop('Bt', axis=1)
+
+print("\nRaw data (before re-sampling):")
+print(mms_df.head())
+print("\nLength of raw data:")
+print(mms_df.notnull().sum())
+print("\nNumber of missing values:")
+print(mms_df.isnull().sum())
+
+# Original freq is 0.007s. Resampling to get appropriate number of correlation times in 10,000 points
+mms_df_resampled = mms_df.resample('0.008S').mean()
+
+print("\nRe-sampled data:")
+print(mms_df_resampled.head())
+print("\nLength of re-sampled data")
+print(mms_df_resampled.notnull().sum())
+print("\nNumber of missing values:")
+print(mms_df_resampled.isnull().sum())
+
+# Saving final dataframe to directory
+mms_df_resampled.to_pickle("data_processed/mms/mms_df_3.pkl")
+
+
+
+## 4th MMS INTERVAL
+
+mms_data_raw = data_import.read_cdfs([
+"data_raw\mms\mms1_fgm_brst_l2_20171224012233_v5.117.3.cdf",
+"data_raw\mms\mms1_fgm_brst_l2_20171224012453_v5.117.3.cdf",
+"data_raw\mms\mms1_fgm_brst_l2_20171224012723_v5.117.3.cdf",
+"data_raw\mms\mms1_fgm_brst_l2_20171224012753_v5.117.3.cdf",
+"data_raw\mms\mms1_fgm_brst_l2_20171224013003_v5.117.3.cdf",
+"data_raw\mms\mms1_fgm_brst_l2_20171224013213_v5.117.3.cdf",
+"data_raw\mms\mms1_fgm_brst_l2_20171224013413_v5.117.3.cdf",
+"data_raw\mms\mms1_fgm_brst_l2_20171224013623_v5.117.3.cdf",
+"data_raw\mms\mms1_fgm_brst_l2_20171224013953_v5.117.3.cdf",
+"data_raw\mms\mms1_fgm_brst_l2_20171224014143_v5.117.3.cdf",
+"data_raw\mms\mms1_fgm_brst_l2_20171224014323_v5.117.0.cdf",
+"data_raw\mms\mms1_fgm_brst_l2_20171224014713_v5.117.3.cdf"
+    ],
+    {'Epoch': (0), 'mms1_fgm_b_dmpa_brst_l2': (0, 4), 'label_b_gse': (0, 4)})
+
+mms_data = data_import.extract_components(
+    mms_data_raw, var_name='mms1_fgm_b_dmpa_brst_l2', label_name='label_b_gse', time_var='Epoch', dim=4)
+mms_df = pd.DataFrame(mms_data)
+mms_df['Time'] = pd.to_datetime(
+    '2000-01-01 12:00') + pd.to_timedelta(mms_df['Epoch'], unit='ns')
+mms_df = mms_df.drop(columns='Epoch').set_index('Time')
+mms_df = mms_df.drop('Bt', axis=1)
+
+print("\nRaw data (before re-sampling):")
+print(mms_df.head())
+print("\nLength of raw data:")
+print(mms_df.notnull().sum())
+print("\nNumber of missing values:")
+print(mms_df.isnull().sum())
+
+# Original freq is 0.007s. Resampling to get appropriate number of correlation times in 10,000 points
+mms_df_resampled = mms_df.resample('0.008S').mean()
+
+print("\nRe-sampled data:")
+print(mms_df_resampled.head())
+print("\nLength of re-sampled data")
+print(mms_df_resampled.notnull().sum())
+print("\nNumber of missing values:")
+print(mms_df_resampled.isnull().sum())
+
+# Saving final dataframe to directory
+mms_df_resampled.to_pickle("data_processed/mms/mms_df_4.pkl")
+
+
 
 #######################################
 
