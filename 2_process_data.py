@@ -83,9 +83,16 @@ def prepare_array_for_output(dataset):
 # This one takes a time series and splits it into many intervals, normalises them,
 # then groups them into a training a test set
 
-def mag_interval_pipeline_split(df, dataset_name, n_values, n_subsets, test_size):
+def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_list, test_size):
 
-    inputs_list_raw = np.split(df[:n_values], n_subsets)
+    
+    inputs_list_raw = np.split(df_list[0][:n_values_list[0]], n_subsets_list[0])
+    # Recent additional feature that allows multiple dfs to be imported, useful for when using 
+    # multiple non-adjacent intervals
+    if len(df_list) > 1:
+        for i in range(1,len(df_list)):
+                inputs_list_raw_next = np.split(df_list[i][:n_values_list[i]], n_subsets_list[i])
+                inputs_list_raw.extend(inputs_list_raw_next)
 
     plt.plot(inputs_list_raw[0])
     plt.title("Single clean vector interval pre-standardisation")
@@ -220,7 +227,6 @@ def mag_interval_pipeline_gap(
     fig.suptitle('Validating pre-processing')
     plt.savefig("results/" + dataset_name + "_preprocessed_plots.png")
 
-
     clean_inputs = prepare_array_for_output(clean_inputs_list)[0]
     #cis = clean_inputs.shape
     #np.save(file = 'data_processed/' + dataset_name + 'clean_inputs', arr = psp_clean_inputs_train)
@@ -276,6 +282,7 @@ def mag_interval_pipeline_gap(
 ##############################
 
 # PSP (used for training and testing the neural net)
+
 
 print("\nTIME: ", datetime.datetime.now())
 
@@ -420,7 +427,9 @@ print("\nTIME: ", datetime.datetime.now())
 
 # Loading the data
 
-mms_df = pd.read_pickle("data_processed/mms/mms_df.pkl")
+mms_df = pd.read_pickle("data_processed/mms/mms_df_1.pkl")
+
+#################
 
 # Splitting test set
 
