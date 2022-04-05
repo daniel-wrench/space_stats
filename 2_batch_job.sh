@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --cpus-per-task=10
-#SBATCH --mem-per-cpu=50G
+#SBATCH --cpus-per-task=50
+#SBATCH --mem-per-cpu=10G
 #SBATCH --partition=parallel
 ##SBATCH --nodelist=c01n01
 ##SBATCH --reservation=spacejam
