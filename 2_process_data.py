@@ -421,7 +421,6 @@ print("\nTIME: ", datetime.datetime.now())
 mms_df_1 = pd.read_pickle("data_processed/mms/mms_df_1.pkl")
 mms_df_2 = pd.read_pickle("data_processed/mms/mms_df_2.pkl")
 mms_df_3 = pd.read_pickle("data_processed/mms/mms_df_3.pkl")
-mms_df_4 = pd.read_pickle("data_processed/mms/mms_df_4.pkl")
 
 #################
 
@@ -429,7 +428,7 @@ mms_df_4 = pd.read_pickle("data_processed/mms/mms_df_4.pkl")
 
 (mms_inputs_train_list,
  mms_inputs_test_list) = mag_interval_pipeline_split(
-    df_list=[mms_df_1, mms_df_2],
+    df_list=[mms_df_1, mms_df_2, mms_df_3],
     dataset_name="mms",
     n_values=[290000, 210000, 440000],
     n_subsets=[290000/10000, 210000/10000, 440000/10000],
