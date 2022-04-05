@@ -10,32 +10,64 @@ model_name = "april_5/mod_1/"
 
 random.seed(5)
 
-# Load data
-input_training = np.load('data_processed/psp/psp_filled_inputs_train_flat.npy')
-output_training = np.load('data_processed/psp/psp_clean_outputs_train.npy')
+# Load PSP data
+input_training_psp = np.load('data_processed/psp/psp_filled_inputs_train_flat.npy')
+output_training_psp = np.load('data_processed/psp/psp_clean_outputs_train.npy')
 
-input_training_b = np.load('data_processed/psp/psp_filled_inputs_train_flat_no_ind.npy')
-input_training_2 = np.load('data_processed/psp/psp_lint_inputs_train_flat.npy')
-input_training_2b = np.load('data_processed/psp/psp_lint_inputs_train_flat_no_ind.npy')
+input_training_b_psp = np.load('data_processed/psp/psp_filled_inputs_train_flat_no_ind.npy')
+input_training_2_psp = np.load('data_processed/psp/psp_lint_inputs_train_flat.npy')
+input_training_2b_psp = np.load('data_processed/psp/psp_lint_inputs_train_flat_no_ind.npy')
 
-input_testing = np.load('data_processed/psp/psp_filled_inputs_test_flat.npy')
-output_testing = np.load('data_processed/psp/psp_clean_outputs_test.npy')
+input_testing_psp = np.load('data_processed/psp/psp_filled_inputs_test_flat.npy')
+output_testing_psp = np.load('data_processed/psp/psp_clean_outputs_test.npy')
 
-input_testing_b = np.load('data_processed/psp/psp_filled_inputs_test_flat_no_ind.npy')
-input_testing_2 = np.load('data_processed/psp/psp_lint_inputs_test_flat.npy')
-input_testing_2b = np.load('data_processed/psp/psp_lint_inputs_test_flat_no_ind.npy')
+input_testing_b_psp = np.load('data_processed/psp/psp_filled_inputs_test_flat_no_ind.npy')
+input_testing_2_psp = np.load('data_processed/psp/psp_lint_inputs_test_flat.npy')
+input_testing_2b_psp = np.load('data_processed/psp/psp_lint_inputs_test_flat_no_ind.npy')
+
+input_validate_psp = np.load('data_processed/psp/psp_filled_inputs_validate_flat.npy')
+output_validate_psp = np.load('data_processed/psp/psp_clean_outputs_validate.npy')
+
+input_validate_b_psp = np.load('data_processed/psp/psp_filled_inputs_validate_flat_no_ind.npy')
+input_validate_2_psp = np.load('data_processed/psp/psp_lint_inputs_validate_flat.npy')
+input_validate_2b_psp = np.load('data_processed/psp/psp_lint_inputs_validate_flat_no_ind.npy')
+
+# Load MMS data
+input_training_mms = np.load('data_processed/mms/mms_filled_inputs_train_flat.npy')
+output_training_mms = np.load('data_processed/mms/mms_clean_outputs_train.npy')
+
+input_training_b_mms = np.load('data_processed/mms/mms_filled_inputs_train_flat_no_ind.npy')
+input_training_2_mms = np.load('data_processed/mms/mms_lint_inputs_train_flat.npy')
+input_training_2b_mms = np.load('data_processed/mms/mms_lint_inputs_train_flat_no_ind.npy')
 
 input_testing_mms = np.load('data_processed/mms/mms_filled_inputs_test_flat.npy')
 output_testing_mms = np.load('data_processed/mms/mms_clean_outputs_test.npy')
 
-input_testing_mms_b = np.load('data_processed/mms/mms_filled_inputs_test_flat_no_ind.npy')
-input_testing_mms_2 = np.load('data_processed/mms/mms_lint_inputs_test_flat.npy')
-input_testing_mms_2b = np.load('data_processed/mms/mms_lint_inputs_test_flat_no_ind.npy')
+input_testing_b_mms = np.load('data_processed/mms/mms_filled_inputs_test_flat_no_ind.npy')
+input_testing_2_mms = np.load('data_processed/mms/mms_lint_inputs_test_flat.npy')
+input_testing_2b_mms = np.load('data_processed/mms/mms_lint_inputs_test_flat_no_ind.npy')
 
-########################################################  
-# NEW: need to combine PSP and MMS training data
-########################################################
+input_validate_mms = np.load('data_processed/mms/mms_filled_inputs_validate_flat.npy')
+output_validate_mms = np.load('data_processed/mms/mms_clean_outputs_validate.npy')
 
+input_validate_b_mms = np.load('data_processed/mms/mms_filled_inputs_validate_flat_no_ind.npy')
+input_validate_2_mms = np.load('data_processed/mms/mms_lint_inputs_validate_flat.npy')
+input_validate_2b_mms = np.load('data_processed/mms/mms_lint_inputs_validate_flat_no_ind.npy')
+
+# Combine sets (but keep test sets apart)
+input_training = np.concatenate((input_training_psp, input_training_mms))
+output_training = np.concatenate((output_testing_psp, output_testing_mms))
+
+input_training_b = np.concatenate((input_training_b_psp, input_training_b_mms))
+input_training_2 = np.concatenate((input_training_2_psp, input_training_2_mms))
+input_training_2b = np.concatenate((input_training_2b_psp, input_training_2b_mms))
+
+input_validate = np.concatenate((input_validate_psp, input_validate_mms))
+output_validate = np.concatenate((output_testing_psp, output_testing_mms))
+
+input_validate_b = np.concatenate((input_validate_b_psp, input_validate_b_mms))
+input_validate_2 = np.concatenate((input_validate_2_psp, input_validate_2_mms))
+input_validate_2b = np.concatenate((input_validate_2b_psp, input_validate_2b_mms))
 
 # PSP data from 2020
 
@@ -48,10 +80,12 @@ input_testing_mms_2b = np.load('data_processed/mms/mms_lint_inputs_test_flat_no_
 
 print("\nThe dimensions of the input training data are", input_training.shape)
 print("The dimensions of the output training data are", output_training.shape)
-print("The dimensions of the input testing data are", input_testing.shape)
-print("The dimensions of the output testing data are", output_testing.shape)
-print("The dimenstions of the MMS input test data are", input_testing_mms.shape)
-print("The dimensions of the MMS output test data are", output_testing_mms.shape)
+print("\nThe dimensions of the input training data are", input_validate.shape)
+print("The dimensions of the output training data are", output_validate.shape)
+print("The dimensions of the PSP input testing data are", input_testing_psp.shape)
+print("The dimensions of the PSP output testing data are", output_testing_psp.shape)
+print("The dimenstions of the MMS input testing data are", input_testing_mms.shape)
+print("The dimensions of the MMS output testing data are", output_testing_mms.shape)
 #print("The dimensions of the 2020 PSP input testing data are", input_testing_2020.shape)
 #print("The dimensions of the 2020 PSP output testing data are", output_testing_2020.shape)
 
@@ -59,13 +93,17 @@ print("The dimensions of the MMS output test data are", output_testing_mms.shape
 inputs_train = tf.constant(input_training_2b)
 outputs_train = tf.constant(output_training)
 
-inputs_test = tf.constant(input_testing_2b)
-outputs_test = tf.constant(output_testing)
+inputs_validate = tf.constant(input_validate)
+outputs_validate = tf.constant(output_validate)
+
+
+inputs_test_psp = tf.constant(input_testing_2b_psp)
+outputs_test_psp = tf.constant(output_testing_psp)
 
 #inputs_test_2020 = tf.constant(input_testing_2b_2020)
 #outputs_test_2020 = tf.constant(output_testing_2020)
 
-inputs_test_mms = tf.constant(input_testing_mms_2b)
+inputs_test_mms = tf.constant(input_testing_2b_mms)
 outputs_test_mms = tf.constant(output_testing_mms)
 
 print("\nHere is the first training input:\n", inputs_train[0])
@@ -105,7 +143,7 @@ callbacks = [
 # Training the model (remove callbacks argument for no early stopping)
 # NB: Data is automatically shuffled before each epoch
 history = sf_ann.fit(inputs_train, outputs_train, shuffle=True,
-                     callbacks=callbacks, validation_split=0.05, epochs=50)
+                     callbacks=callbacks, validation_data=(inputs_validate, outputs_validate), epochs=50)
 
 np.save(file='results/' + model_name + 'loss', arr=history.history['loss'])
 np.save(file='results/' + model_name + 'val_loss',
@@ -113,7 +151,7 @@ np.save(file='results/' + model_name + 'val_loss',
 
 # Evaluating model performance
 print(sf_ann.summary())
-print('MSE on PSP test set=', sf_ann.evaluate(inputs_test, outputs_test))
+print('MSE on PSP test set=', sf_ann.evaluate(inputs_test_psp, outputs_test_psp))
 print('MSE on MMS test set=', sf_ann.evaluate(
     inputs_test_mms, outputs_test_mms))
 #print('MSE on PSP 2020 test set=', sf_ann.evaluate(inputs_test_2020, outputs_test_2020))

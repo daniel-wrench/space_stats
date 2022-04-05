@@ -69,10 +69,9 @@ def prepare_array_for_output(dataset):
 # First of two major pipeline functions
 
 # This one takes a time series and splits it into many intervals, normalises them,
-# then groups them into a training a test set
+# then groups them into a training, validation and test set
 
-
-def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_list, test_size):
+def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_list, validate_size, test_size):
 
     print("SPLITTING, NORMALISING AND SHUFFLING" + dataset_name + "MAG FIELD DATA")
 
@@ -109,18 +108,14 @@ def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_
     shuffler = np.random.permutation(len(inputs_list))
     inputs_list_shuffled = [inputs_list[i] for i in shuffler]
 
-    train_test_boundary = int((1-test_size)*len(inputs_list_shuffled))
-    inputs_train_list = inputs_list_shuffled[:train_test_boundary]
-    inputs_test_list = inputs_list_shuffled[train_test_boundary:]
+    train_size = 1 - validate_size - test_size
+    inputs_train, inputs_validate, inputs_test = np.split(inputs_list_shuffled, [int(train_size * len(inputs_list_shuffled)), int((validate_size + train_size) * len(inputs_list_shuffled))])
 
-    if test_size < 1:
-        print("\nInput training data dimensions:",
-              len(inputs_train_list), 'x', inputs_train_list[0].shape)
+    print("\nInput training data dimensions:", len(inputs_train), 'x', inputs_train[0].shape)
+    print("\nInput validation data dimensions:", len(inputs_validate), 'x', inputs_validate[0].shape)
+    print("\nInput test data dimensions:", len(inputs_test), 'x', inputs_test[0].shape)
 
-    print("\nInput test data dimensions:",
-          len(inputs_test_list), 'x', inputs_test_list[0].shape)
-
-    return (inputs_train_list, inputs_test_list)
+    return (inputs_train, inputs_validate, inputs_test)
 
 
 # Second of two major pipeline functions
@@ -283,12 +278,12 @@ psp_df_1 = pd.read_pickle("data_processed/psp/psp_df_1.pkl")
 psp_df_2 = pd.read_pickle("data_processed/psp/psp_df_2.pkl")
 
 # Splitting into training and test sets
-(psp_inputs_train_list,
- psp_inputs_test_list) = mag_interval_pipeline_split(df_list=[psp_df_1, psp_df_2],
+(psp_inputs_train_list, psp_inputs_validate_list, psp_inputs_test_list) = mag_interval_pipeline_split(df_list=[psp_df_1, psp_df_2],
                                                      dataset_name="psp",
                                                      n_values_list=[1950000, 900000], 
                                                      # 1150000 actually available for the 2nd interval, limiting to match MMS
                                                      n_subsets_list=[1950000/10000, 900000/10000],
+                                                     validate_size=0.1,
                                                      test_size=0.2)
 
 # Duplicating, gapping, and calculating structure functions for training set
@@ -311,7 +306,7 @@ print("\n\nPROCESSING PSP TRAINING DATA \n")
  ) = mag_interval_pipeline_gap(
     psp_inputs_train_list,
     "psp_train",
-    n_copies=15,  # Previously 20
+    n_copies=15,
     freq='0.75S',
     dt=0.75,
     min_removal_percent=0,
@@ -354,7 +349,69 @@ print("\nFINISHED PROCESSING PSP TRAINING DATA \n")
 print("\nTIME: ", datetime.datetime.now())
 
 
-# Duplicating, gapping, and calculating structure functions for training set
+
+print("\n\nPROCESSING PSP VALIDATION DATA \n")
+
+(psp_clean_inputs_validate,
+ psp_clean_outputs_validate,
+ psp_gapped_inputs_validate,
+ psp_gapped_outputs_validate,
+ psp_filled_inputs_validate,
+ psp_filled_inputs_validate_flat,
+ psp_filled_inputs_validate_flat_no_ind,
+ psp_filled_outputs_validate,
+ psp_lint_inputs_validate,
+ psp_lint_inputs_validate_flat,
+ psp_lint_inputs_validate_flat_no_ind,
+ psp_lint_outputs_validate,
+ psp_gapped_inputs_validate_prop_removed
+ ) = mag_interval_pipeline_gap(
+    psp_inputs_validate_list,
+    "psp_validate",
+    n_copies=5,
+    freq='0.75S',
+    dt=0.75,
+    min_removal_percent=0,
+    max_removal_percent=50)
+
+# Saving PSP validateing outputs
+np.save(file='data_processed/psp/psp_clean_inputs_validate',
+        arr=psp_clean_inputs_validate)
+np.save(file='data_processed/psp/psp_clean_outputs_validate',
+        arr=psp_clean_outputs_validate)
+
+np.save(file='data_processed/psp/psp_gapped_inputs_validate',
+        arr=psp_gapped_inputs_validate)
+np.save(file='data_processed/psp/psp_gapped_outputs_validate',
+        arr=psp_gapped_outputs_validate)
+
+np.save(file='data_processed/psp/psp_filled_inputs_validate',
+        arr=psp_filled_inputs_validate)
+np.save(file='data_processed/psp/psp_filled_inputs_validate_flat',
+        arr=psp_filled_inputs_validate_flat)
+np.save(file='data_processed/psp/psp_filled_inputs_validate_flat_no_ind',
+        arr=psp_filled_inputs_validate_flat_no_ind)
+np.save(file='data_processed/psp/psp_filled_outputs_validate',
+        arr=psp_filled_outputs_validate)
+
+np.save(file='data_processed/psp/psp_lint_inputs_validate',
+        arr=psp_lint_inputs_validate)
+np.save(file='data_processed/psp/psp_lint_inputs_validate_flat',
+        arr=psp_lint_inputs_validate_flat)
+np.save(file='data_processed/psp/psp_lint_inputs_validate_flat_no_ind',
+        arr=psp_lint_inputs_validate_flat_no_ind)
+np.save(file='data_processed/psp/psp_lint_outputs_validate',
+        arr=psp_lint_outputs_validate)
+
+np.save(file='data_processed/psp/psp_gapped_inputs_validate_prop_removed',
+        arr=psp_gapped_inputs_validate_prop_removed)
+
+print("\nFINISHED PROCESSING PSP validateING DATA \n")
+
+print("\nTIME: ", datetime.datetime.now())
+
+
+# Duplicating, gapping, and calculating structure functions for test set
 
 print("\n\nPROCESSING PSP TEST DATA \n")
 
@@ -510,6 +567,67 @@ np.save(file='data_processed/mms/mms_gapped_inputs_train_prop_removed',
         arr=mms_gapped_inputs_train_prop_removed)
 
 print("\nFINISHED PROCESSING MMS TRAINING DATA \n")
+
+print("\nTIME: ", datetime.datetime.now())
+
+
+print("\n\nPROCESSING mms VALIDATION DATA \n")
+
+(mms_clean_inputs_validate,
+ mms_clean_outputs_validate,
+ mms_gapped_inputs_validate,
+ mms_gapped_outputs_validate,
+ mms_filled_inputs_validate,
+ mms_filled_inputs_validate_flat,
+ mms_filled_inputs_validate_flat_no_ind,
+ mms_filled_outputs_validate,
+ mms_lint_inputs_validate,
+ mms_lint_inputs_validate_flat,
+ mms_lint_inputs_validate_flat_no_ind,
+ mms_lint_outputs_validate,
+ mms_gapped_inputs_validate_prop_removed
+ ) = mag_interval_pipeline_gap(
+    mms_inputs_validate_list,
+    "mms_validate",
+    n_copies=5,
+    freq='0.75S',
+    dt=0.75,
+    min_removal_percent=0,
+    max_removal_percent=50)
+
+# Saving mms validateing outputs
+np.save(file='data_processed/mms/mms_clean_inputs_validate',
+        arr=mms_clean_inputs_validate)
+np.save(file='data_processed/mms/mms_clean_outputs_validate',
+        arr=mms_clean_outputs_validate)
+
+np.save(file='data_processed/mms/mms_gapped_inputs_validate',
+        arr=mms_gapped_inputs_validate)
+np.save(file='data_processed/mms/mms_gapped_outputs_validate',
+        arr=mms_gapped_outputs_validate)
+
+np.save(file='data_processed/mms/mms_filled_inputs_validate',
+        arr=mms_filled_inputs_validate)
+np.save(file='data_processed/mms/mms_filled_inputs_validate_flat',
+        arr=mms_filled_inputs_validate_flat)
+np.save(file='data_processed/mms/mms_filled_inputs_validate_flat_no_ind',
+        arr=mms_filled_inputs_validate_flat_no_ind)
+np.save(file='data_processed/mms/mms_filled_outputs_validate',
+        arr=mms_filled_outputs_validate)
+
+np.save(file='data_processed/mms/mms_lint_inputs_validate',
+        arr=mms_lint_inputs_validate)
+np.save(file='data_processed/mms/mms_lint_inputs_validate_flat',
+        arr=mms_lint_inputs_validate_flat)
+np.save(file='data_processed/mms/mms_lint_inputs_validate_flat_no_ind',
+        arr=mms_lint_inputs_validate_flat_no_ind)
+np.save(file='data_processed/mms/mms_lint_outputs_validate',
+        arr=mms_lint_outputs_validate)
+
+np.save(file='data_processed/mms/mms_gapped_inputs_validate_prop_removed',
+        arr=mms_gapped_inputs_validate_prop_removed)
+
+print("\nFINISHED PROCESSING mms validateING DATA \n")
 
 print("\nTIME: ", datetime.datetime.now())
 
