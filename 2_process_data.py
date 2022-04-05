@@ -285,8 +285,8 @@ psp_df_2 = pd.read_pickle("data_processed/psp/psp_df_2.pkl")
  psp_inputs_test_list) = mag_interval_pipeline_split(df_list=[psp_df_1, psp_df_2],
                                                      dataset_name="psp",
                                                      # Previously 1950000
-                                                     n_values_list=[1950000, 1150000],
-                                                     n_subsets_list=[1950000/10000, 1150000/10000],
+                                                     n_values_list=[1950000, 970000], # 1150000 actually available for the 2nd interval
+                                                     n_subsets_list=[1950000/10000, 970000/10000],
                                                      test_size=0.2)
 
 # Duplicating, gapping, and calculating structure functions for training set
@@ -418,9 +418,17 @@ print("\nTIME: ", datetime.datetime.now())
 
 # Loading the data
 
-mms_df_1 = pd.read_pickle("data_processed/mms/mms_df_1.pkl")
-mms_df_2 = pd.read_pickle("data_processed/mms/mms_df_2.pkl")
-mms_df_3 = pd.read_pickle("data_processed/mms/mms_df_3.pkl")
+mms1_df_1 = pd.read_pickle("data_processed/mms/mms1_df_1.pkl")
+mms1_df_2 = pd.read_pickle("data_processed/mms/mms1_df_2.pkl")
+
+mms2_df_1 = pd.read_pickle("data_processed/mms/mms2_df_1.pkl")
+mms2_df_2 = pd.read_pickle("data_processed/mms/mms2_df_2.pkl")
+
+mms3_df_1 = pd.read_pickle("data_processed/mms/mms3_df_1.pkl")
+mms3_df_2 = pd.read_pickle("data_processed/mms/mms3_df_2.pkl")
+
+mms4_df_1 = pd.read_pickle("data_processed/mms/mms4_df_1.pkl")
+mms4_df_2 = pd.read_pickle("data_processed/mms/mms4_df_2.pkl")
 
 #################
 
@@ -428,10 +436,19 @@ mms_df_3 = pd.read_pickle("data_processed/mms/mms_df_3.pkl")
 
 (mms_inputs_train_list,
  mms_inputs_test_list) = mag_interval_pipeline_split(
-    df_list=[mms_df_1, mms_df_2, mms_df_3],
+    df_list=[
+            mms1_df_1, 
+            mms1_df_2, 
+            mms2_df_1,
+            mms2_df_2,
+            mms3_df_1,
+            mms3_df_2,
+            mms4_df_1,
+            mms4_df_2
+            ],
     dataset_name="mms",
-    n_values_list=[290000, 210000, 440000],
-    n_subsets_list=[290000/10000, 210000/10000, 440000/10000],
+    n_values_list=[290000, 440000]*4,
+    n_subsets_list=[290000/10000, 440000/10000]*4,
     test_size=0.2)
 
 print("\n\nPROCESSING MMS TRAINING DATA \n")
