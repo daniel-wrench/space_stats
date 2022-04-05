@@ -285,8 +285,8 @@ psp_df_2 = pd.read_pickle("data_processed/psp/psp_df_2.pkl")
  psp_inputs_test_list) = mag_interval_pipeline_split(df_list=[psp_df_1, psp_df_2],
                                                      dataset_name="psp",
                                                      # Previously 1950000
-                                                     n_values=[1950000, 1150000],
-                                                     n_subsets=[1950000/10000, 1150000/10000],
+                                                     n_values_list=[1950000, 1150000],
+                                                     n_subsets_list=[1950000/10000, 1150000/10000],
                                                      test_size=0.2)
 
 # Duplicating, gapping, and calculating structure functions for training set
@@ -424,17 +424,15 @@ mms_df_3 = pd.read_pickle("data_processed/mms/mms_df_3.pkl")
 
 #################
 
-# Splitting test set
+# Splitting into training and test set
 
 (mms_inputs_train_list,
  mms_inputs_test_list) = mag_interval_pipeline_split(
     df_list=[mms_df_1, mms_df_2, mms_df_3],
     dataset_name="mms",
-    n_values=[290000, 210000, 440000],
-    n_subsets=[290000/10000, 210000/10000, 440000/10000],
+    n_values_list=[290000, 210000, 440000],
+    n_subsets_list=[290000/10000, 210000/10000, 440000/10000],
     test_size=0.2)
-
-
 
 print("\n\nPROCESSING MMS TRAINING DATA \n")
 
