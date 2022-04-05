@@ -12,6 +12,7 @@
 
 # Loading packages, including those on Git in ~bin/python_env
 
+from attr import validate
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -112,7 +113,12 @@ def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_
     inputs_list_shuffled = [inputs_list[i] for i in shuffler]
 
     train_size = 1 - validate_size - test_size
-    inputs_train, inputs_validate, inputs_test = np.split(inputs_list_shuffled, [int(train_size * len(inputs_list_shuffled)), int((validate_size + train_size) * len(inputs_list_shuffled))])
+
+    train_val_boundary = int(train_size*len(inputs_list_shuffled))
+    val_test_boundary = int((train_size+validate_size)*len(inputs_list_shuffled))
+    inputs_train = inputs_list_shuffled[:train_val_boundary]
+    inputs_validate = inputs_list_shuffled[train_val_boundary:val_test_boundary]
+    inputs_test = inputs_list_shuffled[val_test_boundary:]
 
     print("\nInput training data dimensions:", len(inputs_train), 'x', inputs_train[0].shape)
     print("\nInput validation data dimensions:", len(inputs_validate), 'x', inputs_validate[0].shape)
@@ -283,9 +289,9 @@ psp_df_2 = pd.read_pickle("data_processed/psp/psp_df_2.pkl")
 # Splitting into training and test sets
 (psp_inputs_train_list, psp_inputs_validate_list, psp_inputs_test_list) = mag_interval_pipeline_split(df_list=[psp_df_1, psp_df_2],
                                                      dataset_name="psp",
-                                                     n_values_list=[1950000, 900000], 
+                                                     n_values_list=[1950000, 680000], 
                                                      # 1150000 actually available for the 2nd interval, limiting to match MMS
-                                                     n_subsets_list=[1950000/10000, 900000/10000],
+                                                     n_subsets_list=[1950000/10000, 680000/10000],
                                                      validate_size=0.1,
                                                      test_size=0.2)
 
@@ -496,6 +502,7 @@ mms4_df_2 = pd.read_pickle("data_processed/mms/mms4_df_2.pkl")
 # Splitting into training and test set
 
 (mms_inputs_train_list,
+ mms_inputs_validate_list,
  mms_inputs_test_list) = mag_interval_pipeline_split(
     df_list=[
             mms1_df_1, 
@@ -510,6 +517,7 @@ mms4_df_2 = pd.read_pickle("data_processed/mms/mms4_df_2.pkl")
     dataset_name="mms",
     n_values_list=[290000, 440000]*3 + [440000],
     n_subsets_list=[290000/10000, 440000/10000]*3 + [440000/10000],
+    validate_size = 0.1,
     test_size=0.2)
 
 print("\n\nPROCESSING MMS TRAINING DATA \n")
