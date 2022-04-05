@@ -96,7 +96,6 @@ outputs_train = tf.constant(output_training)
 inputs_validate = tf.constant(input_validate)
 outputs_validate = tf.constant(output_validate)
 
-
 inputs_test_psp = tf.constant(input_testing_2b_psp)
 outputs_test_psp = tf.constant(output_testing_psp)
 
@@ -152,12 +151,11 @@ np.save(file='results/' + model_name + 'val_loss',
 # Evaluating model performance
 print(sf_ann.summary())
 print('MSE on PSP test set=', sf_ann.evaluate(inputs_test_psp, outputs_test_psp))
-print('MSE on MMS test set=', sf_ann.evaluate(
-    inputs_test_mms, outputs_test_mms))
+print('MSE on MMS test set=', sf_ann.evaluate(inputs_test_mms, outputs_test_mms))
 #print('MSE on PSP 2020 test set=', sf_ann.evaluate(inputs_test_2020, outputs_test_2020))
 
 # Saving predictions on test sets
-test_predictions = sf_ann.predict(inputs_test)
+test_predictions = sf_ann.predict(inputs_test_psp)
 np.save(file='results/' + model_name +
         'psp_outputs_test_predict', arr=test_predictions)
 
@@ -174,79 +172,79 @@ np.save(file='results/' + model_name +
 
 # Define the model, including the hyperparameter search space
 
-def model_builder(hp):
-  model = tf.keras.Sequential()
-  model.add(tf.keras.layers.Flatten(input_shape=(10000, 3)))
+# def model_builder(hp):
+#   model = tf.keras.Sequential()
+#   model.add(tf.keras.layers.Flatten(input_shape=(10000, 3)))
 
-  # Tune the number of units in the first Dense layer
-  # Choose an optimal value between 32-512
-  hp_units = hp.Int('units', min_value=32, max_value=512, step=32)
-  model.add(tf.keras.layers.Dense(units=hp_units, activation='relu'))
+#   # Tune the number of units in the first Dense layer
+#   # Choose an optimal value between 32-512
+#   hp_units = hp.Int('units', min_value=32, max_value=512, step=32)
+#   model.add(tf.keras.layers.Dense(units=hp_units, activation='relu'))
 
-  # Tune whether to use dropout
-  if hp.Boolean("dropout"):
-      model.add(tf.keras.layers.Dropout(rate=0.25))
+#   # Tune whether to use dropout
+#   if hp.Boolean("dropout"):
+#       model.add(tf.keras.layers.Dropout(rate=0.25))
 
-  model.add(tf.keras.layers.Dense(10))
+#   model.add(tf.keras.layers.Dense(10))
 
-  # Tune the learning rate for the optimizer
-  # Choose an optimal value from 0.01, 0.001, or 0.0001
-  hp_learning_rate = hp.Choice('learning_rate', values=[1e-2, 1e-3, 1e-4])
+#   # Tune the learning rate for the optimizer
+#   # Choose an optimal value from 0.01, 0.001, or 0.0001
+#   hp_learning_rate = hp.Choice('learning_rate', values=[1e-2, 1e-3, 1e-4])
 
-  model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=hp_learning_rate),
-                loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-                metrics=['accuracy'])
+#   model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=hp_learning_rate),
+#                 loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+#                 metrics=['accuracy'])
 
-  return model
+#   return model
 
-# Check that the model builds successfully
-model_builder(kt.HyperParameters())
+# # Check that the model builds successfully
+# model_builder(kt.HyperParameters())
 
-# Instantiate the tuner and perform hypertuning
+# # Instantiate the tuner and perform hypertuning
 
-# Multiple different tuners available, such as Hyperband and RandomSearch
-tuner = kt.Hyperband(model_builder,
-                     objective='val_accuracy',
-                     max_epochs=10,
-                     factor=3,
-                     directory='my_dir',
-                     project_name='intro_to_kt')
+# # Multiple different tuners available, such as Hyperband and RandomSearch
+# tuner = kt.Hyperband(model_builder,
+#                      objective='val_accuracy',
+#                      max_epochs=10,
+#                      factor=3,
+#                      directory='my_dir',
+#                      project_name='intro_to_kt')
 
-# Create EarlyStoppingCriteria callback
-stop_early = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
+# # Create EarlyStoppingCriteria callback
+# stop_early = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
 
-# Run the search
-tuner.search(img_train, label_train, epochs=50, validation_split=0.2, callbacks=[stop_early])
-# or, validation_data=(x_val, y_val)
+# # Run the search
+# tuner.search(inputs_train, outputs_train, epochs=50, validation_split=0.2, callbacks=[stop_early])
+# # or, validation_data=(x_val, y_val)
 
-# Get the optimal hyperparameters
-best_hps=tuner.get_best_hyperparameters(num_trials=1)[0]
+# # Get the optimal hyperparameters
+# best_hps=tuner.get_best_hyperparameters(num_trials=1)[0]
 
-# (Alternatively, we can return the best model using the following line)
-# best_model = tuner.get_best_models()[0]
+# # (Alternatively, we can return the best model using the following line)
+# # best_model = tuner.get_best_models()[0]
 
-print(f"""
-The hyperparameter search is complete. The optimal number of units in the first densely-connected
-layer is {best_hps.get('units')} and the optimal learning rate for the optimizer
-is {best_hps.get('learning_rate')}.
-""")
+# print(f"""
+# The hyperparameter search is complete. The optimal number of units in the first densely-connected
+# layer is {best_hps.get('units')} and the optimal learning rate for the optimizer
+# is {best_hps.get('learning_rate')}.
+# """)
 
-# Build the model with the optimal hyperparameters and train it on the data for 50 epochs
-model = tuner.hypermodel.build(best_hps)
-history = model.fit(img_train, label_train, epochs=50, validation_split=0.2)
+# # Build the model with the optimal hyperparameters and train it on the data for 50 epochs
+# model = tuner.hypermodel.build(best_hps)
+# history = model.fit(img_train, label_train, epochs=50, validation_split=0.2)
 
-val_acc_per_epoch = history.history['val_accuracy']
-best_epoch = val_acc_per_epoch.index(max(val_acc_per_epoch)) + 1
-print('Best epoch: %d' % (best_epoch,))
+# val_acc_per_epoch = history.history['val_accuracy']
+# best_epoch = val_acc_per_epoch.index(max(val_acc_per_epoch)) + 1
+# print('Best epoch: %d' % (best_epoch,))
 
-# Re-instantiate the hypermodel and train it a final time with the optimal number of epochs from above.
+# # Re-instantiate the hypermodel and train it a final time with the optimal number of epochs from above.
 
-hypermodel = tuner.hypermodel.build(best_hps)
+# hypermodel = tuner.hypermodel.build(best_hps)
 
-# Retrain the model
-hypermodel.fit(img_train, label_train, epochs=best_epoch, validation_split=0.2)
+# # Retrain the model
+# hypermodel.fit(img_train, label_train, epochs=best_epoch, validation_split=0.2)
 
-# Finally, evaluate the final model on the test data
+# # Finally, evaluate the final model on the test data
 
-eval_result = hypermodel.evaluate(img_test, label_test)
-print("[test loss, test accuracy]:", eval_result)
+# eval_result = hypermodel.evaluate(img_test, label_test)
+# print("[test loss, test accuracy]:", eval_result)
