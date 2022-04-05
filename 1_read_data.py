@@ -253,10 +253,6 @@ for spacecraft in ['mms1', 'mms2', 'mms3', 'mms4']:
     mms_df = mms_df.drop(columns='Epoch').set_index('Time')
     mms_df = mms_df.drop('Bt', axis=1)
 
-    if spacecraft == 'mms4':
-        print("Trimming this interval due to missing portion for this spacecraft")
-        mms_df = mms_df['2017-12-26 06:23:42.664':]
-
     print("\nRaw data (before re-sampling):")
     print(mms_df.head())
     print("\nLength of raw data:")
@@ -266,6 +262,10 @@ for spacecraft in ['mms1', 'mms2', 'mms3', 'mms4']:
 
     # Original freq is 0.007s. Resampling to get appropriate number of correlation times in 10,000 points
     mms_df_resampled = mms_df.resample('0.008S').mean()
+
+    if spacecraft == 'mms4':
+        print("Trimming this interval due to missing portion for this spacecraft")
+        mms_df_resampled = mms_df_resampled['2017-12-26 06:23:42.664':]
 
     print("\nRe-sampled data:")
     print(mms_df_resampled.head())
