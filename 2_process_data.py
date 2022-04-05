@@ -43,6 +43,7 @@ def calc_strfn(input_intervals, dt):
         sfs.append(s[0])
     return sfs
 
+
 def prepare_array_for_output(dataset):
     list_of_vectors = []
     for i in range(len(dataset)):
@@ -71,9 +72,11 @@ def prepare_array_for_output(dataset):
 # This one takes a time series and splits it into many intervals, normalises them,
 # then groups them into a training, validation and test set
 
+
 def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_list, validate_size, test_size):
 
-    print("SPLITTING, NORMALISING AND SHUFFLING" + dataset_name + "MAG FIELD DATA")
+    print("SPLITTING, NORMALISING AND SHUFFLING" +
+          dataset_name + "MAG FIELD DATA")
 
     inputs_list_raw = np.split(
         df_list[0][:n_values_list[0]], n_subsets_list[0])
@@ -88,7 +91,7 @@ def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_
     plt.plot(inputs_list_raw[0])
     plt.title("Single clean vector interval pre-standardisation")
     plt.savefig("results/" + dataset_name + "_example_input_raw.png")
-    #plt.clf()  # Try plt.cla() if this doesn't work
+    # plt.clf()  # Try plt.cla() if this doesn't work
 
     # List comprehension! Better than for loops!
     inputs_list = [calcs.normalize(i) for i in inputs_list_raw]
@@ -96,7 +99,7 @@ def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_
     plt.plot(inputs_list[0])
     plt.title("Single clean vector interval post-standardisation")
     plt.savefig("results/" + dataset_name + "_example_input_std.png")
-    #plt.clf()
+    # plt.clf()
 
     print("\n Means of a clean interval post-standardisation")
     print(inputs_list[0].mean())
@@ -349,7 +352,6 @@ print("\nFINISHED PROCESSING PSP TRAINING DATA \n")
 print("\nTIME: ", datetime.datetime.now())
 
 
-
 print("\n\nPROCESSING PSP VALIDATION DATA \n")
 
 (psp_clean_inputs_validate,
@@ -486,7 +488,7 @@ mms2_df_2 = pd.read_pickle("data_processed/mms/mms2_df_2.pkl")
 mms3_df_1 = pd.read_pickle("data_processed/mms/mms3_df_1.pkl")
 mms3_df_2 = pd.read_pickle("data_processed/mms/mms3_df_2.pkl")
 
-mms4_df_1 = pd.read_pickle("data_processed/mms/mms4_df_1.pkl")
+# mms4_df_1 = pd.read_pickle("data_processed/mms/mms4_df_1.pkl")
 mms4_df_2 = pd.read_pickle("data_processed/mms/mms4_df_2.pkl")
 
 #################
@@ -502,12 +504,12 @@ mms4_df_2 = pd.read_pickle("data_processed/mms/mms4_df_2.pkl")
             mms2_df_2,
             mms3_df_1,
             mms3_df_2,
-            mms4_df_1,
+        # mms4_df_1,
             mms4_df_2
             ],
     dataset_name="mms",
-    n_values_list=[290000, 440000]*3 + [220000, 440000],
-    n_subsets_list=[290000/10000, 440000/10000]*3 + [220000/10000, 440000/10000],
+    n_values_list=[290000, 440000]*3 + [440000],
+    n_subsets_list=[290000/10000, 440000/10000]*3 + [440000/10000],
     test_size=0.2)
 
 print("\n\nPROCESSING MMS TRAINING DATA \n")
