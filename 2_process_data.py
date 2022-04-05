@@ -74,6 +74,8 @@ def prepare_array_for_output(dataset):
 
 def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_list, test_size):
 
+    print("SPLITTING, NORMALISING AND SHUFFLING" + dataset_name + "MAG FIELD DATA")
+
     inputs_list_raw = np.split(
         df_list[0][:n_values_list[0]], n_subsets_list[0])
     # Recent additional feature that allows multiple dfs to be imported, useful for when using
@@ -284,9 +286,9 @@ psp_df_2 = pd.read_pickle("data_processed/psp/psp_df_2.pkl")
 (psp_inputs_train_list,
  psp_inputs_test_list) = mag_interval_pipeline_split(df_list=[psp_df_1, psp_df_2],
                                                      dataset_name="psp",
-                                                     # Previously 1950000
-                                                     n_values_list=[1950000, 970000], # 1150000 actually available for the 2nd interval
-                                                     n_subsets_list=[1950000/10000, 970000/10000],
+                                                     n_values_list=[1950000, 900000], 
+                                                     # 1150000 actually available for the 2nd interval, limiting to match MMS
+                                                     n_subsets_list=[1950000/10000, 900000/10000],
                                                      test_size=0.2)
 
 # Duplicating, gapping, and calculating structure functions for training set
@@ -447,8 +449,8 @@ mms4_df_2 = pd.read_pickle("data_processed/mms/mms4_df_2.pkl")
             mms4_df_2
             ],
     dataset_name="mms",
-    n_values_list=[290000, 440000]*4,
-    n_subsets_list=[290000/10000, 440000/10000]*4,
+    n_values_list=[290000, 440000]*3 + [220000, 440000],
+    n_subsets_list=[290000/10000, 440000/10000]*3 + [220000/10000, 440000/10000],
     test_size=0.2)
 
 print("\n\nPROCESSING MMS TRAINING DATA \n")
