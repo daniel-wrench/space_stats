@@ -214,158 +214,124 @@ print(datetime.datetime.now())
 
 print("\n\nREADING MMS DATA \n")
 
-mms_data_raw = data_import.read_cdfs([
-    "data_raw/mms/mms1_fgm_brst_l2_20171226061243_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226061513_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226061743_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226062013_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226062233_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226062503_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226062733_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226063003_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226063233_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226063503_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226063733_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226064003_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226064223_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226064453_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226064723_v5.117.3.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226064953_v5.117.3.cdf"
-],
-    {'Epoch': (0), 'mms1_fgm_b_dmpa_brst_l2': (0, 4), 'label_b_gse': (0, 4)})
+# Here reading the same intervals from each of the four spacecraft
 
-mms_data = data_import.extract_components(
-    mms_data_raw, var_name='mms1_fgm_b_dmpa_brst_l2', label_name='label_b_gse', time_var='Epoch', dim=4)
-mms_df = pd.DataFrame(mms_data)
-mms_df['Time'] = pd.to_datetime(
-    '2000-01-01 12:00') + pd.to_timedelta(mms_df['Epoch'], unit='ns')
-mms_df = mms_df.drop(columns='Epoch').set_index('Time')
-mms_df = mms_df.drop('Bt', axis=1)
+versions = {
+    'mms1': "v5.117.3.cdf", 
+    'mms2': "v5.117.2.cdf",
+    'mms3': "v5.117.1.cdf",
+    'mms4': "v5.117.0.cdf"
+    }
 
-print("\nRaw data (before re-sampling):")
-print(mms_df.head())
-print("\nLength of raw data:")
-print(mms_df.notnull().sum())
-print("\nNumber of missing values:")
-print(mms_df.isnull().sum())
+for spacecraft in ['mms1', 'mms2', 'mms3', 'mms4']:
 
-# Original freq is 0.007s. Resampling to get appropriate number of correlation times in 10,000 points
-mms_df_resampled = mms_df.resample('0.008S').mean()
+    mms_data_raw = data_import.read_cdfs([
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226061243_" + versions[spacecraft],
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226061513_" + versions[spacecraft],
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226061743_" + versions[spacecraft],
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226062013_" + versions[spacecraft],
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226062233_" + versions[spacecraft],
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226062503_" + versions[spacecraft],
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226062733_" + versions[spacecraft],
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226063003_" + versions[spacecraft],
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226063233_" + versions[spacecraft],
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226063503_" + versions[spacecraft],
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226063733_" + versions[spacecraft],
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226064003_" + versions[spacecraft],
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226064223_" + versions[spacecraft],
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226064453_" + versions[spacecraft],
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226064723_" + versions[spacecraft],
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226064953_" + versions[spacecraft]
+    ],
+        {'Epoch': (0), spacecraft + '_fgm_b_dmpa_brst_l2': (0, 4), 'label_b_gse': (0, 4)})
 
-print("\nRe-sampled data:")
-print(mms_df_resampled.head())
-print("\nLength of re-sampled data")
-print(mms_df_resampled.notnull().sum())
-print("\nNumber of missing values:")
-print(mms_df_resampled.isnull().sum())
+    mms_data = data_import.extract_components(
+        mms_data_raw, var_name=spacecraft + '_fgm_b_dmpa_brst_l2', label_name='label_b_gse', time_var='Epoch', dim=4)
+    mms_df = pd.DataFrame(mms_data)
+    mms_df['Time'] = pd.to_datetime(
+        '2000-01-01 12:00') + pd.to_timedelta(mms_df['Epoch'], unit='ns')
+    mms_df = mms_df.drop(columns='Epoch').set_index('Time')
+    mms_df = mms_df.drop('Bt', axis=1)
 
-# Saving final dataframe to directory
-mms_df_resampled.to_pickle("data_processed/mms/mms_df_1.pkl")
+    print("\nRaw data (before re-sampling):")
+    print(mms_df.head())
+    print("\nLength of raw data:")
+    print(mms_df.notnull().sum())
+    print("\nNumber of missing values:")
+    print(mms_df.isnull().sum())
 
+    # Original freq is 0.007s. Resampling to get appropriate number of correlation times in 10,000 points
+    mms_df_resampled = mms_df.resample('0.008S').mean()
 
-# 2ND MMS INTERVAL
+    print("\nRe-sampled data:")
+    print(mms_df_resampled.head())
+    print("\nLength of re-sampled data")
+    print(mms_df_resampled.notnull().sum())
+    print("\nNumber of missing values:")
+    print(mms_df_resampled.isnull().sum())
 
-mms_data_raw = data_import.read_cdfs([
-    "data_raw/mms/mms1_fgm_brst_l2_20171226194913_v5.118.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226195133_v5.118.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226195353_v5.118.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226195613_v5.118.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226195833_v5.118.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226200053_v5.118.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226200313_v5.118.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226200543_v5.118.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226200803_v5.118.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226201023_v5.118.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226201243_v5.118.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20171226201503_v5.118.0.cdf"
-],
-    {'Epoch': (0), 'mms1_fgm_b_dmpa_brst_l2': (0, 4), 'label_b_gse': (0, 4)})
-
-mms_data = data_import.extract_components(
-    mms_data_raw, var_name='mms1_fgm_b_dmpa_brst_l2', label_name='label_b_gse', time_var='Epoch', dim=4)
-mms_df = pd.DataFrame(mms_data)
-mms_df['Time'] = pd.to_datetime(
-    '2000-01-01 12:00') + pd.to_timedelta(mms_df['Epoch'], unit='ns')
-mms_df = mms_df.drop(columns='Epoch').set_index('Time')
-mms_df = mms_df.drop('Bt', axis=1)
-
-print("\nRaw data (before re-sampling):")
-print(mms_df.head())
-print("\nLength of raw data:")
-print(mms_df.notnull().sum())
-print("\nNumber of missing values:")
-print(mms_df.isnull().sum())
-
-# Original freq is 0.007s. Resampling to get appropriate number of correlation times in 10,000 points
-mms_df_resampled = mms_df.resample('0.008S').mean()
-
-print("\nRe-sampled data:")
-print(mms_df_resampled.head())
-print("\nLength of re-sampled data")
-print(mms_df_resampled.notnull().sum())
-print("\nNumber of missing values:")
-print(mms_df_resampled.isnull().sum())
-
-# Saving final dataframe to directory
-mms_df_resampled.to_pickle("data_processed/mms/mms_df_2.pkl")
+    # Saving final dataframe to directory
+    mms_df_resampled.to_pickle("data_processed/mms/" + spacecraft + "_df_1.pkl")
 
 
-# 3rd MMS INTERVAL
+    # 2nd MMS INTERVAL
 
-mms_data_raw = data_import.read_cdfs([
-    "data_raw/mms/mms1_fgm_brst_l2_20180108040003_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108040233_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108040503_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108040733_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108041003_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108041233_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108041503_v5.138.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108041733_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108042003_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108042233_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108042503_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108042733_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108043003_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108043233_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108043503_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108043733_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108044003_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108044233_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108044503_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108044733_v5.138.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108045003_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108045233_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108045503_v5.119.0.cdf",
-    "data_raw/mms/mms1_fgm_brst_l2_20180108045733_v5.119.0.cdf"
-],
-    {'Epoch': (0), 'mms1_fgm_b_dmpa_brst_l2': (0, 4), 'label_b_gse': (0, 4)})
+    mms_data_raw = data_import.read_cdfs([
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108040003_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108040233_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108040503_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108040733_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108041003_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108041233_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108041503_v5.138.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108041733_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108042003_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108042233_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108042503_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108042733_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108043003_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108043233_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108043503_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108043733_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108044003_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108044233_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108044503_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108044733_v5.138.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108045003_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108045233_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108045503_v5.119.0.cdf",
+        "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20180108045733_v5.119.0.cdf"
+    ],
+        {'Epoch': (0), spacecraft + '_fgm_b_dmpa_brst_l2': (0, 4), 'label_b_gse': (0, 4)})
 
-mms_data = data_import.extract_components(
-    mms_data_raw, var_name='mms1_fgm_b_dmpa_brst_l2', label_name='label_b_gse', time_var='Epoch', dim=4)
-mms_df = pd.DataFrame(mms_data)
-mms_df['Time'] = pd.to_datetime(
-    '2000-01-01 12:00') + pd.to_timedelta(mms_df['Epoch'], unit='ns')
-mms_df = mms_df.drop(columns='Epoch').set_index('Time')
-mms_df = mms_df.drop('Bt', axis=1)
+    mms_data = data_import.extract_components(
+        mms_data_raw, var_name=spacecraft + '_fgm_b_dmpa_brst_l2', label_name='label_b_gse', time_var='Epoch', dim=4)
+    mms_df = pd.DataFrame(mms_data)
+    mms_df['Time'] = pd.to_datetime(
+        '2000-01-01 12:00') + pd.to_timedelta(mms_df['Epoch'], unit='ns')
+    mms_df = mms_df.drop(columns='Epoch').set_index('Time')
+    mms_df = mms_df.drop('Bt', axis=1)
 
-print("\nRaw data (before re-sampling):")
-print(mms_df.head())
-print("\nLength of raw data:")
-print(mms_df.notnull().sum())
-print("\nNumber of missing values:")
-print(mms_df.isnull().sum())
+    print("\nRaw data (before re-sampling):")
+    print(mms_df.head())
+    print("\nLength of raw data:")
+    print(mms_df.notnull().sum())
+    print("\nNumber of missing values:")
+    print(mms_df.isnull().sum())
 
-# Original freq is 0.007s. Resampling to get appropriate number of correlation times in 10,000 points
-mms_df_resampled = mms_df.resample('0.008S').mean()
+    # Original freq is 0.007s. Resampling to get appropriate number of correlation times in 10,000 points
+    mms_df_resampled = mms_df.resample('0.008S').mean()
 
-print("\nRe-sampled data:")
-print(mms_df_resampled.head())
-print("\nLength of re-sampled data")
-print(mms_df_resampled.notnull().sum())
-print("\nNumber of missing values:")
-print(mms_df_resampled.isnull().sum())
+    print("\nRe-sampled data:")
+    print(mms_df_resampled.head())
+    print("\nLength of re-sampled data")
+    print(mms_df_resampled.notnull().sum())
+    print("\nNumber of missing values:")
+    print(mms_df_resampled.isnull().sum())
 
-# Saving final dataframe to directory
-mms_df_resampled.to_pickle("data_processed/mms/mms_df_3.pkl")
+    # Saving final dataframe to directory
+    mms_df_resampled.to_pickle("data_processed/mms/" + spacecraft + "_df_2.pkl")
 
 print("\nFINISHED")
+
+#################
