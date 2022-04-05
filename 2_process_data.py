@@ -12,7 +12,6 @@
 
 # Loading packages, including those on Git in ~bin/python_env
 
-from attr import validate
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
