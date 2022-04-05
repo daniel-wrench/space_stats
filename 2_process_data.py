@@ -431,13 +431,76 @@ mms_df_4 = pd.read_pickle("data_processed/mms/mms_df_4.pkl")
  mms_inputs_test_list) = mag_interval_pipeline_split(
     df_list=[mms_df_1, mms_df_2],
     dataset_name="mms",
-    n_values=[290000, 210000],
-    n_subsets=[290000/10000, 210000/10000],
-    test_size=1)
+    n_values=[290000, 210000, 440000],
+    n_subsets=[290000/10000, 210000/10000, 440000/10000],
+    test_size=0.2)
+
+
+
+print("\n\nPROCESSING MMS TRAINING DATA \n")
+
+(mms_clean_inputs_train,
+ mms_clean_outputs_train,
+ mms_gapped_inputs_train,
+ mms_gapped_outputs_train,
+ mms_filled_inputs_train,
+ mms_filled_inputs_train_flat,
+ mms_filled_inputs_train_flat_no_ind,
+ mms_filled_outputs_train,
+ mms_lint_inputs_train,
+ mms_lint_inputs_train_flat,
+ mms_lint_inputs_train_flat_no_ind,
+ mms_lint_outputs_train,
+ mms_gapped_inputs_train_prop_removed
+ ) = mag_interval_pipeline_gap(
+    mms_inputs_train_list,
+    "mms_train",
+    n_copies=15,  # Previously 20
+    freq='0.008S',
+    dt=0.008,
+    min_removal_percent=0,
+    max_removal_percent=50)
+
+# Saving mms training outputs
+np.save(file='data_processed/mms/mms_clean_inputs_train',
+        arr=mms_clean_inputs_train)
+np.save(file='data_processed/mms/mms_clean_outputs_train',
+        arr=mms_clean_outputs_train)
+
+np.save(file='data_processed/mms/mms_gapped_inputs_train',
+        arr=mms_gapped_inputs_train)
+np.save(file='data_processed/mms/mms_gapped_outputs_train',
+        arr=mms_gapped_outputs_train)
+
+np.save(file='data_processed/mms/mms_filled_inputs_train',
+        arr=mms_filled_inputs_train)
+np.save(file='data_processed/mms/mms_filled_inputs_train_flat',
+        arr=mms_filled_inputs_train_flat)
+np.save(file='data_processed/mms/mms_filled_inputs_train_flat_no_ind',
+        arr=mms_filled_inputs_train_flat_no_ind)
+np.save(file='data_processed/mms/mms_filled_outputs_train',
+        arr=mms_filled_outputs_train)
+
+np.save(file='data_processed/mms/mms_lint_inputs_train',
+        arr=mms_lint_inputs_train)
+np.save(file='data_processed/mms/mms_lint_inputs_train_flat',
+        arr=mms_lint_inputs_train_flat)
+np.save(file='data_processed/mms/mms_lint_inputs_train_flat_no_ind',
+        arr=mms_lint_inputs_train_flat_no_ind)
+np.save(file='data_processed/mms/mms_lint_outputs_train',
+        arr=mms_lint_outputs_train)
+
+np.save(file='data_processed/mms/mms_gapped_inputs_train_prop_removed',
+        arr=mms_gapped_inputs_train_prop_removed)
+
+print("\nFINISHED PROCESSING MMS TRAINING DATA \n")
+
+print("\nTIME: ", datetime.datetime.now())
+
 
 # Duplicating, gapping, and calculating structure functions for MMS test set
 
-print("\n\nPROCESSING MMS (TEST) DATA \n")
+print("\n\nPROCESSING MMS TEST DATA \n")
 
 (mms_clean_inputs_test,
  mms_clean_outputs_test,
@@ -494,6 +557,6 @@ np.save(file='data_processed/mms/mms_gapped_inputs_test_prop_removed',
 
 print("\nTIME: ", datetime.datetime.now())
 
-print("\nFINISHED PROCESSING MMS DATA \n")
+print("\nFINISHED PROCESSING MMS TEST DATA \n")
 
 print("\n\n FINISHED PROCESSING ALL DATA \n")
