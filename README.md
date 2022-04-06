@@ -16,11 +16,12 @@ This code was used to explore solar wind data and implement a study of using neu
 ### SET-UP
 See also: 
 - `Research/Computers and ML/hpc_cheat_sheet.pdf`
-[Rāpoi documentation](https://vuw-research-computing.github.io/raapoi-docs/)
+- [Rāpoi documentation](https://vuw-research-computing.github.io/raapoi-docs/)
 
-1. Set-up a Singularity Tensorflow container in Linux on local computer. I had to do this using Linux on a Virtual Machine, following the instructions from [https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example](https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example).
-2. Connect to the cluster with ssh username@clustername (raapoi.vuw.ac.nz). _This may require connecting to the VUW vpn (`vpn.wgtn.ac.nz`) through Cisco. The best interface on a Windows computer is MobaXTerm._
-4. Use `sftp` to copy across `tensor.sif`, as well as the `bin` and  file
+1. Install Oracle VM VirtualBox and create a Linux VM with 20GB disk space. Also install Singularity according to the code provided [here](https://sylabs.io/guides/3.0/user-guide/installation.html). _At the point where installing dep for Go, this would not work, so I used the sudo command found [here](https://github.com/golang/dep/cmd/dep)_.
+2. Build a Singularity Tensorflow container in Linux on local computer. I had to do this using Linux on a Virtual Machine, following the instructions from [the documentation](https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example). It is a large file (1.2GB) that takes a few minutes to build. (There are more tips [here](https://clusterdeiguide.readthedocs.io/en/latest/SingularityExamples.html)
+3. Connect to the cluster with ssh username@clustername (raapoi.vuw.ac.nz). _This may require connecting to the VUW vpn (`vpn.wgtn.ac.nz`) through Cisco. The best interface on a Windows computer is MobaXTerm._
+4. Use `sftp` to copy across `tensor.sif`, as well as the `bin` and `galaxenv` repositories (these allow you to access a virtual environment).
 5. Use `lftp` to download NASA datasets from SPDF (`https://spdf.gsfc.nasa.gov/pub/data`) into the `data_raw` folder.
 
 ### SCRIPT EXECUTION PROCESS & PSEUDO-CODE
