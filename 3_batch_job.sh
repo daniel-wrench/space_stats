@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=tf_ann
+#SBATCH --job-name="3_train"
 #SBATCH -o results/3_train_neural_net.out
 #SBATCH -e results/3_train_neural_net.err
 #SBATCH --time=00:30:00
