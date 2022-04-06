@@ -1,4 +1,4 @@
-2022-04-01 11:57:39.810906
+2022-04-05 17:38:19.453718
 
 
 READING PSP DATA 
@@ -114,27 +114,110 @@ B_R    0
 B_T    0
 B_N    0
 dtype: int64
-2022-04-01 11:59:45.481277
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112100_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112106_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112112_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112118_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112200_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112206_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112212_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112218_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112300_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112306_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112312_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112318_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112400_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112406_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112412_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112418_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112500_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112506_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112512_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112518_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112600_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112606_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112612_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112618_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112700_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112706_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112712_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112718_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112800_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112806_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112812_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112818_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112900_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112906_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112912_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018112918_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018113000_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018113006_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018113012_v01.cdf
+reading file  data_raw/psp/psp_fld_l2_mag_rtn_2018113018_v01.cdf
+Done reading data
+
+Raw data (before re-sampling):
+                                    B_R       B_T        B_N
+Time                                                        
+2018-11-21 00:01:09.461474304 -8.164051 -5.746126  10.340079
+2018-11-21 00:01:09.898380928 -8.257617 -5.547852  10.133805
+2018-11-21 00:01:10.335287424 -8.012194 -5.529289  10.390263
+2018-11-21 00:01:10.772194304 -7.523283 -5.234643  10.765623
+2018-11-21 00:01:11.209100800 -7.472194 -6.201189  10.662740
+
+Length of raw data:
+B_R    1977537
+B_T    1977537
+B_N    1977537
+dtype: int64
+
+Number of missing values:
+B_R    0
+B_T    0
+B_N    0
+dtype: int64
+
+Re-sampled data:
+                              B_R       B_T        B_N
+Time                                                  
+2018-11-21 00:01:09.000 -8.164051 -5.746126  10.340079
+2018-11-21 00:01:09.750 -8.134905 -5.538571  10.262034
+2018-11-21 00:01:10.500 -7.497739 -5.717916  10.714181
+2018-11-21 00:01:11.250 -7.244131 -6.507597  10.518221
+2018-11-21 00:01:12.000 -7.778785 -5.616149  10.560217
+
+Length of re-sampled data
+B_R    1152001
+B_T    1152001
+B_N    1152001
+dtype: int64
+
+Number of missing values:
+B_R    0
+B_T    0
+B_N    0
+dtype: int64
+2022-04-05 17:41:15.590406
 
 
 READING MMS DATA 
 
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226061243_v5.117.3.cdf
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226061513_v5.117.3.cdf
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226061743_v5.117.3.cdf
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226062013_v5.117.3.cdf
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226062233_v5.117.3.cdf
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226062503_v5.117.3.cdf
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226062733_v5.117.3.cdf
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226063003_v5.117.3.cdf
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226063233_v5.117.3.cdf
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226063503_v5.117.3.cdf
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226063733_v5.117.3.cdf
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226064003_v5.117.3.cdf
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226064223_v5.117.3.cdf
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226064453_v5.117.3.cdf
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226064723_v5.117.3.cdf
-reading file  data_raw/mms/mms1_fgm_brst_l2_20171226064953_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226061243_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226061513_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226061743_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226062013_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226062233_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226062503_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226062733_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226063003_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226063233_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226063503_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226063733_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226064003_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226064223_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226064453_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226064723_v5.117.3.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20171226064953_v5.117.3.cdf
 Done reading data
 
 Raw data (before re-sampling):
@@ -178,3 +261,361 @@ Bx GSE    0
 By GSE    0
 Bz GSE    0
 dtype: int64
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108040003_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108040233_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108040503_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108040733_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108041003_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108041233_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108041503_v5.138.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108041733_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108042003_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108042233_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108042503_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108042733_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108043003_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108043233_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108043503_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108043733_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108044003_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108044233_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108044503_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108044733_v5.138.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108045003_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108045233_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108045503_v5.119.0.cdf
+reading file  data_raw/mms/mms1/mms1_fgm_brst_l2_20180108045733_v5.119.0.cdf
+Done reading data
+
+Raw data (before re-sampling):
+                                 Bx GSE    By GSE    Bz GSE
+Time                                                       
+2018-01-08 04:01:13.066353024  0.253204 -6.015852  2.304223
+2018-01-08 04:01:13.074165632  0.267091 -6.022536  2.327327
+2018-01-08 04:01:13.081978240  0.284918 -6.025261  2.355266
+2018-01-08 04:01:13.089790848  0.252235 -6.002611  2.342342
+2018-01-08 04:01:13.097603456  0.187600 -6.010040  2.333307
+
+Length of raw data:
+Bx GSE    460672
+By GSE    460672
+Bz GSE    460672
+dtype: int64
+
+Number of missing values:
+Bx GSE    0
+By GSE    0
+Bz GSE    0
+dtype: int64
+
+Re-sampled data:
+                           Bx GSE    By GSE    Bz GSE
+Time                                                 
+2018-01-08 04:01:13.064  0.253204 -6.015852  2.304223
+2018-01-08 04:01:13.072  0.267091 -6.022536  2.327327
+2018-01-08 04:01:13.080  0.284918 -6.025261  2.355266
+2018-01-08 04:01:13.088  0.252235 -6.002611  2.342342
+2018-01-08 04:01:13.096  0.187600 -6.010040  2.333307
+
+Length of re-sampled data
+Bx GSE    449881
+By GSE    449881
+Bz GSE    449881
+dtype: int64
+
+Number of missing values:
+Bx GSE    0
+By GSE    0
+Bz GSE    0
+dtype: int64
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226061243_v5.117.2.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226061513_v5.117.2.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226061743_v5.117.2.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226062013_v5.117.2.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226062233_v5.117.2.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226062503_v5.117.2.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226062733_v5.117.2.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226063003_v5.117.2.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226063233_v5.117.2.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226063503_v5.117.2.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226063733_v5.117.2.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226064003_v5.117.2.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226064223_v5.117.2.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226064453_v5.117.2.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226064723_v5.117.2.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20171226064953_v5.117.2.cdf
+Done reading data
+
+Raw data (before re-sampling):
+                                  Bx GSE     By GSE    Bz GSE
+Time                                                         
+2017-12-26 06:13:52.436750720  21.101933 -17.348997 -9.544252
+2017-12-26 06:13:52.444563328  21.098280 -17.374199 -9.521406
+2017-12-26 06:13:52.452375936  21.087400 -17.380684 -9.511574
+2017-12-26 06:13:52.460188544  21.070438 -17.391464 -9.501701
+2017-12-26 06:13:52.468001088  21.062931 -17.376392 -9.502574
+
+Length of raw data:
+Bx GSE    304512
+By GSE    304512
+Bz GSE    304512
+dtype: int64
+
+Number of missing values:
+Bx GSE    0
+By GSE    0
+Bz GSE    0
+dtype: int64
+
+Re-sampled data:
+                            Bx GSE     By GSE    Bz GSE
+Time                                                   
+2017-12-26 06:13:52.432  21.101933 -17.348997 -9.544252
+2017-12-26 06:13:52.440  21.098280 -17.374199 -9.521406
+2017-12-26 06:13:52.448  21.087400 -17.380684 -9.511574
+2017-12-26 06:13:52.456  21.070438 -17.391464 -9.501701
+2017-12-26 06:13:52.464  21.062931 -17.376392 -9.502574
+
+Length of re-sampled data
+Bx GSE    297379
+By GSE    297379
+Bz GSE    297379
+dtype: int64
+
+Number of missing values:
+Bx GSE    0
+By GSE    0
+Bz GSE    0
+dtype: int64
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108040003_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108040233_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108040503_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108040733_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108041003_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108041233_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108041503_v5.138.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108041733_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108042003_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108042233_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108042503_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108042733_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108043003_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108043233_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108043503_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108043733_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108044003_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108044233_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108044503_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108044733_v5.138.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108045003_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108045233_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108045503_v5.119.0.cdf
+reading file  data_raw/mms/mms2/mms2_fgm_brst_l2_20180108045733_v5.119.0.cdf
+Done reading data
+
+Raw data (before re-sampling):
+                                 Bx GSE    By GSE    Bz GSE
+Time                                                       
+2018-01-08 04:01:12.732850304  0.220736 -6.089837  2.469956
+2018-01-08 04:01:12.740662912  0.204632 -6.084986  2.458240
+2018-01-08 04:01:12.748475520  0.194035 -6.066329  2.459520
+2018-01-08 04:01:12.756288128  0.195849 -6.068041  2.444153
+2018-01-08 04:01:12.764100736  0.201434 -6.064301  2.410914
+
+Length of raw data:
+Bx GSE    460672
+By GSE    460672
+Bz GSE    460672
+dtype: int64
+
+Number of missing values:
+Bx GSE    0
+By GSE    0
+Bz GSE    0
+dtype: int64
+
+Re-sampled data:
+                           Bx GSE    By GSE    Bz GSE
+Time                                                 
+2018-01-08 04:01:12.728  0.220736 -6.089837  2.469956
+2018-01-08 04:01:12.736  0.204632 -6.084986  2.458240
+2018-01-08 04:01:12.744  0.194035 -6.066329  2.459520
+2018-01-08 04:01:12.752  0.195849 -6.068041  2.444153
+2018-01-08 04:01:12.760  0.201434 -6.064301  2.410914
+
+Length of re-sampled data
+Bx GSE    449881
+By GSE    449881
+Bz GSE    449881
+dtype: int64
+
+Number of missing values:
+Bx GSE    0
+By GSE    0
+Bz GSE    0
+dtype: int64
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226061243_v5.117.1.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226061513_v5.117.1.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226061743_v5.117.1.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226062013_v5.117.1.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226062233_v5.117.1.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226062503_v5.117.1.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226062733_v5.117.1.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226063003_v5.117.1.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226063233_v5.117.1.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226063503_v5.117.1.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226063733_v5.117.1.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226064003_v5.117.1.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226064223_v5.117.1.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226064453_v5.117.1.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226064723_v5.117.1.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20171226064953_v5.117.1.cdf
+Done reading data
+
+Raw data (before re-sampling):
+                                  Bx GSE     By GSE    Bz GSE
+Time                                                         
+2017-12-26 06:13:52.891352448  20.533739 -16.974060 -9.130705
+2017-12-26 06:13:52.899164992  20.536610 -16.973991 -9.128034
+2017-12-26 06:13:52.906977600  20.541239 -16.989367 -9.157142
+2017-12-26 06:13:52.914790208  20.562832 -17.003948 -9.161384
+2017-12-26 06:13:52.922602816  20.573132 -17.013105 -9.144930
+
+Length of raw data:
+Bx GSE    304512
+By GSE    304512
+Bz GSE    304512
+dtype: int64
+
+Number of missing values:
+Bx GSE    0
+By GSE    0
+Bz GSE    0
+dtype: int64
+
+Re-sampled data:
+                            Bx GSE     By GSE    Bz GSE
+Time                                                   
+2017-12-26 06:13:52.888  20.533739 -16.974060 -9.130705
+2017-12-26 06:13:52.896  20.536610 -16.973991 -9.128034
+2017-12-26 06:13:52.904  20.541239 -16.989367 -9.157142
+2017-12-26 06:13:52.912  20.562832 -17.003948 -9.161384
+2017-12-26 06:13:52.920  20.573132 -17.013105 -9.144930
+
+Length of re-sampled data
+Bx GSE    297379
+By GSE    297379
+Bz GSE    297379
+dtype: int64
+
+Number of missing values:
+Bx GSE    0
+By GSE    0
+Bz GSE    0
+dtype: int64
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108040003_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108040233_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108040503_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108040733_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108041003_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108041233_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108041503_v5.138.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108041733_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108042003_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108042233_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108042503_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108042733_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108043003_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108043233_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108043503_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108043733_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108044003_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108044233_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108044503_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108044733_v5.138.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108045003_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108045233_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108045503_v5.119.0.cdf
+reading file  data_raw/mms/mms3/mms3_fgm_brst_l2_20180108045733_v5.119.0.cdf
+Done reading data
+
+Raw data (before re-sampling):
+                                 Bx GSE    By GSE    Bz GSE
+Time                                                       
+2018-01-08 04:01:13.062969856  0.215052 -5.994246  2.305488
+2018-01-08 04:01:13.070782464  0.235354 -5.983624  2.287098
+2018-01-08 04:01:13.078595072  0.228677 -6.012052  2.302942
+2018-01-08 04:01:13.086407680  0.219518 -6.024397  2.307987
+2018-01-08 04:01:13.094220288  0.223408 -6.001270  2.270300
+
+Length of raw data:
+Bx GSE    460672
+By GSE    460672
+Bz GSE    460672
+dtype: int64
+
+Number of missing values:
+Bx GSE    0
+By GSE    0
+Bz GSE    0
+dtype: int64
+
+Re-sampled data:
+                           Bx GSE    By GSE    Bz GSE
+Time                                                 
+2018-01-08 04:01:13.056  0.215052 -5.994246  2.305488
+2018-01-08 04:01:13.064  0.235354 -5.983624  2.287098
+2018-01-08 04:01:13.072  0.228677 -6.012052  2.302942
+2018-01-08 04:01:13.080  0.219518 -6.024397  2.307987
+2018-01-08 04:01:13.088  0.223408 -6.001270  2.270300
+
+Length of re-sampled data
+Bx GSE    449882
+By GSE    449882
+Bz GSE    449882
+dtype: int64
+
+Number of missing values:
+Bx GSE    0
+By GSE    0
+Bz GSE    0
+dtype: int64
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226061243_v5.117.0.cdf
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226061513_v5.117.0.cdf
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226061743_v5.117.0.cdf
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226062013_v5.117.0.cdf
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226062233_v5.117.0.cdf
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226062503_v5.117.0.cdf
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226062733_v5.117.0.cdf
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226063003_v5.117.0.cdf
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226063233_v5.117.0.cdf
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226063503_v5.117.0.cdf
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226063733_v5.117.0.cdf
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226064003_v5.117.0.cdf
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226064223_v5.117.0.cdf
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226064453_v5.117.0.cdf
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226064723_v5.117.0.cdf
+reading file  data_raw/mms/mms4/mms4_fgm_brst_l2_20171226064953_v5.117.0.cdf
+Done reading data
+
+Raw data (before re-sampling):
+                                  Bx GSE     By GSE    Bz GSE
+Time                                                         
+2017-12-26 06:13:52.655825152  21.639265 -18.063145 -9.688507
+2017-12-26 06:13:52.663637760  21.606344 -18.079647 -9.643299
+2017-12-26 06:13:52.671450368  21.638533 -18.110245 -9.658363
+2017-12-26 06:13:52.679262976  21.648821 -18.097967 -9.651537
+2017-12-26 06:13:52.687075584  21.620777 -18.098833 -9.626846
+
+Length of raw data:
+Bx GSE    304384
+By GSE    304384
+Bz GSE    304384
+dtype: int64
+
+Number of missing values:
+Bx GSE    0
+By GSE    0
+Bz GSE    0
+dtype: int64
+Trimming this interval due to missing portion for this spacecraft
