@@ -14,12 +14,12 @@ This code was used to explore solar wind data and implement a study of using neu
 - **calculate_stats.py** Contains a function called plot_results() which is used for visualising the predictions of the neural network on the test data
 
 ### SET-UP
+See also: `Research/Computers and ML/hpc_cheat_sheet.pdf`; [https://vuw-research-computing.github.io/raapoi-docs/](Rāpoi documentation)
 
 1. Set-up a Singularity Tensorflow container in Linux on local computer. I had to do this using Linux on a Virtual Machine, following the instructions from [https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example](https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example).
-2. Log into Raapoi (or relevant HPC cluster).
-3. (Set up `bin/python_env` file to source for running commands in ipython shell.)
-4. Use `sftp` to copy across `tensor.sif` file
-5. Use `lftp` to download NASA datasets from SPDF into data/spacecraft folder.
+2. Connect to the cluster with ssh username@clustername (raapoi.vuw.ac.nz). _This may require connecting to the VUW vpn (`vpn.wgtn.ac.nz`) through Cisco. The best interface on a Windows computer is MobaXTerm._
+4. Use `sftp` to copy across `tensor.sif`, as well as the `bin` and  file
+5. Use `lftp` to download NASA datasets from SPDF (`https://spdf.gsfc.nasa.gov/pub/data`) into the `data_raw` folder.
 
 ### SCRIPT EXECUTION PROCESS & PSEUDO-CODE
 
