@@ -9,12 +9,14 @@ This code was used to explore solar wind data and implement a study of using neu
 
 ### HELPER FUNCTIONS
 
-- **data_import_funcs.py**  Contains functions for importing CDF files and outputting dated pandas DataFrames.
-- **remove_obs_funcs.py** Contains functions to remove data from dataframes
-- **calculate_stats.py** Contains a function called plot_results() which is used for visualising the predictions of the neural network on the test data
+- `data_import_funcs.py`:  Contains functions for importing CDF files and outputting dated pandas DataFrames.
+- `remove_obs_funcs.py`: Contains functions to remove data from dataframes
+- `calculate_stats.py`: Contains a function called plot_results() which is used for visualising the predictions of the neural network on the test data
 
 ### SET-UP
-See also: `Research/Computers and ML/hpc_cheat_sheet.pdf`; [https://vuw-research-computing.github.io/raapoi-docs/](Rāpoi documentation)
+See also: 
+- `Research/Computers and ML/hpc_cheat_sheet.pdf`
+- [https://vuw-research-computing.github.io/raapoi-docs/](Rāpoi documentation)
 
 1. Set-up a Singularity Tensorflow container in Linux on local computer. I had to do this using Linux on a Virtual Machine, following the instructions from [https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example](https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example).
 2. Connect to the cluster with ssh username@clustername (raapoi.vuw.ac.nz). _This may require connecting to the VUW vpn (`vpn.wgtn.ac.nz`) through Cisco. The best interface on a Windows computer is MobaXTerm._
