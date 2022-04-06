@@ -12,6 +12,7 @@ This code was used to explore solar wind data and implement a study of using neu
 - `data_import_funcs.py`:  Contains functions for importing CDF files and outputting dated pandas DataFrames.
 - `remove_obs_funcs.py`: Contains functions to remove data from dataframes
 - `calculate_stats.py`: Contains a function called plot_results() which is used for visualising the predictions of the neural network on the test data
+- `TurbAn`: contains fast Fortran code for calculating the structure function
 
 ### SET-UP
 See also: 
@@ -20,7 +21,7 @@ See also:
 
 1. Install Oracle VM VirtualBox and create a Linux VM with 20GB disk space. Also install Singularity according to the code provided [here](https://sylabs.io/guides/3.0/user-guide/installation.html). _At the point where installing dep for Go, this would not work, so I used the sudo command found [here](https://github.com/golang/dep/cmd/dep)_.
 2. Build a Singularity Tensorflow container in Linux on local computer. I had to do this using Linux on a Virtual Machine, following the instructions from [the documentation](https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example). It is a large file (1.2GB) that takes a few minutes to build. (There are more tips [here](https://clusterdeiguide.readthedocs.io/en/latest/SingularityExamples.html)
-3. Connect to the cluster with ssh username@clustername (raapoi.vuw.ac.nz). _This may require connecting to the VUW vpn (`vpn.wgtn.ac.nz`) through Cisco. The best interface on a Windows computer is MobaXTerm._
+3. Connect to the cluster with ssh username@clustername (raapoi.vuw.ac.nz). _This may require connecting to the VUW vpn (`vpn.wgtn.ac.nz`) through Cisco. The best interface on a Windows computer is MobaXTerm - if you are on Linux simply type sftp://username@raapoi.vuw.ac.nz into the Dolphin file explorer._
 4. Use `sftp` to copy across `tensor.sif`, as well as the `bin` and `galaxenv` repositories (these allow you to access a virtual environment).
 5. Use `lftp` to download NASA datasets from SPDF (`https://spdf.gsfc.nasa.gov/pub/data`) into the `data_raw` folder.
 
@@ -31,7 +32,7 @@ The scripts can be run inside or outside of Rapoi. Currently scripts 1-3 have co
 All of the following is to be run in the Rāpoi terminal.
 View that state of cluster jobs with `vuw-myjobs`.
 
-0. `source ~/bin/python_env` *if you are running anything in the terminal*
+0. `source ~/bin/python_env` *if you are running anything in the terminal using `ipython --pylab`*
 1. `sbatch 1_batch_job.sh` *Only have to do this once, depending on the size, number, and frequency of original unique intervals you want* **Takes about 8min with 6 CPUs and 15G per CPU. Requires > 20GB total and/or > 10GB per CPU** 
 
     `1_process_data.py` does the following:
