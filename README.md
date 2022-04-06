@@ -37,7 +37,7 @@ View that state of cluster jobs with `vuw-myjobs`.
     3. Return the amount of missing data, both before and after re-sampling
     4. Output the final tidy data as pkl files
 
-2. `python 2_batch_job.sh` *Only have to do this once, depending on the number of duplicate intervals to make, how much to gap each one, and what proportion of data to use for test set.* **Takes about 40min with 20 CPUs and 10G per CPU.**
+2. `sbatch 2_batch_job.sh` *Only have to do this once, depending on the number of duplicate intervals to make, how much to gap each one, and what proportion of data to use for test set.* **Takes about 40min with 20 CPUs and 10G per CPU.**
     
     This should be run in the cluster using a bash script. For now using `srun` produces a `MemoryError`. The next step will be to try either converting from float64 to float32 in the python script, *or* writing a `.sh` file according to Tulasi’s example to submit to the cluster. Using the `.sh` job I was able to produce 5 x 156 copies. This only took 1.5 seconds per interval, and would not work when running in interactive mode. At minimum, 8 is too much for the `2_singularity_submit.sh` job, with 64 cpus per task and 3G mem per CPU
 
@@ -71,7 +71,7 @@ View that state of cluster jobs with `vuw-myjobs`.
 
 6. Update `4_plot_predictions.py` with the new model number
 
-7. `sbatch 3_singularity_submit.sh` *Do not run this with fewer than 3GB of memory requested or when in the `galaxenv` environment*
+7. `sbatch 3_batch_job.sh` *Do not run this with fewer than 3GB of memory requested or when in the `galaxenv` environment*
     
 8. Review `3_train_neural_net.out`
 
