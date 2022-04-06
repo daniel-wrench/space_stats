@@ -1,5 +1,6 @@
 
-TIME:  2022-04-01 14:35:14.217612
+TIME:  2022-04-05 18:01:55.869290
+SPLITTING, NORMALISING AND SHUFFLINGpspMAG FIELD DATA
 
  Means of a clean interval post-standardisation
 B_R    4.493605e-15
@@ -13,69 +14,102 @@ B_T    1.0
 B_N    1.0
 dtype: float64
 
-Input training data dimensions: 156 x (10000, 3)
+Input training data dimensions: 184 x (10000, 3)
 
-Input test data dimensions: 39 x (10000, 3)
+Input validation data dimensions: 26 x (10000, 3)
+
+Input test data dimensions: 53 x (10000, 3)
 
 
 PROCESSING PSP TRAINING DATA 
 
 
 Unique input dimensions: 
- 156 x (10000, 3)
+ 184 x (10000, 3)
 
 Final input dimensions: 
-  Clean: (2340, 3, 10000) 
-  Gapped: (2340, 4, 10000) 
-  Filled: (2340, 4, 10000) 
-  Lint: (2340, 4, 10000)
+  Clean: (2760, 3, 10000) 
+  Gapped: (2760, 4, 10000) 
+  Filled: (2760, 4, 10000) 
+  Lint: (2760, 4, 10000)
 
 Final flat input dimensions: 
-  Filled: (2340, 40000) 
-  Filled flat, no indicator vector: (2340, 30000) 
-  Lint: (2340, 40000) 
-  Lint flat, no indicator vector: (2340, 30000)
+  Filled: (2760, 40000) 
+  Filled flat, no indicator vector: (2760, 30000) 
+  Lint: (2760, 40000) 
+  Lint flat, no indicator vector: (2760, 30000)
 
 Final output dimensions: 
-  Clean: (2340, 2000) 
-  Gapped: (2340, 2000) 
-  Filled: (2340, 2000) 
-  Lint: (2340, 2000)
+  Clean: (2760, 2000) 
+  Gapped: (2760, 2000) 
+  Filled: (2760, 2000) 
+  Lint: (2760, 2000)
 
 FINISHED PROCESSING PSP TRAINING DATA 
 
 
-TIME:  2022-04-01 14:53:06.012537
+TIME:  2022-04-05 18:24:02.848426
+
+
+PROCESSING PSP VALIDATION DATA 
+
+
+Unique input dimensions: 
+ 26 x (10000, 3)
+
+Final input dimensions: 
+  Clean: (130, 3, 10000) 
+  Gapped: (130, 4, 10000) 
+  Filled: (130, 4, 10000) 
+  Lint: (130, 4, 10000)
+
+Final flat input dimensions: 
+  Filled: (130, 40000) 
+  Filled flat, no indicator vector: (130, 30000) 
+  Lint: (130, 40000) 
+  Lint flat, no indicator vector: (130, 30000)
+
+Final output dimensions: 
+  Clean: (130, 2000) 
+  Gapped: (130, 2000) 
+  Filled: (130, 2000) 
+  Lint: (130, 2000)
+
+FINISHED PROCESSING PSP validateING DATA 
+
+
+TIME:  2022-04-05 18:25:08.546251
 
 
 PROCESSING PSP TEST DATA 
 
 
 Unique input dimensions: 
- 39 x (10000, 3)
+ 53 x (10000, 3)
 
 Final input dimensions: 
-  Clean: (195, 3, 10000) 
-  Gapped: (195, 4, 10000) 
-  Filled: (195, 4, 10000) 
-  Lint: (195, 4, 10000)
+  Clean: (265, 3, 10000) 
+  Gapped: (265, 4, 10000) 
+  Filled: (265, 4, 10000) 
+  Lint: (265, 4, 10000)
 
 Final flat input dimensions: 
-  Filled: (195, 40000) 
-  Filled flat, no indicator vector: (195, 30000) 
-  Lint: (195, 40000) 
-  Lint flat, no indicator vector: (195, 30000)
+  Filled: (265, 40000) 
+  Filled flat, no indicator vector: (265, 30000) 
+  Lint: (265, 40000) 
+  Lint flat, no indicator vector: (265, 30000)
 
 Final output dimensions: 
-  Clean: (195, 2000) 
-  Gapped: (195, 2000) 
-  Filled: (195, 2000) 
-  Lint: (195, 2000)
+  Clean: (265, 2000) 
+  Gapped: (265, 2000) 
+  Filled: (265, 2000) 
+  Lint: (265, 2000)
 
 FINISHED PROCESSING PSP TEST DATA 
 
 
-TIME:  2022-04-01 14:54:40.347045
+TIME:  2022-04-05 18:27:25.912419
+SPLITTING, NORMALISING AND SHUFFLINGmmsMAG FIELD DATA
 
  Means of a clean interval post-standardisation
 Bx GSE    4.664770e-16
@@ -89,38 +123,102 @@ By GSE    1.0
 Bz GSE    1.0
 dtype: float64
 
-Input test data dimensions: 29 x (10000, 3)
+Input training data dimensions: 184 x (10000, 3)
+
+Input validation data dimensions: 26 x (10000, 3)
+
+Input test data dimensions: 53 x (10000, 3)
 
 
-PROCESSING MMS (TEST) DATA 
+PROCESSING MMS TRAINING DATA 
 
 
 Unique input dimensions: 
- 29 x (10000, 3)
+ 184 x (10000, 3)
 
 Final input dimensions: 
-  Clean: (145, 3, 10000) 
-  Gapped: (145, 4, 10000) 
-  Filled: (145, 4, 10000) 
-  Lint: (145, 4, 10000)
+  Clean: (2760, 3, 10000) 
+  Gapped: (2760, 4, 10000) 
+  Filled: (2760, 4, 10000) 
+  Lint: (2760, 4, 10000)
 
 Final flat input dimensions: 
-  Filled: (145, 40000) 
-  Filled flat, no indicator vector: (145, 30000) 
-  Lint: (145, 40000) 
-  Lint flat, no indicator vector: (145, 30000)
+  Filled: (2760, 40000) 
+  Filled flat, no indicator vector: (2760, 30000) 
+  Lint: (2760, 40000) 
+  Lint flat, no indicator vector: (2760, 30000)
 
 Final output dimensions: 
-  Clean: (145, 2000) 
-  Gapped: (145, 2000) 
-  Filled: (145, 2000) 
-  Lint: (145, 2000)
+  Clean: (2760, 2000) 
+  Gapped: (2760, 2000) 
+  Filled: (2760, 2000) 
+  Lint: (2760, 2000)
 
-TIME:  2022-04-01 14:55:54.621701
-
-FINISHED PROCESSING MMS DATA 
+FINISHED PROCESSING MMS TRAINING DATA 
 
 
+TIME:  2022-04-05 18:49:34.335817
 
- FINISHED SCRIPT 
+
+PROCESSING mms VALIDATION DATA 
+
+
+Unique input dimensions: 
+ 26 x (10000, 3)
+
+Final input dimensions: 
+  Clean: (130, 3, 10000) 
+  Gapped: (130, 4) 
+  Filled: (130, 4) 
+  Lint: (130, 4)
+
+Final flat input dimensions: 
+  Filled: (130, 4) 
+  Filled flat, no indicator vector: (130, 3) 
+  Lint: (130, 4) 
+  Lint flat, no indicator vector: (130, 3)
+
+Final output dimensions: 
+  Clean: (130, 2000) 
+  Gapped: (130, 22) 
+  Filled: (130, 22) 
+  Lint: (130, 22)
+
+FINISHED PROCESSING mms validateING DATA 
+
+
+TIME:  2022-04-05 18:49:53.084345
+
+
+PROCESSING MMS TEST DATA 
+
+
+Unique input dimensions: 
+ 53 x (10000, 3)
+
+Final input dimensions: 
+  Clean: (265, 3, 10000) 
+  Gapped: (265, 4, 10000) 
+  Filled: (265, 4, 10000) 
+  Lint: (265, 4, 10000)
+
+Final flat input dimensions: 
+  Filled: (265, 40000) 
+  Filled flat, no indicator vector: (265, 30000) 
+  Lint: (265, 40000) 
+  Lint flat, no indicator vector: (265, 30000)
+
+Final output dimensions: 
+  Clean: (265, 2000) 
+  Gapped: (265, 2000) 
+  Filled: (265, 2000) 
+  Lint: (265, 2000)
+
+TIME:  2022-04-05 18:52:08.121093
+
+FINISHED PROCESSING MMS TEST DATA 
+
+
+
+ FINISHED PROCESSING ALL DATA 
 
