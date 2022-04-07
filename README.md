@@ -71,7 +71,7 @@ View that state of cluster jobs with `vuw-myjobs`.
 
 6. Update `4_plot_predictions.py` with the new model number
 
-7. `sbatch 3_batch_job.sh` *Do not run this with fewer than 3GB of memory requested or when in the `galaxenv` environment*
+7. `sbatch 3_batch_job.sh` *Requires > 2 x 8GB CPUs. Do not run when in the `galaxenv` environment*
     
 8. Review `3_train_neural_net.out`
 
