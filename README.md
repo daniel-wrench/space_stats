@@ -93,7 +93,7 @@ View that state of cluster jobs with `vuw-myjobs`.
     `3_train_neural_net.py` does the following:
         1. Load n x 40,000 training and test inputs, including MMS test
         2. Load n x 2000 training and test outputs, including MMS test
-        3. Defines these as Tensorflow objects
+        3. Define these as Tensorflow objects
         4. Train model (feed-forward ANN/MLP). The number of nodes in the output layer is equal to the length each structure function (2000). As well as the number of nodes, we specify the dropout layers, optimizer, learning rate, loss function, validation split, and number of epochs to train for.
         5. Output test predictions
         6. Output training and validation loss curve
@@ -104,7 +104,7 @@ View that state of cluster jobs with `vuw-myjobs`.
 4. Produce plots of a sample of true vs. predicted test **SHOULD BE VALIDATION** outputs with `python 4_plot_predictions.py`
 5. Review plots in `results/date/mod_#` to see how well the model is performing on unseen data
 6. Add model statistics (and plots if needed) to Results word doc
-7. Repeat 5-12 until a good model is found
+7. Repeat 5-11 until a good model is found
 8. Download test data files and model results to local computer
 9. Run `05_results.py` to produce final plots and statistics
     - For PSP and MMS:
