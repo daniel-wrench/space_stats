@@ -104,7 +104,7 @@ View that state of cluster jobs with `vuw-myjobs`.
 4. Produce plots of a sample of true vs. predicted test **SHOULD BE VALIDATION** outputs with `python 4_plot_predictions.py`
 5. Review plots in `results/date/mod_#` to see how well the model is performing on unseen data
 6. Add model statistics (and plots if needed) to Results word doc
-7. Repeat 5-6 until a good model is found
+7. Repeat 5-12 until a good model is found
 8. Download test data files and model results to local computer
 9. Run `05_results.py` to produce final plots and statistics
     - For PSP and MMS:
