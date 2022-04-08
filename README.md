@@ -44,16 +44,19 @@ View that state of cluster jobs with `vuw-myjobs`.
 1. `sbatch 1_batch_job.sh` *Only have to do this once, depending on the size, number, and frequency of original unique intervals you want* **Takes about 8min with 6 CPUs and 15G per CPU. Requires > 20GB total and/or > 10GB per CPU** 
 
     `1_process_data.py` does the following:
-    1. Load data from CDF files, get time and date column formatted correctly
-    2. Re-sample dataframe to correct freq (dataframe)
-    3. Return the amount of missing data, both before and after re-sampling
-    4. Output the final tidy data as pkl files
+    1. Load data from CDF files and get the time and date column formatted correctly: returns time series dataframe of magnetic field components
+    2. Re-sample dataframe to correct freq to get a consistent 13-14 correlation lengths across spacecraft/physical systems
+        - For PSP data, resample to 0.75s frequency (correlation time = 500s)
+        - For MMS, resample to 0.008s (correlation time = 6s)
+        - (For Wind, resample to 5s (correlation time = 1 hour)
+    4. Return the amount of missing data, both before and after re-sampling
+    5. Output the final tidy data as pkl files
 
 2. `sbatch 2_batch_job.sh` *Only have to do this once, depending on the number of duplicate intervals to make, how much to gap each one, and what proportion of data to use for test set.* **Takes about 40min with 20 CPUs and 10G per CPU.**
     
     This should be run in the cluster using a bash script. For now using `srun` produces a `MemoryError`. The next step will be to try either converting from float64 to float32 in the python script, *or* writing a `.sh` file according to Tulasi’s example to submit to the cluster. Using the `.sh` job I was able to produce 5 x 156 copies. This only took 1.5 seconds per interval, and would not work when running in interactive mode. At minimum, 8 is too much for the `2_singularity_submit.sh` job, with 64 cpus per task and 3G mem per CPU
 
-    `2_process_data.py` takes the .pkl data (currently majority PSP) applies two major functions. **`mag_interval_pipeline_split()`** specifies the length of the data and the number of intervals to split it into, and the proportion to set aside for testing. This function splits the dataset into standardised intervals, then groups them into a training and test set, both of which are lists of dataframes. The intermediate outputs are a plot and the summary statistics of the first interval, before and after standardisation, and the dimensions of the final outputs. *The arguments I have specified to this function are to separate out 80% of input-output pairs for training, 20% for testing, for PSP. For MMS, use 100% of intervals for testing.*
+    `2_process_data.py` takes the .pkl data (currently majority PSP) applies two major functions. **`mag_interval_pipeline_split()`** specifies the length of the data and the number of intervals to split it into, and the proportion to set aside for testing. This function splits the dataset into standardised intervals (mean 0 and standard deviation 1), then groups them into a training and test set, both of which are lists of dataframes. The intermediate outputs are a plot and the summary statistics of the first interval, before and after standardisation, and the dimensions of the final outputs. *The arguments I have specified to this function are to separate out 80% of input-output pairs for training, 20% for testing, for PSP. For MMS, use 100% of intervals for testing.*
 
     To each of these sets, the second major function **`mag_interval_pipeline_gap()`** is applied separately, specifying the number of copies to make of each interval, the re-sampling frequency applied in `1_read_data.py`, and the minimum and maximum proportion of data to remove from each artificially gapped interval. 
 
@@ -70,7 +73,7 @@ View that state of cluster jobs with `vuw-myjobs`.
 
     The simple 1-d outputs are prepared for output simply using the function `np.array(list)`.
 
-    The dimensions of these final arrays are output as intermediate output, and then these arrays are saved.
+    The dimensions of these final numpy arrays are output as intermediate output, and then these arrays are saved.
 
 3. Review plots
     - `results/…example_input_raw.png`
@@ -90,17 +93,18 @@ View that state of cluster jobs with `vuw-myjobs`.
     `3_train_neural_net.py` does the following:
         1. Load n x 40,000 training and test inputs, including MMS test
         2. Load n x 2000 training and test outputs, including MMS test
-        3. Train model (feed-forward ANN/MLP). The number of nodes in the output layer is equal to the length each structure function (2000). As well as the number of nodes, we specify the dropout layers, optimizer, learning rate, loss function, validation split, and number of epochs to train for.
-        4. Output test predictions
-        5. Output training and validation loss curve
-        6. Output training and validation losses, and test loss
+        3. Defines these as Tensorflow objects
+        4. Train model (feed-forward ANN/MLP). The number of nodes in the output layer is equal to the length each structure function (2000). As well as the number of nodes, we specify the dropout layers, optimizer, learning rate, loss function, validation split, and number of epochs to train for.
+        5. Output test predictions
+        6. Output training and validation loss curve
+        7. Output training and validation losses, and test loss
             - `psp_outputs_test_predictions`
             - `psp_outputs_test_predictions_loss`.
 
 4. Produce plots of a sample of true vs. predicted test **SHOULD BE VALIDATION** outputs with `python 4_plot_predictions.py`
 5. Review plots in `results/date/mod_#` to see how well the model is performing on unseen data
 6. Add model statistics (and plots if needed) to Results word doc
-7. Repeat 5-12 until a good model is found
+7. Repeat 5-6 until a good model is found
 8. Download test data files and model results to local computer
 9. Run `05_results.py` to produce final plots and statistics
     - For PSP and MMS:
