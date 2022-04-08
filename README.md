@@ -86,21 +86,18 @@ View that state of cluster jobs with `vuw-myjobs`.
 
 6. Update `4_plot_predictions.py` with the new model number
 
-7. `sbatch 3_batch_job.sh` *Requires > 2 x 8GB CPUs. Do not run when in the `galaxenv` environment*
-    
+7. `sbatch 3_batch_job.sh` *Requires > 2 x 8GB CPUs. Do not run when in the `galaxenv` environment.* `3_train_neural_net.py` does the following:
+   1. Load n x 40,000 training and test inputs, including MMS test
+   2. Load n x 2000 training and test outputs, including MMS test
+   3. Define these as Tensorflow objects
+   4. Train model (feed-forward ANN/MLP). The number of nodes in the output layer is equal to the length each structure function (2000). As well as the number of nodes, we specify the dropout layers, optimizer, learning rate, loss function, validation split, and number of epochs to train for.
+   5. Output test predictions
+   6. Output training and validation loss curve
+   7. Output training and validation losses, and test loss
+        - `psp_outputs_test_predictions`
+        - `psp_outputs_test_predictions_loss`.
+
 8. Review `3_train_neural_net.out`
-
-    `3_train_neural_net.py` does the following:
-        1. Load n x 40,000 training and test inputs, including MMS test
-        2. Load n x 2000 training and test outputs, including MMS test
-        3. Define these as Tensorflow objects
-        4. Train model (feed-forward ANN/MLP). The number of nodes in the output layer is equal to the length each structure function (2000). As well as the number of nodes, we specify the dropout layers, optimizer, learning rate, loss function, validation split, and number of epochs to train for.
-        5. Output test predictions
-        6. Output training and validation loss curve
-        7. Output training and validation losses, and test loss
-            - `psp_outputs_test_predictions`
-            - `psp_outputs_test_predictions_loss`.
-
 4. Produce plots of a sample of true vs. predicted test **SHOULD BE VALIDATION** outputs with `python 4_plot_predictions.py`
 5. Review plots in `results/date/mod_#` to see how well the model is performing on unseen data
 6. Add model statistics (and plots if needed) to Results word doc
@@ -109,9 +106,9 @@ View that state of cluster jobs with `vuw-myjobs`.
 9. Run `05_results.py` to produce final plots and statistics
     - For PSP and MMS:
         1. Table with one row for every interval:
-            1. Amount missing
-            2. MSE and MAPE for each of original, gapped, filled, lint, and predicted curves, compared with original curve
+           1. Amount missing
+           2. MSE and MAPE for each of original, gapped, filled, lint, and predicted curves, compared with original curve
         2. Regression analysis using above table:
-            1. Correlations between missingness against all other columns
-            2. Regression outputs of missingness against all other columns
+           1. Correlations between missingness against all other columns
+           2. Regression outputs of missingness against all other columns
     - Scatterplots of missingness against all other columns
