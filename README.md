@@ -1,6 +1,14 @@
 # Neural Nets for Space Stats
 
-This code was used to explore solar wind data and implement a study of using neural networks (as well as simpler methods) to estimate structure functions of the solar wind from time series with gaps.
+This code was used to explore solar wind data and implement a study of using neural networks (as well as simpler methods) to estimate structure functions of the solar wind from time series with gaps. Compare neural network predictions with mathematical structure function calculated from:
+- Gapped interval
+- Mean-imputed interval
+- Linearly interpolated interval
+
+
+## AIM
+
+Aiming to predict structure functions directly from solar wind magnetic field intervals with gaps using a neural network trained on many input-output pairs with artificial gaps in order to attempt to make the network robust to these data gaps (‘noise’).
 
 ## BUGS
 
