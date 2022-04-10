@@ -6,6 +6,15 @@ import tensorflow as tf
 import keras_tuner as kt
 import numpy as np
 
+# Getting issue with allow_pickle being set to False (implicitly) for some reason. Here is the stack overflow work-around
+
+# save np.load
+np_load_old = np.load
+
+# modify the default parameters of np.load
+np.load = lambda *a,**k: np_load_old(*a, allow_pickle=True, **k)
+
+
 model_name = "april_5/mod_1/"
 
 random.seed(5)
