@@ -3,7 +3,7 @@
 
 import random
 import tensorflow as tf
-import keras_tuner as kt
+#import keras_tuner as kt
 import numpy as np
 
 model_name = "april_5/mod_1/"
