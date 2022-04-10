@@ -22,53 +22,53 @@ import seaborn as sns
 
 ## PSP: 39 outputs gapped 5 times each
 
-psp_clean_inputs_test = np.load(file = 'oct_10_results/datasets/psp_clean_inputs_test.npy')
-psp_clean_outputs_test = np.load(file = 'oct_10_results/datasets/psp_clean_outputs_test.npy')
+psp_clean_inputs_test_selected = np.load(file = 'results_for_paper/psp_clean_inputs_test_selected.npy')
+psp_clean_outputs_test_selected = np.load(file = 'results_for_paper/psp_clean_outputs_test_selected.npy')
 
-psp_gapped_inputs_test = np.load(file = 'oct_10_results/datasets/psp_gapped_inputs_test.npy')
-psp_gapped_outputs_test = np.load(file = 'oct_10_results/datasets/psp_gapped_outputs_test.npy')
+psp_gapped_inputs_test_selected = np.load(file = 'results_for_paper/psp_gapped_inputs_test_selected.npy')
+psp_gapped_outputs_test_selected = np.load(file = 'results_for_paper/psp_gapped_outputs_test_selected.npy')
 
-psp_filled_inputs_test = np.load(file = 'oct_10_results/datasets/psp_filled_inputs_test.npy')
-psp_filled_outputs_test = np.load(file = 'oct_10_results/datasets/psp_filled_outputs_test.npy')
+psp_filled_inputs_test_selected = np.load(file = 'results_for_paper/psp_filled_inputs_test_selected.npy')
+psp_filled_outputs_test_selected = np.load(file = 'results_for_paper/psp_filled_outputs_test_selected.npy')
 
-psp_lint_inputs_test = np.load(file = 'oct_10_results/datasets/psp_lint_inputs_test.npy')
-psp_lint_outputs_test = np.load(file = 'oct_10_results/datasets/psp_lint_outputs_test.npy')
+psp_lint_inputs_test_selected = np.load(file = 'results_for_paper/psp_lint_inputs_test_selected.npy')
+psp_lint_outputs_test_selected = np.load(file = 'results_for_paper/psp_lint_outputs_test_selected.npy')
 
-psp_gapped_inputs_test_prop_removed = np.load(file = 'oct_10_results/psp_gapped_inputs_test_prop_removed.npy')
+#psp_gapped_inputs_test_prop_removed = np.load(file = 'oct_10_results/psp_gapped_inputs_test_prop_removed.npy')
 
-psp_outputs_predictions = np.load('oct_10_results/datasets/psp_outputs_test_predict.npy')
+psp_outputs_test_predict_selected = np.load('results_for_paper/psp_outputs_test_predict_selected.npy')
 
 ### FOR SAVING ARRAYS OF ONLY THE INTERVALS TO PLOT (saves space when sharing)
 
 # Select the intervals to plot
-psp_indices = [12, 90, 93, 15]
+# psp_indices = [12, 90, 93, 15]
 
-psp_clean_inputs_test_selected = psp_clean_inputs_test[psp_indices]
-np.save(file = 'march_6_22_plots/psp_clean_inputs_test_selected', arr = psp_clean_inputs_test_selected)
+# psp_clean_inputs_test_selected = psp_clean_inputs_test[psp_indices]
+# np.save(file = 'psp_clean_inputs_test_selected', arr = psp_clean_inputs_test_selected)
 
-psp_clean_outputs_test_selected = psp_clean_outputs_test[psp_indices]
-np.save(file = 'march_6_22_plots/psp_clean_outputs_test_selected', arr = psp_clean_outputs_test_selected)
+# psp_clean_outputs_test_selected = psp_clean_outputs_test[psp_indices]
+# np.save(file = 'psp_clean_outputs_test_selected', arr = psp_clean_outputs_test_selected)
 
-psp_gapped_inputs_test_selected = psp_gapped_inputs_test[psp_indices]
-np.save(file = 'march_6_22_plots/psp_gapped_inputs_test_selected', arr = psp_gapped_inputs_test_selected)
+# psp_gapped_inputs_test_selected = psp_gapped_inputs_test[psp_indices]
+# np.save(file = 'psp_gapped_inputs_test_selected', arr = psp_gapped_inputs_test_selected)
 
-psp_gapped_outputs_test_selected = psp_gapped_outputs_test[psp_indices]
-np.save(file = 'march_6_22_plots/psp_gapped_outputs_test_selected', arr = psp_gapped_outputs_test_selected)
+# psp_gapped_outputs_test_selected = psp_gapped_outputs_test[psp_indices]
+# np.save(file = 'psp_gapped_outputs_test_selected', arr = psp_gapped_outputs_test_selected)
 
-psp_filled_inputs_test_selected = psp_filled_inputs_test[psp_indices]
-np.save(file = 'march_6_22_plots/psp_filled_inputs_test_selected', arr = psp_filled_inputs_test_selected)
+# psp_filled_inputs_test_selected = psp_filled_inputs_test[psp_indices]
+# np.save(file = 'psp_filled_inputs_test_selected', arr = psp_filled_inputs_test_selected)
 
-psp_filled_outputs_test_selected = psp_filled_outputs_test[psp_indices]
-np.save(file = 'march_6_22_plots/psp_filled_outputs_test_selected', arr = psp_filled_outputs_test_selected)
+# psp_filled_outputs_test_selected = psp_filled_outputs_test[psp_indices]
+# np.save(file = 'psp_filled_outputs_test_selected', arr = psp_filled_outputs_test_selected)
 
-psp_lint_inputs_test_selected = psp_lint_inputs_test[psp_indices]
-np.save(file = 'march_6_22_plots/psp_lint_inputs_test_selected', arr = psp_lint_inputs_test_selected)
+# psp_lint_inputs_test_selected = psp_lint_inputs_test[psp_indices]
+# np.save(file = 'psp_lint_inputs_test_selected', arr = psp_lint_inputs_test_selected)
 
-psp_lint_outputs_test_selected = psp_lint_outputs_test[psp_indices]
-np.save(file = 'march_6_22_plots/psp_lint_outputs_test_selected', arr = psp_lint_outputs_test_selected)
+# psp_lint_outputs_test_selected = psp_lint_outputs_test[psp_indices]
+# np.save(file = 'psp_lint_outputs_test_selected', arr = psp_lint_outputs_test_selected)
 
-psp_outputs_test_predict_selected = psp_outputs_predictions[psp_indices]
-np.save(file = 'march_6_22_plots/psp_outputs_test_predict_selected', arr = psp_outputs_test_predict_selected)
+# psp_outputs_test_predict_selected = psp_outputs_predictions[psp_indices]
+# np.save(file = 'psp_outputs_test_predict_selected', arr = psp_outputs_test_predict_selected)
 
 ##############################
 
@@ -93,21 +93,21 @@ np.save(file = 'march_6_22_plots/psp_outputs_test_predict_selected', arr = psp_o
 
 ## MMS: 29 outputs gapped 5 times each
 
-# mms_clean_inputs_test = np.load(file = 'march_6_22_plots/datasets/mms_clean_inputs_test.npy')
-# mms_clean_outputs_test = np.load(file = 'march_6_22_plots/datasets/mms_clean_outputs_test.npy')
+# mms_clean_inputs_test = np.load(file = 'datasets/mms_clean_inputs_test_selected.npy')
+# mms_clean_outputs_test = np.load(file = 'datasets/mms_clean_outputs_test_selected.npy')
 
-# mms_gapped_inputs_test = np.load(file = 'march_6_22_plots/datasets/mms_gapped_inputs_test.npy')
-# mms_gapped_outputs_test = np.load(file = 'march_6_22_plots/datasets/mms_gapped_outputs_test.npy')
+# mms_gapped_inputs_test = np.load(file = 'datasets/mms_gapped_inputs_test_selected.npy')
+# mms_gapped_outputs_test = np.load(file = 'datasets/mms_gapped_outputs_test_selected.npy')
 
-# mms_filled_inputs_test = np.load(file = 'march_6_22_plots/datasets/mms_filled_inputs_test.npy')
-# mms_filled_outputs_test = np.load(file = 'march_6_22_plots/datasets/mms_filled_outputs_test.npy')
+# mms_filled_inputs_test = np.load(file = 'datasets/mms_filled_inputs_test_selected.npy')
+# mms_filled_outputs_test = np.load(file = 'datasets/mms_filled_outputs_test_selected.npy')
 
-# mms_lint_inputs_test = np.load(file = 'march_6_22_plots/datasets/mms_lint_inputs_test.npy')
-# mms_lint_outputs_test = np.load(file = 'march_6_22_plots/datasets/mms_lint_outputs_test.npy')
+# mms_lint_inputs_test = np.load(file = 'datasets/mms_lint_inputs_test_selected.npy')
+# mms_lint_outputs_test = np.load(file = 'datasets/mms_lint_outputs_test_selected.npy')
 
-# mms_gapped_inputs_test_prop_removed = np.load(file = 'march_6_22_plots/mms_gapped_inputs_test_prop_removed.npy')
+# mms_gapped_inputs_test_prop_removed = np.load(file = 'mms_gapped_inputs_test_prop_removed.npy')
 
-# mms_outputs_predictions = np.load('march_6_22_plots/datasets/mms_outputs_test_predict.npy')
+# mms_outputs_predictions = np.load('datasets/mms_outputs_test_predict.npy')
 
 #######################################
 
@@ -133,7 +133,7 @@ np.save(file = 'march_6_22_plots/psp_outputs_test_predict_selected', arr = psp_o
 # ax[1,1].semilogx()
 # ax[1,1].semilogy()
 
-# plt.savefig('march_6_22_plots/plots/all_sfs.png')
+# plt.savefig('plots/all_sfs.png')
 # #plt.show()
 
 # # Plotting all predicted vs. expected structure functions FOR DIFFERENT PSP YEARS
@@ -235,18 +235,18 @@ def calc_all_Methods(gapped_inputs, gapped_outputs, clean_outputs, filled_output
 
   return all_metrics
 
-psp_test_metrics = calc_all_Methods(
-  psp_gapped_inputs_test, 
-  psp_gapped_outputs_test,
-  psp_clean_outputs_test, 
-  psp_filled_outputs_test, 
-  psp_lint_outputs_test, 
-  psp_outputs_predictions)
+# psp_test_metrics = calc_all_Methods(
+#   psp_gapped_inputs_test, 
+#   psp_gapped_outputs_test,
+#   psp_clean_outputs_test, 
+#   psp_filled_outputs_test, 
+#   psp_lint_outputs_test, 
+#   psp_outputs_predictions)
 
-psp_test_metrics['spacecraft'] = 'PSP'
-#psp_test_metrics.head()
+# psp_test_metrics['spacecraft'] = 'PSP'
+# #psp_test_metrics.head()
 
-psp_test_metrics.to_csv("march_6_22_plots/psp_test_metrics.csv")
+# psp_test_metrics.to_csv("psp_test_metrics.csv")
 
 
 # psp_test_2020_metrics = calc_all_Methods(
@@ -282,7 +282,7 @@ psp_2020_indices = [3, 30, 7, 34]
 # mms_test_metrics['spacecraft'] = 'mms'
 # mms_test_metrics.head()
 
-# mms_test_metrics.to_csv("march_6_22_plots/mms_test_metrics.csv")
+# mms_test_metrics.to_csv("mms_test_metrics.csv")
 
 # # Note MMS has same removal %s but different number of intervals, so same indices as PSP will be same missingness but not duplicatse
 
@@ -393,8 +393,8 @@ def get_regression_output(metrics, spacecraft, indices):
     # ax1.set_ylabels(metric)
 
     #plt.xlim([0.05,0.55])
-    #plt.savefig('march_6_22_plots/plots/' + spacecraft + '_scatter_plot' + metric + '.pdf')
-    plt.savefig('march_6_22_plots/plots/' + spacecraft + '_scatter_plot' + metric + '.pdf',bbox_inches='tight')
+    #plt.savefig('plots/' + spacecraft + '_scatter_plot' + metric + '.pdf')
+    plt.savefig('plots/' + spacecraft + '_scatter_plot' + metric + '.pdf',bbox_inches='tight')
     #plt.show()
 
 
@@ -412,11 +412,11 @@ def get_regression_output(metrics, spacecraft, indices):
 
     # plt.ylim([-0.1,20]) # Previously upper limit 1.5
     # #plt.xlim([0,0.6])
-    # plt.savefig('march_6_22_plots/plots/' + spacecraft + '_regression_lines' + metric + '.pdf')
+    # plt.savefig('plots/' + spacecraft + '_regression_lines' + metric + '.pdf')
     #plt.show()
 
 # get_regression_output(psp_test_2020_metrics, 'PSP_2020', psp_2020_indices)
-get_regression_output(psp_test_metrics, 'PSP', psp_indices)
+# get_regression_output(psp_test_metrics, 'PSP', psp_indices)
 # get_regression_output(mms_test_metrics, 'MMS', mms_indices)
 
 #### LARGE PLOT COMPARING DIFFERENT INPUTS AND OUTPUTS FOR TWO INTERVALS, GAPPED IN TWO DIFFERENT WAYS ####
@@ -430,63 +430,63 @@ def plot_final_results(pregapped_in, out, filled_in, filled_out, lint_in, lint_o
   fig, ax = plt.subplots(4,3, sharex='col',figsize = (12,14))
 
   ax[0,0].plot(pregapped_in[0][0], alpha = 0.8, lw = 0.01, color = '#4daf4a', label = 'Original complete')
-  ax[0,0].plot(filled_in[0][0], linestyle = 'dotted', lw = 0.8, color = '#66c2a5', label = 'M-IMP')
-  ax[0,0].plot(lint_in[0][0], linestyle = 'dashed', lw = 0.8, color = '#377eb8', label = 'L-INT')
+  ax[0,0].plot(filled_in[0][0], linestyle = 'dotted', lw = 1, color = '#66c2a5', label = 'M-IMP')
+  ax[0,0].plot(lint_in[0][0], linestyle = 'dashed', lw = 1, color = '#377eb8', label = 'L-INT')
   ax[0,0].plot(gapped_in[0][0], lw = 0.01, color = '#fc8d62', label = 'Gapped')
   ax[0,0].text(0.1, 0.85, 'Interval 1a:\n10% removed', size = 12, bbox = {'facecolor': 'white', 'alpha': 0.7, 'pad': 2, 'edgecolor':'white'}, verticalalignment='top', horizontalalignment='left', transform=ax[0,0].transAxes)
 
   ax[0,1].plot(out[0], lw = 2.5, color = '#4daf4a', label = 'Original complete')
-  ax[0,1].plot(predict[0], lw = 1, color = '#e78ac3', label = 'ANN')
+  ax[0,1].plot(predict[0], lw = 2, color = '#e78ac3', label = 'ANN')
   ax[0,1].plot(filled_out[0], linestyle = 'dotted',  lw = 2, color = '#66c2a5', label = 'M-IMP')
-  ax[0,1].plot(lint_out[0], linestyle = 'dashed', color = '#377eb8', label = 'L-INT')
+  ax[0,1].plot(lint_out[0], linestyle = 'dashed',  lw = 2, color = '#377eb8', label = 'L-INT')
   ax[0,1].plot(gapped_out[0], lw = 0.1, color = '#fc8d62', label = 'Gapped')
 
   ax[0,2].plot(out[0], lw = 2.5, color = '#4daf4a', label = 'Original complete')
-  ax[0,2].plot(predict[0], lw = 1, color = '#e78ac3', label = 'ANN output')
+  ax[0,2].plot(predict[0], lw = 2, color = '#e78ac3', label = 'ANN output')
   ax[0,2].plot(filled_out[0], linestyle = 'dotted', lw = 2, color = '#66c2a5', label = 'M-IMP')
-  ax[0,2].plot(lint_out[0], linestyle = 'dashed', lw = 1, color = '#377eb8', label = 'L-INT')
+  ax[0,2].plot(lint_out[0], linestyle = 'dashed', lw = 2, color = '#377eb8', label = 'L-INT')
   ax[0,2].plot(gapped_out[0], lw = 0.1, color = '#fc8d62', label = 'Gapped')
 
   ax[0,2].semilogx()
   ax[0,2].semilogy()
 
   ax[1,0].plot(pregapped_in[1][0], lw = 0.01, alpha = 0.6, color = '#4daf4a', label = 'Original complete')
-  ax[1,0].plot(filled_in[1][0], linestyle = 'dotted', lw = 0.8, color = '#66c2a5', label = 'M-IMP')
-  ax[1,0].plot(lint_in[1][0], linestyle = 'dashed', lw = 0.8, color = '#377eb8', label = 'L-INT')
+  ax[1,0].plot(filled_in[1][0], linestyle = 'dotted', lw = 1, color = '#66c2a5', label = 'M-IMP')
+  ax[1,0].plot(lint_in[1][0], linestyle = 'dashed', lw = 1, color = '#377eb8', label = 'L-INT')
   ax[1,0].plot(gapped_in[1][0], lw = 0.01, color = '#fc8d62', label = 'Gapped')
   ax[1,0].text(0.1, 0.85, 'Interval 1b:\n43% removed', size = 12, bbox = {'facecolor': 'white', 'edgecolor': 'white', 'alpha': 0.7, 'pad': 2}, verticalalignment='top', horizontalalignment='left', transform=ax[1,0].transAxes)
 
   ax[1,1].plot(out[1], lw = 2.5, color = '#4daf4a', label = 'Original complete')
-  ax[1,1].plot(predict[1], lw = 1, color = '#e78ac3', label = 'ANN')
+  ax[1,1].plot(predict[1], lw = 2, color = '#e78ac3', label = 'ANN')
   ax[1,1].plot(filled_out[1], linestyle = 'dotted',  lw = 2, color = '#66c2a5', label = 'M-IMP')
-  ax[1,1].plot(lint_out[1], linestyle = 'dashed', color = '#377eb8', label = 'L-INT')
+  ax[1,1].plot(lint_out[1], linestyle = 'dashed',  lw = 2, color = '#377eb8', label = 'L-INT')
   ax[1,1].plot(gapped_out[1], lw = 0.1, color = '#fc8d62', label = 'Gapped')
 
   ax[1,2].plot(out[1], lw = 2.5, color = '#4daf4a', label = 'Original complete')
-  ax[1,2].plot(predict[1], lw = 1, color = '#e78ac3', label = 'ANN output')
+  ax[1,2].plot(predict[1], lw = 2, color = '#e78ac3', label = 'ANN output')
   ax[1,2].plot(filled_out[1], linestyle = 'dotted',  lw = 2, color = '#66c2a5', label = 'M-IMP')
-  ax[1,2].plot(lint_out[1], linestyle = 'dashed',  lw = 1, color = '#377eb8', label = 'L-INT')
+  ax[1,2].plot(lint_out[1], linestyle = 'dashed',  lw = 2, color = '#377eb8', label = 'L-INT')
   ax[1,2].plot(gapped_out[1], lw = 0.1, color = '#fc8d62', label = 'Gapped')
 
   ax[1,2].semilogx()
   ax[1,2].semilogy()
 
   ax[2,0].plot(pregapped_in[2][0], lw = 0.01, alpha = 0.6, color = '#4daf4a', label = 'Original complete')
-  ax[2,0].plot(filled_in[2][0], linestyle = 'dotted', lw = 0.8, color = '#66c2a5', label = 'M-IMP')
-  ax[2,0].plot(lint_in[2][0], linestyle = 'dashed', lw = 0.8, color = '#377eb8', label = 'L-INT')
+  ax[2,0].plot(filled_in[2][0], linestyle = 'dotted', lw = 1, color = '#66c2a5', label = 'M-IMP')
+  ax[2,0].plot(lint_in[2][0], linestyle = 'dashed', lw = 1, color = '#377eb8', label = 'L-INT')
   ax[2,0].plot(gapped_in[2][0], lw = 0.01, color = '#fc8d62', label = 'Gapped')
   ax[2,0].text(0.35, 0.85, 'Interval 2a:\n37% removed', size = 12, bbox = {'facecolor': 'white', 'edgecolor': 'white', 'alpha': 0.7, 'pad': 2}, verticalalignment='top', horizontalalignment='left', transform=ax[2,0].transAxes)
 
   ax[2,1].plot(out[2], lw = 2.5, color = '#4daf4a', label = 'Original complete')
-  ax[2,1].plot(predict[2], lw = 0.5, color = '#e78ac3', label = 'ANN')
-  ax[2,1].plot(filled_out[2], linestyle = 'dotted',  lw = 0.5, color = '#66c2a5', label = 'M-IMP')
-  ax[2,1].plot(lint_out[2], linestyle = 'dashed', lw = 0.5, color = '#377eb8', label = 'L-INT')
+  ax[2,1].plot(predict[2], lw = 2, color = '#e78ac3', label = 'ANN')
+  ax[2,1].plot(filled_out[2], linestyle = 'dotted',  lw = 2, color = '#66c2a5', label = 'M-IMP')
+  ax[2,1].plot(lint_out[2], linestyle = 'dashed', lw = 2, color = '#377eb8', label = 'L-INT')
   ax[2,1].plot(gapped_out[2], lw = 0.1, color = '#fc8d62', label = 'Gapped')
 
   ax[2,2].plot(out[2], lw = 2.5, color = '#4daf4a', label = 'Original complete')
-  ax[2,2].plot(predict[2], lw = 1, color = '#e78ac3', label = 'ANN output')
+  ax[2,2].plot(predict[2], lw = 2, color = '#e78ac3', label = 'ANN output')
   ax[2,2].plot(filled_out[2], linestyle = 'dotted',  lw = 2, color = '#66c2a5', label = 'M-IMP')
-  ax[2,2].plot(lint_out[2], linestyle = 'dashed',  lw = 1, color = '#377eb8', label = 'L-INT')
+  ax[2,2].plot(lint_out[2], linestyle = 'dashed',  lw = 2, color = '#377eb8', label = 'L-INT')
   ax[2,2].plot(gapped_out[2], lw = 0.1, color = '#fc8d62', label = 'Gapped')
 
   ax[2,2].semilogx()
@@ -497,21 +497,21 @@ def plot_final_results(pregapped_in, out, filled_in, filled_out, lint_in, lint_o
   ####
 
   ax[3,0].plot(pregapped_in[3][0], lw = 0.01, alpha = 0.6, color = '#4daf4a', label = 'Original complete')
-  ax[3,0].plot(filled_in[3][0], linestyle = 'dotted', lw = 0.8, color = '#66c2a5', label = 'M-IMP')
-  ax[3,0].plot(lint_in[3][0], linestyle = 'dashed', lw = 0.8, color = '#377eb8', label = 'L-INT')
+  ax[3,0].plot(filled_in[3][0], linestyle = 'dotted', lw = 1, color = '#66c2a5', label = 'M-IMP')
+  ax[3,0].plot(lint_in[3][0], linestyle = 'dashed', lw = 1, color = '#377eb8', label = 'L-INT')
   ax[3,0].plot(gapped_in[3][0], lw = 0.01, color = '#fc8d62', label = 'Gapped')
   ax[3,0].text(0.35, 0.85, 'Interval 2b\n87% removed', size = 12, bbox = {'facecolor': 'white', 'edgecolor': 'white', 'alpha': 0.7, 'pad': 2}, verticalalignment='top', horizontalalignment='left', transform=ax[3,0].transAxes)
 
   ax[3,1].plot(out[3], lw = 2.5, color = '#4daf4a', label = 'Original complete')
-  ax[3,1].plot(predict[3], lw = 1, color = '#e78ac3', label = 'ANN')
+  ax[3,1].plot(predict[3], lw = 2, color = '#e78ac3', label = 'ANN')
   ax[3,1].plot(filled_out[3], linestyle = 'dotted',  lw = 2, color = '#66c2a5', label = 'M-IMP')
-  ax[3,1].plot(lint_out[3], linestyle = 'dashed', color = '#377eb8', label = 'L-INT')
+  ax[3,1].plot(lint_out[3], linestyle = 'dashed', lw = 2, color = '#377eb8', label = 'L-INT')
   ax[3,1].plot(gapped_out[3], lw = 0.1, color = '#fc8d62', label = 'Gapped')
 
   ax[3,2].plot(out[3], lw = 2.5, color = '#4daf4a', label = 'Original complete')
-  ax[3,2].plot(predict[3], lw = 1, color = '#e78ac3', label = 'ANN output')
+  ax[3,2].plot(predict[3], lw = 2, color = '#e78ac3', label = 'ANN output')
   ax[3,2].plot(filled_out[3], linestyle = 'dotted', lw = 2, color = '#66c2a5', label = 'M-IMP')
-  ax[3,2].plot(lint_out[3], linestyle = 'dashed',  lw = 1, color = '#377eb8', label = 'L-INT')
+  ax[3,2].plot(lint_out[3], linestyle = 'dashed',  lw = 2, color = '#377eb8', label = 'L-INT')
   ax[3,2].plot(gapped_out[3], lw = 0.1, color = '#fc8d62', label = 'Gapped')
 
   ax[3,2].semilogx()
@@ -590,7 +590,7 @@ plot_final_results(
   psp_gapped_inputs_test_selected, 
   psp_gapped_outputs_test_selected, 
   psp_outputs_test_predict_selected, 
-  title = 'march_6_22_plots/plots/PSP_case_studies_plot.pdf')
+  title = 'plots/PSP_case_studies_plot.pdf')
 
 # # PSP 2020 results
 # plot_final_results(
@@ -619,4 +619,4 @@ plot_final_results(
 #   mms_gapped_outputs_test, 
 #   mms_outputs_predictions, 
 #   mms_indices, 
-#   title = 'march_6_22_plots/plots/mms_case_studies.png', mms = 1)
+#   title = 'plots/mms_case_studies.png', mms = 1)
