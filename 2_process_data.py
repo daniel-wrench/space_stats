@@ -599,12 +599,12 @@ print("\n\nPROCESSING mms VALIDATION DATA \n")
     mms_inputs_validate_list,
     "mms_validate",
     n_copies=5,
-    freq='0.75S',
-    dt=0.75,
+    freq='0.008S',
+    dt=0.008,
     min_removal_percent=0,
     max_removal_percent=50)
 
-# Saving mms validateing outputs
+# Saving mms validation outputs
 np.save(file='data_processed/mms/mms_clean_inputs_validate',
         arr=mms_clean_inputs_validate)
 np.save(file='data_processed/mms/mms_clean_outputs_validate',
@@ -636,7 +636,7 @@ np.save(file='data_processed/mms/mms_lint_outputs_validate',
 np.save(file='data_processed/mms/mms_gapped_inputs_validate_prop_removed',
         arr=mms_gapped_inputs_validate_prop_removed)
 
-print("\nFINISHED PROCESSING mms validateING DATA \n")
+print("\nFINISHED PROCESSING MMS VALIDATION DATA \n")
 
 print("\nTIME: ", datetime.datetime.now())
 
@@ -702,4 +702,4 @@ print("\nTIME: ", datetime.datetime.now())
 
 print("\nFINISHED PROCESSING MMS TEST DATA \n")
 
-print("\n\n FINISHED PROCESSING ALL DATA \n")
+print("\n\nFINISHED PROCESSING ALL DATA \n")
