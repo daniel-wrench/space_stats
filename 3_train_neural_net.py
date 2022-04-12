@@ -72,7 +72,7 @@ input_training_2 = np.concatenate((input_training_2_psp, input_training_2_mms))
 input_training_2b = np.concatenate((input_training_2b_psp, input_training_2b_mms))
 
 input_validate = np.concatenate((input_validate_psp, input_validate_mms))
-output_validate = np.concatenate((output_testing_psp, output_testing_mms))
+output_validate = np.concatenate((output_validate_psp, output_validate_mms))
 
 input_validate_b = np.concatenate((input_validate_b_psp, input_validate_b_mms))
 input_validate_2 = np.concatenate((input_validate_2_psp, input_validate_2_mms))
