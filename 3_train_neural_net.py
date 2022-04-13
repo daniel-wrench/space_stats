@@ -102,7 +102,7 @@ print("The dimensions of the MMS output testing data are", output_testing_mms.sh
 inputs_train = tf.constant(input_training_2b)
 outputs_train = tf.constant(output_training)
 
-inputs_validate = tf.constant(input_validate)
+inputs_validate = tf.constant(input_validate_2b)
 outputs_validate = tf.constant(output_validate)
 
 inputs_test_psp = tf.constant(input_testing_2b_psp)
