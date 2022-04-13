@@ -3,7 +3,7 @@
 
 import calculate_stats as calc
 
-model_path = 'april_5/mod_1/'
+model_path = 'april_13/mod_1/'
 
 calc.plot_validation_error(path = 'results/' + model_path)
  

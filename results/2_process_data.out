@@ -1,5 +1,5 @@
 
-TIME:  2022-04-05 18:01:55.869290
+TIME:  2022-04-11 16:39:08.189854
 SPLITTING, NORMALISING AND SHUFFLINGpspMAG FIELD DATA
 
  Means of a clean interval post-standardisation
@@ -48,7 +48,7 @@ Final output dimensions:
 FINISHED PROCESSING PSP TRAINING DATA 
 
 
-TIME:  2022-04-05 18:24:02.848426
+TIME:  2022-04-11 17:00:41.409939
 
 
 PROCESSING PSP VALIDATION DATA 
@@ -78,7 +78,7 @@ Final output dimensions:
 FINISHED PROCESSING PSP validateING DATA 
 
 
-TIME:  2022-04-05 18:25:08.546251
+TIME:  2022-04-11 17:01:44.678110
 
 
 PROCESSING PSP TEST DATA 
@@ -108,7 +108,7 @@ Final output dimensions:
 FINISHED PROCESSING PSP TEST DATA 
 
 
-TIME:  2022-04-05 18:27:25.912419
+TIME:  2022-04-11 17:03:57.065734
 SPLITTING, NORMALISING AND SHUFFLINGmmsMAG FIELD DATA
 
  Means of a clean interval post-standardisation
@@ -157,7 +157,7 @@ Final output dimensions:
 FINISHED PROCESSING MMS TRAINING DATA 
 
 
-TIME:  2022-04-05 18:49:34.335817
+TIME:  2022-04-11 17:25:52.304481
 
 
 PROCESSING mms VALIDATION DATA 
@@ -168,26 +168,26 @@ Unique input dimensions:
 
 Final input dimensions: 
   Clean: (130, 3, 10000) 
-  Gapped: (130, 4) 
-  Filled: (130, 4) 
-  Lint: (130, 4)
+  Gapped: (130, 4, 10000) 
+  Filled: (130, 4, 10000) 
+  Lint: (130, 4, 10000)
 
 Final flat input dimensions: 
-  Filled: (130, 4) 
-  Filled flat, no indicator vector: (130, 3) 
-  Lint: (130, 4) 
-  Lint flat, no indicator vector: (130, 3)
+  Filled: (130, 40000) 
+  Filled flat, no indicator vector: (130, 30000) 
+  Lint: (130, 40000) 
+  Lint flat, no indicator vector: (130, 30000)
 
 Final output dimensions: 
   Clean: (130, 2000) 
-  Gapped: (130, 22) 
-  Filled: (130, 22) 
-  Lint: (130, 22)
+  Gapped: (130, 2000) 
+  Filled: (130, 2000) 
+  Lint: (130, 2000)
 
-FINISHED PROCESSING mms validateING DATA 
+FINISHED PROCESSING MMS VALIDATION DATA 
 
 
-TIME:  2022-04-05 18:49:53.084345
+TIME:  2022-04-11 17:26:54.988050
 
 
 PROCESSING MMS TEST DATA 
@@ -214,11 +214,11 @@ Final output dimensions:
   Filled: (265, 2000) 
   Lint: (265, 2000)
 
-TIME:  2022-04-05 18:52:08.121093
+TIME:  2022-04-11 17:29:06.658914
 
 FINISHED PROCESSING MMS TEST DATA 
 
 
 
- FINISHED PROCESSING ALL DATA 
+FINISHED PROCESSING ALL DATA 
 

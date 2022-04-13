@@ -4,8 +4,8 @@
 #SBATCH -o results/3_train_neural_net.out
 #SBATCH -e results/3_train_neural_net.err
 #SBATCH --time=00:30:00
-#SBATCH --nodelist=c01n01
-#SBATCH --reservation=spacejam
+##SBATCH --nodelist=c01n01
+##SBATCH --reservation=spacejam
 #SBATCH --partition=parallel
 #SBATCH --constraint=Intel
 #SBATCH --cpus-per-task=5	
