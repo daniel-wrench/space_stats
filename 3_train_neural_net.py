@@ -65,7 +65,7 @@ input_validate_2b_mms = np.load('data_processed/mms/mms_lint_inputs_validate_fla
 
 # Combine sets (but keep test sets apart)
 input_training = np.concatenate((input_training_psp, input_training_mms))
-output_training = np.concatenate((output_testing_psp, output_testing_mms))
+output_training = np.concatenate((output_training_psp, output_training_mms))
 
 input_training_b = np.concatenate((input_training_b_psp, input_training_b_mms))
 input_training_2 = np.concatenate((input_training_2_psp, input_training_2_mms))
