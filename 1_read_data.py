@@ -29,6 +29,8 @@ random.seed(5)
 
 print("\n\nREADING PSP DATA \n")
 
+# 1st PSP INTERVAL
+
 psp_data = data_import.read_cdfs([
     "data_raw/psp/psp_fld_l2_mag_rtn_2018110100_v01.cdf",
     "data_raw/psp/psp_fld_l2_mag_rtn_2018110106_v01.cdf",
@@ -131,7 +133,7 @@ print(psp_df_resampled.isnull().sum())
 psp_df_resampled.to_pickle("data_processed/psp/psp_df_1.pkl")
 
 
-# 2ND PSP INTERVAL
+# 2nd PSP INTERVAL
 
 psp_data = data_import.read_cdfs([
     "data_raw/psp/psp_fld_l2_mag_rtn_2018112100_v01.cdf",
@@ -214,7 +216,7 @@ print(datetime.datetime.now())
 
 print("\n\nREADING MMS DATA \n")
 
-# Here reading the same intervals from each of the four spacecraft
+# Here reading the same intervals from each of the four spacecraft, noting that the file version numbers are different for each
 
 versions = {
     'mms1': "v5.117.3.cdf", 
@@ -224,6 +226,8 @@ versions = {
     }
 
 for spacecraft in ['mms1', 'mms2', 'mms3', 'mms4']:
+
+    # 1st MMS INTERVAL
 
     mms_data_raw = data_import.read_cdfs([
         "data_raw/mms/" + spacecraft + "/" + spacecraft + "_fgm_brst_l2_20171226061243_" + versions[spacecraft],
