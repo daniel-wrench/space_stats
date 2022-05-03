@@ -30,6 +30,8 @@ matplotlib.use('Agg')
 
 
 def calc_strfn(input_intervals, dt):
+    """Calculate the structure function up to a lag of 20% of the input interval length, 
+    with dt = time between observations"""
     sfs = []
 
     for interval in input_intervals:
@@ -45,6 +47,7 @@ def calc_strfn(input_intervals, dt):
 
 
 def prepare_array_for_output(dataset):
+    """Take a list of 3D vector intervals and convert them into an array of vectors, which is then fed into the neural net"""
     list_of_vectors = []
     for i in range(len(dataset)):
         vector = []
@@ -69,11 +72,9 @@ def prepare_array_for_output(dataset):
 
 # First of two major pipeline functions
 
-# This one takes a time series and splits it into many intervals, normalises them,
-# then groups them into a training, validation and test set
-
-
 def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_list, validate_size, test_size):
+    """Takes a time series and splits it into many intervals, normalises them,
+    then groups them into a training, validation and test set"""
 
     print("SPLITTING, NORMALISING AND SHUFFLING" +
           dataset_name + "MAG FIELD DATA")
@@ -128,10 +129,6 @@ def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_
 
 # Second of two major pipeline functions
 
-# This one takes a set of intervals and copies each interval multiple times
-# Each interval in the new larger set has chunks removed, which is then both filled in with zeroes and linearly interpolated
-# The structure function is then calculated for each version of each interval
-
 def mag_interval_pipeline_gap(
         inputs_list,
         dataset_name,
@@ -140,13 +137,17 @@ def mag_interval_pipeline_gap(
         dt,
         min_removal_percent,
         max_removal_percent):
+    """Takes a set of intervals and copies each interval multiple times.
+    Each interval in the new larger set has chunks removed, which is then both filled in with zeroes and linearly interpolated.
+    The structure function is then calculated for each version of each interval"""
 
     random.seed(5)
 
     clean_inputs_list = inputs_list * n_copies
 
     gapped_inputs_list = []
-    filled_inputs_list = []
+    filled_inputs_0_list = []
+    filled_inputs_9_list = []
     lint_inputs_list = []
     prop_removed = np.array([])
 
@@ -171,8 +172,12 @@ def mag_interval_pipeline_gap(
         gapped_inputs_list.append(gapped_input_std)
 
         # Mean (0) imputing the artificially gapped inputs. This is because we need placeholder values for the network, and as an alternative to using a network in the first place
-        filled_input = gapped_input_std.fillna(0)
-        filled_inputs_list.append(filled_input)
+        filled_input_0 = gapped_input_std.fillna(0)
+        filled_inputs_0_list.append(filled_input_0)
+
+        # Alternatively, using 99990000000 as a placeholder value. We don't calculate the sfn mathematically from these, as we do for the mean-imputed version above
+        filled_input_9 = gapped_input_std.fillna(9.999e10)
+        filled_inputs_9_list.append(filled_input_9)
 
         # Linear interpolating the artificially gapped inputs, as another alternative
         lint_input = gapped_input_std.interpolate()
@@ -180,7 +185,7 @@ def mag_interval_pipeline_gap(
 
     clean_outputs_list = calc_strfn(clean_inputs_list, dt)
     gapped_outputs_list = calc_strfn(gapped_inputs_list, dt)
-    filled_outputs_list = calc_strfn(filled_inputs_list, dt)
+    filled_outputs_0_list = calc_strfn(filled_inputs_0_list, dt)
     lint_outputs_list = calc_strfn(lint_inputs_list, dt)
 
     # Intermediate output: plot of each input and output version of an interval
@@ -188,7 +193,7 @@ def mag_interval_pipeline_gap(
 
     ind = len(inputs_list)
 
-    fig, axs = plt.subplots(8, 2, figsize=(10, 25))
+    fig, axs = plt.subplots(10, 2, figsize=(10, 32))
 
     axs[0, 0].plot(clean_inputs_list[0])
     axs[1, 0].plot(clean_inputs_list[ind])
@@ -205,37 +210,41 @@ def mag_interval_pipeline_gap(
     axs[2, 0].set_title("Gapped copies of interval")
     axs[3, 0].set_xticks([])
 
-    axs[4, 0].plot(filled_inputs_list[0])
-    axs[5, 0].plot(filled_inputs_list[ind])
-    axs[4, 1].plot(filled_outputs_list[0])
-    axs[5, 1].plot(filled_outputs_list[ind])
-    axs[4, 0].set_title("Filled copies of interval")
+    axs[4, 0].plot(filled_inputs_0_list[0])
+    axs[5, 0].plot(filled_inputs_0_list[ind])
+    axs[4, 1].plot(filled_outputs_0_list[0])
+    axs[5, 1].plot(filled_outputs_0_list[ind])
+    axs[4, 0].set_title("Zero-filled copies of interval")
     axs[5, 0].set_xticks([])
 
-    axs[6, 0].plot(lint_inputs_list[0])
-    axs[7, 0].plot(lint_inputs_list[ind])
-    axs[6, 1].plot(lint_outputs_list[0])
-    axs[7, 1].plot(lint_outputs_list[ind])
-    axs[6, 0].set_title("Interpolated copies of interval")
+    axs[6, 0].plot(filled_inputs_9_list[0])
+    axs[7, 0].plot(filled_inputs_9_list[ind])
+    axs[6, 0].set_title("Huge-filled copies of interval (sfns not calculated)")
     axs[7, 0].set_xticks([])
+
+    axs[8, 0].plot(lint_inputs_list[0])
+    axs[9, 0].plot(lint_inputs_list[ind])
+    axs[8, 1].plot(lint_outputs_list[0])
+    axs[9, 1].plot(lint_outputs_list[ind])
+    axs[8, 0].set_title("Interpolated copies of interval")
+    axs[9, 0].set_xticks([])
 
     fig.suptitle('Validating pre-processing')
     plt.savefig("results/" + dataset_name + "_preprocessed_plots.png")
 
     clean_inputs = prepare_array_for_output(clean_inputs_list)[0]
-    #cis = clean_inputs.shape
-    #np.save(file = 'data_processed/' + dataset_name + 'clean_inputs', arr = psp_clean_inputs_train)
+    # cis = clean_inputs.shape
+    # np.save(file = 'data_processed/' + dataset_name + 'clean_inputs', arr = psp_clean_inputs_train)
     # del(clean_inputs)
 
     gapped_inputs = prepare_array_for_output(gapped_inputs_list)[0]
-    filled_inputs, filled_inputs_flat, filled_inputs_flat_no_ind = prepare_array_for_output(
-        filled_inputs_list)
-    lint_inputs, lint_inputs_flat, lint_inputs_flat_no_ind = prepare_array_for_output(
-        lint_inputs_list)
+    filled_inputs_0, filled_inputs_0_flat, filled_inputs_0_flat_no_ind = prepare_array_for_output(filled_inputs_0_list)
+    filled_inputs_9, filled_inputs_9_flat, filled_inputs_9_flat_no_ind = prepare_array_for_output(filled_inputs_9_list)
+    lint_inputs, lint_inputs_flat, lint_inputs_flat_no_ind = prepare_array_for_output(lint_inputs_list)
 
     clean_outputs = np.array(clean_outputs_list)
     gapped_outputs = np.array(gapped_outputs_list)
-    filled_outputs = np.array(filled_outputs_list)
+    filled_outputs_0 = np.array(filled_outputs_0_list)
     lint_outputs = np.array(lint_outputs_list)
 
     print("\nUnique input dimensions: \n",
@@ -244,31 +253,36 @@ def mag_interval_pipeline_gap(
     print("\nFinal input dimensions:",
           "\n  Clean:", clean_inputs.shape,
           "\n  Gapped:", gapped_inputs.shape,
-          "\n  Filled:", filled_inputs.shape,
+          "\n  Filled with 0s:", filled_inputs_0.shape,
+          "\n  Filled with 9s:", filled_inputs_9.shape,
           "\n  Lint:", lint_inputs.shape)
 
     print("\nFinal flat input dimensions:",
-          "\n  Filled:", filled_inputs_flat.shape,
-          "\n  Filled flat, no indicator vector:", filled_inputs_flat_no_ind.shape,
+          "\n  Filled with 0s:", filled_inputs_0_flat.shape,
+          "\n  Filled with 0s flat, no indicator vector:", filled_inputs_0_flat_no_ind.shape,
+          "\n  Filled with 9s:", filled_inputs_9_flat.shape,
+          "\n  Filled with 9s flat, no indicator vector:", filled_inputs_9_flat_no_ind.shape,
           "\n  Lint:", lint_inputs_flat.shape,
           "\n  Lint flat, no indicator vector:", lint_inputs_flat_no_ind.shape)
 
     print("\nFinal output dimensions:",
           "\n  Clean:", clean_outputs.shape,
           "\n  Gapped:", gapped_outputs.shape,
-          "\n  Filled:", filled_outputs.shape,
+          "\n  Filled:", filled_outputs_0.shape,
           "\n  Lint:", lint_outputs.shape)
 
     return (clean_inputs,
             clean_outputs,
             gapped_inputs,
             gapped_outputs,
-            filled_inputs,
-            filled_inputs_flat,
-            filled_inputs_flat_no_ind,
-            filled_outputs,
+            filled_inputs_0,
+            #filled_inputs_flat,
+            filled_inputs_0_flat_no_ind,
+            filled_inputs_9,
+            filled_inputs_9_flat_no_ind,
+            filled_outputs_0,
             lint_inputs,
-            lint_inputs_flat,
+            #lint_inputs_flat,
             lint_inputs_flat_no_ind,
             lint_outputs,
             prop_removed
@@ -289,7 +303,7 @@ psp_df_2 = pd.read_pickle("data_processed/psp/psp_df_2.pkl")
 (psp_inputs_train_list, psp_inputs_validate_list, psp_inputs_test_list) = mag_interval_pipeline_split(df_list=[psp_df_1, psp_df_2],
                                                      dataset_name="psp",
                                                      n_values_list=[1950000, 680000], 
-                                                     # 1150000 actually available for the 2nd interval, limiting to match MMS
+                                                     # 1150000 actually available for the 2nd interval - limiting to match MMS
                                                      n_subsets_list=[1950000/10000, 680000/10000],
                                                      validate_size=0.1,
                                                      test_size=0.2)
@@ -302,10 +316,13 @@ print("\n\nPROCESSING PSP TRAINING DATA \n")
  psp_clean_outputs_train,
  psp_gapped_inputs_train,
  psp_gapped_outputs_train,
- psp_filled_inputs_train,
- psp_filled_inputs_train_flat,
- psp_filled_inputs_train_flat_no_ind,
- psp_filled_outputs_train,
+ psp_filled_inputs_0_train,
+ #psp_filled_inputs_train_flat,
+ psp_filled_inputs_0_train_flat_no_ind,
+ psp_filled_inputs_9_train,
+ #psp_filled_inputs_9_train_flat,
+ psp_filled_inputs_9_train_flat_no_ind,
+ psp_filled_outputs_0_train,
  psp_lint_inputs_train,
  psp_lint_inputs_train_flat,
  psp_lint_inputs_train_flat_no_ind,
@@ -321,6 +338,7 @@ print("\n\nPROCESSING PSP TRAINING DATA \n")
     max_removal_percent=50)
 
 # Saving PSP training outputs
+# CHANGE SO AS TO USE FEWER LINES OF CODE
 np.save(file='data_processed/psp/psp_clean_inputs_train',
         arr=psp_clean_inputs_train)
 np.save(file='data_processed/psp/psp_clean_outputs_train',
@@ -331,14 +349,21 @@ np.save(file='data_processed/psp/psp_gapped_inputs_train',
 np.save(file='data_processed/psp/psp_gapped_outputs_train',
         arr=psp_gapped_outputs_train)
 
-np.save(file='data_processed/psp/psp_filled_inputs_train',
-        arr=psp_filled_inputs_train)
-np.save(file='data_processed/psp/psp_filled_inputs_train_flat',
-        arr=psp_filled_inputs_train_flat)
-np.save(file='data_processed/psp/psp_filled_inputs_train_flat_no_ind',
-        arr=psp_filled_inputs_train_flat_no_ind)
-np.save(file='data_processed/psp/psp_filled_outputs_train',
-        arr=psp_filled_outputs_train)
+np.save(file='data_processed/psp/psp_filled_inputs_0_train',
+        arr=psp_filled_inputs_0_train)
+# np.save(file='data_processed/psp/psp_filled_inputs_train_flat',
+#         arr=psp_filled_inputs_0_train)
+np.save(file='data_processed/psp/psp_filled_inputs_0_train_flat_no_ind',
+        arr=psp_filled_inputs_0_train_flat_no_ind)
+np.save(file='data_processed/psp/psp_filled_outputs_0_train',
+        arr=psp_filled_outputs_0_train)
+
+np.save(file='data_processed/psp/psp_filled_inputs_9_train',
+        arr=psp_filled_inputs_9_train)
+# np.save(file='data_processed/psp/psp_filled_inputs_train_flat',
+#         arr=psp_filled_inputs_9_train)
+np.save(file='data_processed/psp/psp_filled_inputs_9_train_flat_no_ind',
+        arr=psp_filled_inputs_9_train_flat_no_ind)
 
 np.save(file='data_processed/psp/psp_lint_inputs_train',
         arr=psp_lint_inputs_train)
