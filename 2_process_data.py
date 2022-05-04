@@ -276,13 +276,11 @@ def mag_interval_pipeline_gap(
             gapped_inputs,
             gapped_outputs,
             filled_inputs_0,
-            #filled_inputs_flat,
             filled_inputs_0_flat_no_ind,
             filled_inputs_9,
             filled_inputs_9_flat_no_ind,
             filled_outputs_0,
             lint_inputs,
-            #lint_inputs_flat,
             lint_inputs_flat_no_ind,
             lint_outputs,
             prop_removed
@@ -328,7 +326,6 @@ print("\n\nPROCESSING PSP TRAINING DATA \n")
  psp_filled_inputs_9_train_flat_no_ind,
  psp_filled_outputs_0_train,
  psp_lint_inputs_train,
- psp_lint_inputs_train_flat,
  psp_lint_inputs_train_flat_no_ind,
  psp_lint_outputs_train,
  psp_gapped_inputs_train_prop_removed
@@ -390,7 +387,6 @@ print("\n\nPROCESSING PSP VALIDATION DATA \n")
  psp_filled_inputs_9_validate_flat_no_ind,
  psp_filled_outputs_0_validate,
  psp_lint_inputs_validate,
- psp_lint_inputs_validate_flat,
  psp_lint_inputs_validate_flat_no_ind,
  psp_lint_outputs_validate,
  psp_gapped_inputs_validate_prop_removed
@@ -424,8 +420,6 @@ np.save(file='data_processed/psp/psp_filled_inputs_9_validate_flat_no_ind',
         arr=psp_filled_inputs_9_validate_flat_no_ind)
 np.save(file='data_processed/psp/psp_lint_inputs_validate',
         arr=psp_lint_inputs_validate)
-np.save(file='data_processed/psp/psp_lint_inputs_validate_flat',
-        arr=psp_lint_inputs_validate_flat)
 np.save(file='data_processed/psp/psp_lint_inputs_validate_flat_no_ind',
         arr=psp_lint_inputs_validate_flat_no_ind)
 np.save(file='data_processed/psp/psp_lint_outputs_validate',
@@ -452,7 +446,6 @@ print("\n\nPROCESSING PSP TEST DATA \n")
  psp_filled_inputs_9_test_flat_no_ind,
  psp_filled_outputs_0_test,
  psp_lint_inputs_test,
- psp_lint_inputs_test_flat,
  psp_lint_inputs_test_flat_no_ind,
  psp_lint_outputs_test,
  psp_gapped_inputs_test_prop_removed
@@ -487,8 +480,6 @@ np.save(file='data_processed/psp/psp_filled_inputs_9_test_flat_no_ind',
         arr=psp_filled_inputs_9_test_flat_no_ind)
 np.save(file='data_processed/psp/psp_lint_inputs_test',
         arr=psp_lint_inputs_test)
-np.save(file='data_processed/psp/psp_lint_inputs_test_flat',
-        arr=psp_lint_inputs_test_flat)
 np.save(file='data_processed/psp/psp_lint_inputs_test_flat_no_ind',
         arr=psp_lint_inputs_test_flat_no_ind)
 np.save(file='data_processed/psp/psp_lint_outputs_test',
@@ -558,7 +549,6 @@ print("\n\nPROCESSING MMS TRAINING DATA \n")
  mms_filled_inputs_9_train_flat_no_ind,
  mms_filled_outputs_0_train,
  mms_lint_inputs_train,
- mms_lint_inputs_train_flat,
  mms_lint_inputs_train_flat_no_ind,
  mms_lint_outputs_train,
  mms_gapped_inputs_train_prop_removed
@@ -593,8 +583,6 @@ np.save(file='data_processed/mms/mms_filled_inputs_9_train_flat_no_ind',
         arr=mms_filled_inputs_9_train_flat_no_ind)
 np.save(file='data_processed/mms/mms_lint_inputs_train',
         arr=mms_lint_inputs_train)
-np.save(file='data_processed/mms/mms_lint_inputs_train_flat',
-        arr=mms_lint_inputs_train_flat)
 np.save(file='data_processed/mms/mms_lint_inputs_train_flat_no_ind',
         arr=mms_lint_inputs_train_flat_no_ind)
 np.save(file='data_processed/mms/mms_lint_outputs_train',
@@ -619,7 +607,6 @@ print("\n\nPROCESSING mms VALIDATION DATA \n")
  mms_filled_inputs_9_validate_flat_no_ind,
  mms_filled_outputs_0_validate,
  mms_lint_inputs_validate,
- mms_lint_inputs_validate_flat,
  mms_lint_inputs_validate_flat_no_ind,
  mms_lint_outputs_validate,
  mms_gapped_inputs_validate_prop_removed
@@ -654,8 +641,6 @@ np.save(file='data_processed/mms/mms_filled_inputs_9_validate_flat_no_ind',
         arr=mms_filled_inputs_9_validate_flat_no_ind)
 np.save(file='data_processed/mms/mms_lint_inputs_validate',
         arr=mms_lint_inputs_validate)
-np.save(file='data_processed/mms/mms_lint_inputs_validate_flat',
-        arr=mms_lint_inputs_validate_flat)
 np.save(file='data_processed/mms/mms_lint_inputs_validate_flat_no_ind',
         arr=mms_lint_inputs_validate_flat_no_ind)
 np.save(file='data_processed/mms/mms_lint_outputs_validate',
@@ -682,7 +667,6 @@ print("\n\nPROCESSING MMS TEST DATA \n")
  mms_filled_inputs_9_test_flat_no_ind,
  mms_filled_outputs_0_test,
  mms_lint_inputs_test,
- mms_lint_inputs_test_flat,
  mms_lint_inputs_test_flat_no_ind,
  mms_lint_outputs_test,
  mms_gapped_inputs_test_prop_removed
@@ -717,8 +701,6 @@ np.save(file='data_processed/mms/mms_filled_inputs_9_test_flat_no_ind',
         arr=mms_filled_inputs_9_test_flat_no_ind)
 np.save(file='data_processed/mms/mms_lint_inputs_test',
         arr=mms_lint_inputs_test)
-np.save(file='data_processed/mms/mms_lint_inputs_test_flat',
-        arr=mms_lint_inputs_test_flat)
 np.save(file='data_processed/mms/mms_lint_inputs_test_flat_no_ind',
         arr=mms_lint_inputs_test_flat_no_ind)
 np.save(file='data_processed/mms/mms_lint_outputs_test',
