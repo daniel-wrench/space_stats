@@ -22,17 +22,16 @@ def remove_obs_df(df, percent):
 
 def remove_chunks_df(df, proportion, chunks, sigma):
     '''Remove randomly-sized chunks from random points in a dataframe (such that at least the proportion specified is removed)
-    Works for single column dataframes and multiple column dataframes, where it removes chunks in the same places
-     Parameters:
-     
-        df = DataFrame
+    Works for single column dataframes and multiple column dataframes, where it removes chunks in the same places.
+    Parameters:
+    
+    - df = DataFrame
+    - proportion = total proportion (decimal) of observations to remove
+    - chunks = number of chunks of observations to remove
+    - sigma = variance of sizes of chunks. Chunk sizes are drawn from a normal distribution with mean = len(df)*proportion/chunks and standard deviation = sigma*0.341*2*mean. If this is too large the function will return an error due to negative chunk sizes being selected.
 
-        proportion = total proportion (decimal) of observations to remove
-
-        chunks = number of chunks of observations to remove
-
-        sigma = variance of sizes of chunks. Chunk sizes are drawn from a normal distribution with mean = len(df)*proportion/chunks and standard deviation = sigma*0.341*2*mean.
-        If this is too large the function will return an error due to negative chunk sizes being selected
+    Returns:
+    - The original dataframe with some values replaced with NA, and an additional column "missing" that indicates whether a value has been removed at that timestamp (1 = removed)
     '''
     num_obs = proportion * len(df)
     mean_obs = num_obs/chunks

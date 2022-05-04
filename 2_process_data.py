@@ -46,8 +46,15 @@ def calc_strfn(input_intervals, dt):
     return sfs
 
 
-def prepare_array_for_output(dataset):
-    """Take a list of 3D vector intervals and convert them into an array of vectors, which is then fed into the neural net"""
+def convert_df_list_to_arrays(dataset):
+    """Take a list of dataframes, each with a time index and four columns (3 vector components and missing indicator), and converts them into an array of arrays 
+
+    Returns three arrays, each containing a different version of the same intervals: 
+    - 4D array (3 components and a mask)
+    - 1D array (stacked components + mask)
+    - 1D array (stacked components, no mask)"""
+
+    # Create 4D vectors
     list_of_vectors = []
     for i in range(len(dataset)):
         vector = []
@@ -57,6 +64,7 @@ def prepare_array_for_output(dataset):
         list_of_vectors.append(vector)
     array_of_vectors = np.array(list_of_vectors)
 
+    # Create 1D vectors
     list_of_flat_vectors = []
     list_of_flat_vectors_no_ind = []
     for i in range(len(array_of_vectors)):
@@ -76,8 +84,8 @@ def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_
     """Takes a time series and splits it into many intervals, normalises them,
     then groups them into a training, validation and test set"""
 
-    print("SPLITTING, NORMALISING AND SHUFFLING" +
-          dataset_name + "MAG FIELD DATA")
+    print("SPLITTING, NORMALISING AND SHUFFLING b" +
+          dataset_name + " MAG FIELD DATA")
 
     inputs_list_raw = np.split(
         df_list[0][:n_values_list[0]], n_subsets_list[0])
@@ -232,15 +240,15 @@ def mag_interval_pipeline_gap(
     fig.suptitle('Validating pre-processing')
     plt.savefig("results/" + dataset_name + "_preprocessed_plots.png")
 
-    clean_inputs = prepare_array_for_output(clean_inputs_list)[0]
+    clean_inputs = convert_df_list_to_arrays(clean_inputs_list)[0]
     # cis = clean_inputs.shape
     # np.save(file = 'data_processed/' + dataset_name + 'clean_inputs', arr = psp_clean_inputs_train)
     # del(clean_inputs)
 
-    gapped_inputs = prepare_array_for_output(gapped_inputs_list)[0]
-    filled_inputs_0, filled_inputs_0_flat, filled_inputs_0_flat_no_ind = prepare_array_for_output(filled_inputs_0_list)
-    filled_inputs_9, filled_inputs_9_flat, filled_inputs_9_flat_no_ind = prepare_array_for_output(filled_inputs_9_list)
-    lint_inputs, lint_inputs_flat, lint_inputs_flat_no_ind = prepare_array_for_output(lint_inputs_list)
+    gapped_inputs = convert_df_list_to_arrays(gapped_inputs_list)[0]
+    filled_inputs_0, filled_inputs_0_flat, filled_inputs_0_flat_no_ind = convert_df_list_to_arrays(filled_inputs_0_list)
+    filled_inputs_9, filled_inputs_9_flat, filled_inputs_9_flat_no_ind = convert_df_list_to_arrays(filled_inputs_9_list)
+    lint_inputs, lint_inputs_flat, lint_inputs_flat_no_ind = convert_df_list_to_arrays(lint_inputs_list)
 
     clean_outputs = np.array(clean_outputs_list)
     gapped_outputs = np.array(gapped_outputs_list)
@@ -361,8 +369,7 @@ np.save(file='data_processed/psp/psp_filled_inputs_9_train_flat_no_ind',
         arr=psp_filled_inputs_9_train_flat_no_ind)
 np.save(file='data_processed/psp/psp_lint_inputs_train',
         arr=psp_lint_inputs_train)
-np.save(file='data_processed/psp/psp_lint_inputs_train_flat',
-        arr=psp_lint_inputs_train_flat)
+
 np.save(file='data_processed/psp/psp_lint_inputs_train_flat_no_ind',
         arr=psp_lint_inputs_train_flat_no_ind)
 np.save(file='data_processed/psp/psp_lint_outputs_train',
