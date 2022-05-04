@@ -99,8 +99,7 @@ def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_
     plt.plot(inputs_list_raw[0])
     plt.title("Single clean vector interval pre-standardisation")
     plt.savefig("results/" + dataset_name + "_example_input_raw.png")
-    plt.show()
-    # plt.clf()  # Try plt.cla() if this doesn't work
+    plt.clf()  # Try plt.cla() if this doesn't work
 
     # List comprehension! Better than for loops!
     inputs_list = [calcs.normalize(i) for i in inputs_list_raw]
@@ -108,8 +107,7 @@ def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_
     plt.plot(inputs_list[0])
     plt.title("Single clean vector interval post-standardisation")
     plt.savefig("results/" + dataset_name + "_example_input_std.png")
-    plt.show()
-    # plt.clf()
+    plt.clf()
 
     print("\n Means of a clean interval post-standardisation")
     print(inputs_list[0].mean())
@@ -240,7 +238,7 @@ def mag_interval_pipeline_gap(
 
     fig.suptitle('Validating pre-processing')
     plt.savefig("results/" + dataset_name + "_preprocessed_plots.png")
-    plt.show()
+    plt.clf()
 
     clean_inputs = convert_df_list_to_arrays(clean_inputs_list)[0]
     # cis = clean_inputs.shape
