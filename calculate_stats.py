@@ -3,9 +3,8 @@ import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
 
-#Function for plotting observed curves against predicted for the test subsets
-
 def plot_results(predictions_arr, observed_arr, no_samples, spacecraft, model):
+    """Plot observed curves against predicted for a sample of validation intervals"""
 
     predicted = np.load(predictions_arr)
     predicted = pd.DataFrame(predicted)
