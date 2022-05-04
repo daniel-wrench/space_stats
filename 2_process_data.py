@@ -30,8 +30,11 @@ matplotlib.use('Agg')
 
 
 def calc_strfn(input_intervals, dt):
-    """Calculate the structure function up to a lag of 20% of the input interval length, 
-    with dt = time between observations"""
+    """Calculate the 3D second-order structure function up to a lag of 20% of the input interval length
+    
+    Inputs:
+    - input_intervals: list of dataframes, each with 3 columns, one for each vector component
+    - dt: time between observations, in seconds"""
     sfs = []
 
     for interval in input_intervals:
@@ -40,8 +43,8 @@ def calc_strfn(input_intervals, dt):
                               az=interval.iloc[:, 2],
                               lags=range(
                                   0, round(0.2*len(input_intervals[1]))),
-                              orders=[2],
-                              dt=dt)  # Second order structure function
+                              orders=[2], # Second order structure function
+                              dt=dt)  
         sfs.append(s[0])
     return sfs
 
