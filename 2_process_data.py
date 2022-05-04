@@ -302,9 +302,15 @@ psp_df_2 = pd.read_pickle("data_processed/psp/psp_df_2.pkl")
 # Splitting into training and test sets
 (psp_inputs_train_list, psp_inputs_validate_list, psp_inputs_test_list) = mag_interval_pipeline_split(df_list=[psp_df_1, psp_df_2],
                                                      dataset_name="psp",
-                                                     n_values_list=[1950000, 680000], 
+                                                     #n_values_list=[1950000, 680000], 
+
+                                                     # FOR TESTING UPDATED CODES
+                                                     n_values_list = [250000, 250000],
+
                                                      # 1150000 actually available for the 2nd interval - limiting to match MMS
-                                                     n_subsets_list=[1950000/10000, 680000/10000],
+                                                     #n_subsets_list=[1950000/10000, 680000/10000],
+
+                                                     n_subsets_list=[250000/10000, 250000/10000],
                                                      validate_size=0.1,
                                                      test_size=0.2)
 
@@ -329,7 +335,8 @@ print("\n\nPROCESSING PSP TRAINING DATA \n")
  ) = mag_interval_pipeline_gap(
     psp_inputs_train_list,
     "psp_train",
-    n_copies=15,
+    # FOR TESTING UPDATED CODES
+    n_copies=5,
     freq='0.75S',
     dt=0.75,
     min_removal_percent=0,
@@ -531,8 +538,11 @@ mms4_df_2 = pd.read_pickle("data_processed/mms/mms4_df_2.pkl")
             mms4_df_2
             ],
     dataset_name="mms",
-    n_values_list=[290000, 440000]*3 + [440000],
-    n_subsets_list=[290000/10000, 440000/10000]*3 + [440000/10000],
+    #n_values_list=[290000, 440000]*3 + [440000],
+    #n_subsets_list=[290000/10000, 440000/10000]*3 + [440000/10000],
+    # FOR TESTING UPDATED CODES
+    n_values_list=[50000, 50000]*3 + [50000],
+    n_subsets_list=[50000/10000, 50000/10000]*3 + [50000/10000],
     validate_size = 0.1,
     test_size=0.2)
 
