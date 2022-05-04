@@ -96,23 +96,22 @@ def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_
                 df_list[i][:n_values_list[i]], n_subsets_list[i])
             inputs_list_raw.extend(inputs_list_raw_next)
 
-    plt.plot(inputs_list_raw[0])
-    plt.title("Single clean vector interval pre-standardisation")
-    plt.savefig("results/" + dataset_name + "_example_input_raw.png")
-    plt.clf()  # Try plt.cla() if this doesn't work
-
     # List comprehension! Better than for loops!
     inputs_list = [calcs.normalize(i) for i in inputs_list_raw]
 
-    plt.plot(inputs_list[0])
-    plt.title("Single clean vector interval post-standardisation")
-    plt.savefig("results/" + dataset_name + "_example_input_std.png")
-    plt.clf()
+    # Intermediate output: check standardisation procedure has worked
 
-    print("\n Means of a clean interval post-standardisation")
-    print(inputs_list[0].mean())
-    print("\n Standard deviations of a clean interval post-standardisation")
-    print(inputs_list[0].std())
+    fig, axs = plt.subplots(1, 2, figsize=(12, 5), sharey=True)
+    axs[0].plot(inputs_list_raw[0])
+    axs[0].set_title("Clean interval pre-standardisation: mu = " + 
+        str(round(inputs_list_raw[0].mean(), 2)) + ", sigma = " + 
+        str(round(inputs_list_raw[0].std(), 2)))
+    axs[1].plot(inputs_list)
+    axs[1].set_title("Clean interval post-standardisation: mu = " + 
+        str(round(inputs_list[0].mean(), 2)) + ", sigma = " + 
+        str(round(inputs_list[0].std(), 2)))
+    plt.savefig("results/" + dataset_name + "_std_check_plot.png")
+    plt.clf()
 
     random.seed(5)
 
