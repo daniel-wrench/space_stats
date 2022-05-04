@@ -5,6 +5,8 @@
 
 ###################### Daniel Wrench, April 2022 #########################
 
+# NEXT STEPS: Adjust variable names used when applying convert_df_list_to_arrays(): no longer returning 3 objects
+
 # This is submitted as a job to the Raapoi cluster via a .sh script
 # The outputs are fed into Part 3: 3_train_neural_net.py, a Tensorflow script to train a neural network model
 
@@ -57,6 +59,8 @@ def convert_df_list_to_arrays(dataset):
     - 1D array (stacked components + mask)
     - 1D array (stacked components, no mask)"""
 
+    # UN-COMMENT COMMENTED OUT CODE IF USING INPUT DATAFRAMES WITH A MASK COLUMN (and you want to output versions without the mask)
+
     # Create 4D vectors
     list_of_vectors = []
     for i in range(len(dataset)):
@@ -69,15 +73,15 @@ def convert_df_list_to_arrays(dataset):
 
     # Create 1D vectors
     list_of_flat_vectors = []
-    list_of_flat_vectors_no_ind = []
+    #list_of_flat_vectors_no_ind = []
     for i in range(len(array_of_vectors)):
         list_of_flat_vectors.append(array_of_vectors[i].flatten())
-        list_of_flat_vectors_no_ind.append(array_of_vectors[i][0:3].flatten())
+        #list_of_flat_vectors_no_ind.append(array_of_vectors[i][0:3].flatten())
 
     array_of_flat_vectors = np.array(list_of_flat_vectors)
-    array_of_flat_vectors_no_ind = np.array(list_of_flat_vectors_no_ind)
+    #array_of_flat_vectors_no_ind = np.array(list_of_flat_vectors_no_ind)
 
-    return(array_of_vectors, array_of_flat_vectors, array_of_flat_vectors_no_ind)
+    return(array_of_vectors, array_of_flat_vectors)
 
 ################################################################################
 
@@ -174,8 +178,9 @@ def mag_interval_pipeline_gap(
 
         gapped_input_std = calcs.normalize(gapped_input)
 
+        # IF USING MASK: 
         # Correcting for standardisation of missing column
-        gapped_input_std.iloc[:, 3] = gapped_input.iloc[:, 3]
+        #gapped_input_std.iloc[:, 3] = gapped_input.iloc[:, 3]
 
         # Save standardised, gapped inputs to a list for outputting
         gapped_inputs_list.append(gapped_input_std)
