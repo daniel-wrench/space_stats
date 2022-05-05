@@ -107,16 +107,13 @@ def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_
     inputs_list = [calcs.normalize(i) for i in inputs_list_raw]
 
     # Intermediate output: check standardisation procedure has worked
-
     fig, axs = plt.subplots(1, 2, figsize=(12, 5), sharey=True)
     axs[0].plot(inputs_list_raw[0])
-    axs[0].set_title("Clean interval pre-standardisation: mu = " + 
-        str(round(inputs_list_raw[0].mean(), 2)) + ", sigma = " + 
-        str(round(inputs_list_raw[0].std(), 2)))
+    axs[0].set_title("Clean interval pre-normalisation")
+    axs[0].set_xticks([])
     axs[1].plot(inputs_list[0])
-    axs[1].set_title("Clean interval post-standardisation: mu = " + 
-        str(round(inputs_list[0].mean(), 2)) + ", sigma = " + 
-        str(round(inputs_list[0].std(), 2)))
+    axs[1].set_title("Clean interval post-normalisation")
+    axs[1].set_xticks([])
     plt.savefig("results/" + dataset_name + "_std_check_plot.png")
     plt.clf()
 
@@ -133,7 +130,13 @@ def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_
     inputs_validate = inputs_list_shuffled[train_val_boundary:val_test_boundary]
     inputs_test = inputs_list_shuffled[val_test_boundary:]
 
-    print("\nInput training data dimensions:", len(inputs_train), 'x', inputs_train[0].shape)
+    print("Means of first interval pre-normalisation:" + str(round(inputs_list_raw[0].mean(), 2)))
+    print("\nStandard deviations of first interval pre-normalisation:"+ str(round(inputs_list_raw[0].std(), 2)))
+
+    print("\n\nMeans of first interval post-normalisation:" + str(round(inputs_list[0].mean(), 2)))
+    print("\nStandard deviations of post interval pre-normalisation:" + str(round(inputs_list[0].std(), 2)))
+
+    print("\n\nInput training data dimensions:", len(inputs_train), 'x', inputs_train[0].shape)
     print("\nInput validation data dimensions:", len(inputs_validate), 'x', inputs_validate[0].shape)
     print("\nInput test data dimensions:", len(inputs_test), 'x', inputs_test[0].shape)
 
@@ -220,6 +223,7 @@ def mag_interval_pipeline_gap(
     axs[1, 1].plot(clean_outputs_list[ind])
     axs[0, 0].set_title("Copies of clean interval")
     axs[0, 1].set_title("Corresponding structure functions")
+    axs[0, 0].set_xticks([])
     axs[1, 0].set_xticks([])
 
     axs[2, 0].plot(gapped_inputs_list[0])
@@ -227,6 +231,7 @@ def mag_interval_pipeline_gap(
     axs[2, 1].plot(gapped_outputs_list[0])
     axs[3, 1].plot(gapped_outputs_list[ind])
     axs[2, 0].set_title("Gapped copies of interval")
+    axs[2, 0].set_xticks([])
     axs[3, 0].set_xticks([])
 
     axs[4, 0].plot(filled_inputs_0_list[0])
@@ -234,11 +239,13 @@ def mag_interval_pipeline_gap(
     axs[4, 1].plot(filled_outputs_0_list[0])
     axs[5, 1].plot(filled_outputs_0_list[ind])
     axs[4, 0].set_title("Zero-filled copies of interval")
+    axs[4, 0].set_xticks([])
     axs[5, 0].set_xticks([])
 
     axs[6, 0].plot(filled_inputs_9_list[0])
     axs[7, 0].plot(filled_inputs_9_list[ind])
     axs[6, 0].set_title("Huge-filled copies of interval (sfns not calculated)")
+    axs[6, 0].set_xticks([])
     axs[7, 0].set_xticks([])
 
     axs[8, 0].plot(lint_inputs_list[0])
@@ -246,9 +253,10 @@ def mag_interval_pipeline_gap(
     axs[8, 1].plot(lint_outputs_list[0])
     axs[9, 1].plot(lint_outputs_list[ind])
     axs[8, 0].set_title("Interpolated copies of interval")
+    axs[8, 0].set_xticks([])
     axs[9, 0].set_xticks([])
 
-    fig.suptitle('Validating pre-processing')
+    #fig.suptitle('Validating pre-processing')
     plt.savefig("results/" + dataset_name + "_preprocessed_plots.png")
     plt.clf()
 
