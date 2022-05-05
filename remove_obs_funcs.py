@@ -20,7 +20,7 @@ def remove_obs_df(df, percent):
     print("The proportion of data removed is:", format(1 - len(final_dataset)/len(df)))
     return final_dataset
 
-def remove_chunks_df(df, proportion, chunks, sigma):
+def remove_chunks_df(df, proportion, chunks, sigma, missing_ind_col = False):
     '''Remove randomly-sized chunks from random points in a dataframe (such that at least the proportion specified is removed)
     Works for single column dataframes and multiple column dataframes, where it removes chunks in the same places.
     Parameters:
@@ -29,9 +29,10 @@ def remove_chunks_df(df, proportion, chunks, sigma):
     - proportion = total proportion (decimal) of observations to remove
     - chunks = number of chunks of observations to remove
     - sigma = variance of sizes of chunks. Chunk sizes are drawn from a normal distribution with mean = len(df)*proportion/chunks and standard deviation = sigma*0.341*2*mean. If this is too large the function will return an error due to negative chunk sizes being selected.
+    - missing_ind_col = whether to create a missing indicator column
 
     Returns:
-    - The original dataframe with some values replaced with NA, and an additional column "missing" that indicates whether a value has been removed at that timestamp (1 = removed)
+    - The original dataframe with some values replaced with NA, and an optional additional column "missing" that indicates whether a value has been removed at that timestamp (1 = removed)
     '''
     num_obs = proportion * len(df)
     mean_obs = num_obs/chunks
@@ -65,14 +66,14 @@ def remove_chunks_df(df, proportion, chunks, sigma):
     #final_dataset = df.copy()
     final_dataset = copy.deepcopy(df)
     final_dataset.iloc[all_removes,:] = np.nan
-    len(final_dataset)
 
-    # Creating a binary indicator vector where values have been removed
-    indicator_vec = np.zeros(len(df))
-    indicator_vec[all_removes] = 1
+    if missing_ind_col==True:
+        # Creating a binary indicator vector where values have been removed
+        indicator_vec = np.zeros(len(df))
+        indicator_vec[all_removes] = 1
 
-    #Adding this indicator vector as a column to the dataframe
-    final_dataset['missing'] = indicator_vec
+        #Adding this indicator vector as a column to the dataframe
+        final_dataset['missing'] = indicator_vec
 
     #print("The proportion of data removed is:", sum(final_dataset.missing/len(df)))
     return final_dataset
