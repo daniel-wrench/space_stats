@@ -294,11 +294,8 @@ def mag_interval_pipeline_gap(
 
     print("\nFinal flat input dimensions:",
           "\n  Filled with 0s:", filled_inputs_0_flat.shape,
-          "\n  Filled with 0s flat:", filled_inputs_0_flat.shape,
           "\n  Filled with 9s:", filled_inputs_9_flat.shape,
-          "\n  Filled with 9s flat:", filled_inputs_9_flat.shape,
-          "\n  Lint:", lint_inputs_flat.shape,
-          "\n  Lint flat:", lint_inputs_flat.shape)
+          "\n  Lint:", lint_inputs_flat.shape)
 
     print("\nFinal output dimensions:",
           "\n  Clean:", clean_outputs.shape,
