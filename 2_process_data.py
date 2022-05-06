@@ -335,8 +335,9 @@ psp_df_2 = pd.read_pickle("data_processed/psp/psp_df_2.pkl")
 (psp_inputs_train_list, psp_inputs_validate_list, psp_inputs_test_list) = mag_interval_pipeline_split(
                                                      df_list=[psp_df_1, psp_df_2],
                                                      dataset_name="psp",
-                                                     n_values_list=[1950000, 1150000], 
-                                                     n_subsets_list=[1950000/10000, 1150000/10000],
+                                                     # CORRECT TO 1950000, 1150000 FOR PROPER RUN
+                                                     n_values_list=[50000, 50000], 
+                                                     n_subsets_list=[50000/10000, 50000/10000],
                                                      validate_size=0.1,
                                                      test_size=0.2)
 
@@ -360,7 +361,8 @@ print("\n\nPROCESSING PSP TRAINING DATA \n")
  ) = mag_interval_pipeline_gap(
     psp_inputs_train_list,
     "psp_train",
-    n_copies=10,
+    # CORRECT TO 10 FOR PROPER RUN
+    n_copies=5,
     freq='0.75S',
     dt=0.75,
     min_removal_percent=0,
@@ -547,8 +549,9 @@ mms_inputs_test_list = mag_interval_pipeline_split(
             mms1_df_2
             ],
     dataset_name="mms",
-    n_values_list=[290000, 440000],
-    n_subsets_list=[290000/10000, 440000/10000],
+    # CORRECT TO [290000, 440000] FOR PROPER RUN
+    n_values_list=[50000, 50000],
+    n_subsets_list=[50000/10000, 50000/10000],
     validate_size = 0,
     test_size=1)
 
