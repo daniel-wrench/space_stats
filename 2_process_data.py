@@ -45,7 +45,7 @@ def calc_strfn(input_intervals, dt):
                               az=interval.iloc[:, 2],
                               lags=range(
                                   0, round(0.2*len(input_intervals[1]))),
-                              orders=[2], # Second order structure function
+                              orders=[2],  # Second order structure function
                               dt=dt)  
         sfs.append(s[0])
     return sfs
@@ -76,7 +76,7 @@ def convert_df_list_to_arrays(dataset):
     #list_of_flat_vectors_no_ind = []
     for i in range(len(array_of_vectors)):
         list_of_flat_vectors.append(array_of_vectors[i].flatten())
-        #list_of_flat_vectors_no_ind.append(array_of_vectors[i][0:3].flatten())
+        # list_of_flat_vectors_no_ind.append(array_of_vectors[i][0:3].flatten())
 
     array_of_flat_vectors = np.array(list_of_flat_vectors)
     #array_of_flat_vectors_no_ind = np.array(list_of_flat_vectors_no_ind)
@@ -86,6 +86,7 @@ def convert_df_list_to_arrays(dataset):
 ################################################################################
 
 # First of two major pipeline functions
+
 
 def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_list, validate_size, test_size):
     """Takes a time series and splits it into many intervals, normalises them,
@@ -322,6 +323,7 @@ def mag_interval_pipeline_gap(
 
 # PSP (used for training and testing the neural net)
 
+
 print("\nTIME: ", datetime.datetime.now())
 
 # Loading the data
@@ -549,7 +551,7 @@ mms_inputs_test_list = mag_interval_pipeline_split(
     # CORRECT TO [290000, 440000] FOR PROPER RUN
     n_values_list=[290000, 440000],
     n_subsets_list=[290000/10000, 440000/10000],
-    validate_size = 0,
+    validate_size=0,
     test_size=1)
 
 #print("\n\nPROCESSING MMS TRAINING DATA \n")
