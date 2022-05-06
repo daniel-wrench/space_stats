@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 def plot_results(predictions_arr, observed_arr, no_samples, spacecraft, model):
-    """Plot observed curves against predicted for a sample of validation intervals"""
+    """Plot observed curves against predicted for a sample of *validation* intervals. To be used for hyperparameter tuning by visual inspection of predictions."""
 
     predicted = np.load(predictions_arr)
     predicted = pd.DataFrame(predicted)

@@ -15,104 +15,28 @@ np_load_old = np.load
 np.load = lambda *a,**k: np_load_old(*a, allow_pickle=True, **k)
 
 
-model_name = "april_5/mod_1/"
+model_name = "may_6/mod_1/"
 
 random.seed(5)
 
-# Load PSP data
-input_training_psp = np.load('data_processed/psp/psp_filled_inputs_train_flat.npy')
-output_training_psp = np.load('data_processed/psp/psp_clean_outputs_train.npy')
+# Load PSP data - NOW ALL WITHOUT MASK VECTOR
+inputs_train_npy = np.load('data_processed/psp/psp_filled_inputs_0_train_flat.npy')
+outputs_train_npy = np.load('data_processed/psp/psp_clean_outputs_train.npy')
 
-input_training_b_psp = np.load('data_processed/psp/psp_filled_inputs_train_flat_no_ind.npy')
-input_training_2_psp = np.load('data_processed/psp/psp_lint_inputs_train_flat.npy')
-input_training_2b_psp = np.load('data_processed/psp/psp_lint_inputs_train_flat_no_ind.npy')
+inputs_validate_npy = np.load('data_processed/psp/psp_filled_inputs_0_validate_flat.npy')
+outputs_validate_npy = np.load('data_processed/psp/psp_clean_outputs_validate.npy')
 
-input_testing_psp = np.load('data_processed/psp/psp_filled_inputs_test_flat.npy')
-output_testing_psp = np.load('data_processed/psp/psp_clean_outputs_test.npy')
-
-input_testing_b_psp = np.load('data_processed/psp/psp_filled_inputs_test_flat_no_ind.npy')
-input_testing_2_psp = np.load('data_processed/psp/psp_lint_inputs_test_flat.npy')
-input_testing_2b_psp = np.load('data_processed/psp/psp_lint_inputs_test_flat_no_ind.npy')
-
-input_validate_psp = np.load('data_processed/psp/psp_filled_inputs_validate_flat.npy')
-output_validate_psp = np.load('data_processed/psp/psp_clean_outputs_validate.npy')
-
-input_validate_b_psp = np.load('data_processed/psp/psp_filled_inputs_validate_flat_no_ind.npy')
-input_validate_2_psp = np.load('data_processed/psp/psp_lint_inputs_validate_flat.npy')
-input_validate_2b_psp = np.load('data_processed/psp/psp_lint_inputs_validate_flat_no_ind.npy')
-
-# Load MMS data
-input_training_mms = np.load('data_processed/mms/mms_filled_inputs_train_flat.npy')
-output_training_mms = np.load('data_processed/mms/mms_clean_outputs_train.npy')
-
-input_training_b_mms = np.load('data_processed/mms/mms_filled_inputs_train_flat_no_ind.npy')
-input_training_2_mms = np.load('data_processed/mms/mms_lint_inputs_train_flat.npy')
-input_training_2b_mms = np.load('data_processed/mms/mms_lint_inputs_train_flat_no_ind.npy')
-
-input_testing_mms = np.load('data_processed/mms/mms_filled_inputs_test_flat.npy')
-output_testing_mms = np.load('data_processed/mms/mms_clean_outputs_test.npy')
-
-input_testing_b_mms = np.load('data_processed/mms/mms_filled_inputs_test_flat_no_ind.npy')
-input_testing_2_mms = np.load('data_processed/mms/mms_lint_inputs_test_flat.npy')
-input_testing_2b_mms = np.load('data_processed/mms/mms_lint_inputs_test_flat_no_ind.npy')
-
-input_validate_mms = np.load('data_processed/mms/mms_filled_inputs_validate_flat.npy')
-output_validate_mms = np.load('data_processed/mms/mms_clean_outputs_validate.npy')
-
-input_validate_b_mms = np.load('data_processed/mms/mms_filled_inputs_validate_flat_no_ind.npy')
-input_validate_2_mms = np.load('data_processed/mms/mms_lint_inputs_validate_flat.npy')
-input_validate_2b_mms = np.load('data_processed/mms/mms_lint_inputs_validate_flat_no_ind.npy')
-
-# Combine sets (but keep test sets apart)
-input_training = np.concatenate((input_training_psp, input_training_mms))
-output_training = np.concatenate((output_training_psp, output_training_mms))
-
-input_training_b = np.concatenate((input_training_b_psp, input_training_b_mms))
-input_training_2 = np.concatenate((input_training_2_psp, input_training_2_mms))
-input_training_2b = np.concatenate((input_training_2b_psp, input_training_2b_mms))
-
-input_validate = np.concatenate((input_validate_psp, input_validate_mms))
-output_validate = np.concatenate((output_validate_psp, output_validate_mms))
-
-input_validate_b = np.concatenate((input_validate_b_psp, input_validate_b_mms))
-input_validate_2 = np.concatenate((input_validate_2_psp, input_validate_2_mms))
-input_validate_2b = np.concatenate((input_validate_2b_psp, input_validate_2b_mms))
-
-# PSP data from 2020
-
-#input_testing_2020 = np.load('data_processed/psp/psp_filled_inputs_test_flat_2020.npy')
-#output_testing_2020 = np.load('data_processed/psp/psp_clean_outputs_test_2020.npy')
-
-#input_testing_b_2020 = np.load('data_processed/psp/psp_filled_inputs_test_flat_no_ind_2020.npy')
-#input_testing_2_2020 = np.load('data_processed/psp/psp_lint_inputs_test_flat_2020.npy')
-#input_testing_2b_2020 = np.load('data_processed/psp/psp_lint_inputs_test_flat_no_ind_2020.npy')
-
-print("\nThe dimensions of the input training data are", input_training.shape)
-print("The dimensions of the output training data are", output_training.shape)
-print("\nThe dimensions of the input training data are", input_validate.shape)
-print("The dimensions of the output training data are", output_validate.shape)
-print("The dimensions of the PSP input testing data are", input_testing_psp.shape)
-print("The dimensions of the PSP output testing data are", output_testing_psp.shape)
-print("The dimenstions of the MMS input testing data are", input_testing_mms.shape)
-print("The dimensions of the MMS output testing data are", output_testing_mms.shape)
-#print("The dimensions of the 2020 PSP input testing data are", input_testing_2020.shape)
-#print("The dimensions of the 2020 PSP output testing data are", output_testing_2020.shape)
+print("\nThe dimensions of the input training data are", inputs_train_npy.shape)
+print("The dimensions of the output training data are", outputs_train_npy.shape)
+print("\nThe dimensions of the input training data are", inputs_validate_npy.shape)
+print("The dimensions of the output training data are", outputs_validate_npy.shape)
 
 # Define features as tensorflow objects
-inputs_train = tf.constant(input_training_2b)
-outputs_train = tf.constant(output_training)
+inputs_train = tf.constant(inputs_train_npy)
+outputs_train = tf.constant(outputs_train_npy)
 
-inputs_validate = tf.constant(input_validate_2b)
-outputs_validate = tf.constant(output_validate)
-
-inputs_test_psp = tf.constant(input_testing_2b_psp)
-outputs_test_psp = tf.constant(output_testing_psp)
-
-#inputs_test_2020 = tf.constant(input_testing_2b_2020)
-#outputs_test_2020 = tf.constant(output_testing_2020)
-
-inputs_test_mms = tf.constant(input_testing_2b_mms)
-outputs_test_mms = tf.constant(output_testing_mms)
+inputs_validate = tf.constant(inputs_validate_npy)
+outputs_validate = tf.constant(outputs_validate_npy)
 
 print("\nHere is the first training input:\n", inputs_train[0])
 print("\nHere is the first training output:\n", outputs_train[0], "\n")
@@ -157,20 +81,31 @@ np.save(file='results/' + model_name + 'loss', arr=history.history['loss'])
 np.save(file='results/' + model_name + 'val_loss',
         arr=history.history['val_loss'])
 
-# Evaluating model performance
-print(sf_ann.summary())
-print('MSE on PSP test set=', sf_ann.evaluate(inputs_test_psp, outputs_test_psp))
-print('MSE on MMS test set=', sf_ann.evaluate(inputs_test_mms, outputs_test_mms))
-#print('MSE on PSP 2020 test set=', sf_ann.evaluate(inputs_test_2020, outputs_test_2020))
+######################################################################################
 
-# Saving predictions on test sets
-test_predictions = sf_ann.predict(inputs_test_psp)
-np.save(file='results/' + model_name +
-        'psp_outputs_test_predict', arr=test_predictions)
+# Saving predictions on validation sets
 
-test_predictions_mms = sf_ann.predict(inputs_test_mms)
+validate_predictions = sf_ann.predict(inputs_validate)
 np.save(file='results/' + model_name +
-        'mms_outputs_test_predict', arr=test_predictions_mms)
+        'outputs_validate_predict', arr=validate_predictions)
+
+######################################################################################
+
+# Evaluating final model on test sets - LEAVE TILL THE VERY END
+
+# print(sf_ann.summary())
+# print('MSE on PSP test set=', sf_ann.evaluate(inputs_test_psp, outputs_test_psp))
+# print('MSE on MMS test set=', sf_ann.evaluate(inputs_test_mms, outputs_test_mms))
+
+# test_predictions_mms = sf_ann.predict(inputs_test_psp)
+# np.save(file='results/' + model_name +
+#         'psp_outputs_test_predict', arr=test_predictions_mms)
+
+# test_predictions_mms = sf_ann.predict(inputs_test_mms)
+# np.save(file='results/' + model_name +
+#         'mms_outputs_test_predict', arr=test_predictions_mms)
+
+######################################################################################
 
 #test_predictions_psp_2020 = sf_ann.predict(inputs_test_2020)
 #np.save(file = 'results/' + model_name + 'psp_2020_outputs_test_predict', arr = test_predictions_psp_2020)
