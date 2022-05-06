@@ -78,8 +78,7 @@ history = sf_ann.fit(inputs_train, outputs_train, shuffle=True,
                      callbacks=callbacks, validation_data=(inputs_validate, outputs_validate), epochs=50)
 
 np.save(file='results/' + model_name + 'loss', arr=history.history['loss'])
-np.save(file='results/' + model_name + 'val_loss',
-        arr=history.history['val_loss'])
+np.save(file='results/' + model_name + 'val_loss', arr=history.history['val_loss'])
 
 ######################################################################################
 

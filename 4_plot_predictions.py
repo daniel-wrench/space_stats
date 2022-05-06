@@ -1,5 +1,5 @@
 # Plot results of neural network on validation set
-# Use these to evaluate to the hyperparameters(?)
+# Use these to inform the choice of ANN architecture
 
 import calculate_stats as calc
 
@@ -10,18 +10,21 @@ calc.plot_validation_error(path = 'results/' + model_name)
 calc.plot_results(
     predictions_arr = 'results/' + model_name + 'outputs_validate_predict.npy', 
     observed_arr = 'data_processed/psp/psp_clean_outputs_validate.npy',
-    no_samples = 16, 
+    no_samples = 5, 
     spacecraft = 'PSP', 
     model = model_name
 )
 
-calc.plot_log_results(
+calc.plot_results(
     predictions_arr = 'results/' + model_name + 'outputs_validate_predict.npy', 
     observed_arr = 'data_processed/psp/psp_clean_outputs_validate.npy',
-    no_samples = 16, 
+    no_samples = 5, 
     spacecraft = 'PSP_log', 
-    model = model_name
+    model = model_name,
+    log = True
 )
+
+print("FINISHED PLOTTING")
 
 # PLOTTING PREDICTIONS ON TEST SET (do not using for choosing hyperparameters)
 
