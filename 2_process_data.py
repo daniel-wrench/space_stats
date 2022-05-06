@@ -91,7 +91,7 @@ def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_
     """Takes a time series and splits it into many intervals, normalises them,
     then groups them into a training, validation and test set"""
 
-    print("SPLITTING, NORMALISING AND SHUFFLING " + dataset_name + " MAG FIELD DATA")
+    print("SPLITTING, NORMALISING AND SHUFFLING " + dataset_name + " MAG FIELD DATA\n")
 
     inputs_list_raw = np.split(
         df_list[0][:n_values_list[0]], n_subsets_list[0])
@@ -333,8 +333,8 @@ psp_df_2 = pd.read_pickle("data_processed/psp/psp_df_2.pkl")
                                                      df_list=[psp_df_1, psp_df_2],
                                                      dataset_name="psp",
                                                      # CORRECT TO 1950000, 1150000 FOR PROPER RUN
-                                                     n_values_list=[50000, 50000], 
-                                                     n_subsets_list=[50000/10000, 50000/10000],
+                                                     n_values_list=[100000, 50000], 
+                                                     n_subsets_list=[100000/10000, 50000/10000],
                                                      validate_size=0.1,
                                                      test_size=0.2)
 
