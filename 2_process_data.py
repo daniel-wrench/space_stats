@@ -333,8 +333,8 @@ psp_df_2 = pd.read_pickle("data_processed/psp/psp_df_2.pkl")
                                                      df_list=[psp_df_1, psp_df_2],
                                                      dataset_name="psp",
                                                      # CORRECT TO 1950000, 1150000 FOR PROPER RUN
-                                                     n_values_list=[100000, 50000], 
-                                                     n_subsets_list=[100000/10000, 50000/10000],
+                                                     n_values_list=[1950000, 1150000], 
+                                                     n_subsets_list=[1950000/10000, 1150000/10000],
                                                      validate_size=0.1,
                                                      test_size=0.2)
 
@@ -359,7 +359,7 @@ print("\n\nPROCESSING PSP TRAINING DATA \n")
     psp_inputs_train_list,
     "psp_train",
     # CORRECT TO 10 FOR PROPER RUN
-    n_copies=5,
+    n_copies=10,
     freq='0.75S',
     dt=0.75,
     min_removal_percent=0,
@@ -547,12 +547,12 @@ mms_inputs_test_list = mag_interval_pipeline_split(
             ],
     dataset_name="mms",
     # CORRECT TO [290000, 440000] FOR PROPER RUN
-    n_values_list=[50000, 50000],
-    n_subsets_list=[50000/10000, 50000/10000],
+    n_values_list=[290000, 440000],
+    n_subsets_list=[290000/10000, 440000/10000],
     validate_size = 0,
     test_size=1)
 
-print("\n\nPROCESSING MMS TRAINING DATA \n")
+#print("\n\nPROCESSING MMS TRAINING DATA \n")
 
 # (mms_clean_inputs_train,
 #  mms_clean_outputs_train,
@@ -725,6 +725,6 @@ np.save(file='data_processed/mms/mms_gapped_inputs_test_prop_removed',
 
 print("\nTIME: ", datetime.datetime.now())
 
-print("\nFINISHED PROCESSING MMS TEST DATA \n")
+print("\nFINISHED PROCESSING MMS TEST DATA\n")
 
-print("\n\nFINISHED PROCESSING ALL DATA \n")
+print("\nFINISHED PROCESSING ALL DATA\n")
