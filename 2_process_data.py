@@ -122,25 +122,32 @@ def mag_interval_pipeline_split(df_list, dataset_name, n_values_list, n_subsets_
     shuffler = np.random.permutation(len(inputs_list))
     inputs_list_shuffled = [inputs_list[i] for i in shuffler]
 
-    train_size = 1 - validate_size - test_size
+    if test_size == 1:
 
-    train_val_boundary = int(train_size*len(inputs_list_shuffled))
-    val_test_boundary = int((train_size+validate_size)*len(inputs_list_shuffled))
-    inputs_train = inputs_list_shuffled[:train_val_boundary]
-    inputs_validate = inputs_list_shuffled[train_val_boundary:val_test_boundary]
-    inputs_test = inputs_list_shuffled[val_test_boundary:]
+        inputs_test = inputs_list_shuffled
+        print("\nInput test data dimensions:", len(inputs_test), 'x', inputs_test[0].shape)
+        return inputs_test
 
-    print("Means of first interval pre-normalisation:" + str(round(inputs_list_raw[0].mean(), 2)))
-    print("\nStandard deviations of first interval pre-normalisation:"+ str(round(inputs_list_raw[0].std(), 2)))
+    else: 
+        train_size = 1 - validate_size - test_size
 
-    print("\n\nMeans of first interval post-normalisation:" + str(round(inputs_list[0].mean(), 2)))
-    print("\nStandard deviations of post interval pre-normalisation:" + str(round(inputs_list[0].std(), 2)))
+        train_val_boundary = int(train_size*len(inputs_list_shuffled))
+        val_test_boundary = int((train_size+validate_size)*len(inputs_list_shuffled))
+        inputs_train = inputs_list_shuffled[:train_val_boundary]
+        inputs_validate = inputs_list_shuffled[train_val_boundary:val_test_boundary]
+        inputs_test = inputs_list_shuffled[val_test_boundary:]
 
-    print("\n\nInput training data dimensions:", len(inputs_train), 'x', inputs_train[0].shape)
-    print("\nInput validation data dimensions:", len(inputs_validate), 'x', inputs_validate[0].shape)
-    print("\nInput test data dimensions:", len(inputs_test), 'x', inputs_test[0].shape)
+        print("Means of first interval pre-normalisation:" + str(round(inputs_list_raw[0].mean(), 2)))
+        print("\nStandard deviations of first interval pre-normalisation:"+ str(round(inputs_list_raw[0].std(), 2)))
 
-    return (inputs_train, inputs_validate, inputs_test)
+        print("\n\nMeans of first interval post-normalisation:" + str(round(inputs_list[0].mean(), 2)))
+        print("\nStandard deviations of post interval pre-normalisation:" + str(round(inputs_list[0].std(), 2)))
+
+        print("\n\nInput training data dimensions:", len(inputs_train), 'x', inputs_train[0].shape)
+        print("\nInput validation data dimensions:", len(inputs_validate), 'x', inputs_validate[0].shape)
+        print("\nInput test data dimensions:", len(inputs_test), 'x', inputs_test[0].shape)
+
+        return (inputs_train, inputs_validate, inputs_test)
 
 
 # Second of two major pipeline functions
@@ -318,7 +325,6 @@ def mag_interval_pipeline_gap(
 
 # PSP (used for training and testing the neural net)
 
-
 print("\nTIME: ", datetime.datetime.now())
 
 # Loading the data
@@ -329,9 +335,8 @@ psp_df_2 = pd.read_pickle("data_processed/psp/psp_df_2.pkl")
 (psp_inputs_train_list, psp_inputs_validate_list, psp_inputs_test_list) = mag_interval_pipeline_split(
                                                      df_list=[psp_df_1, psp_df_2],
                                                      dataset_name="psp",
-                                                     n_values_list=[1950000, 680000], 
-                                                     # 1150000 actually available for the 2nd interval - limiting to match MMS
-                                                     n_subsets_list=[1950000/10000, 680000/10000],
+                                                     n_values_list=[1950000, 1150000], 
+                                                     n_subsets_list=[1950000/10000, 1150000/10000],
                                                      validate_size=0.1,
                                                      test_size=0.2)
 
@@ -355,8 +360,7 @@ print("\n\nPROCESSING PSP TRAINING DATA \n")
  ) = mag_interval_pipeline_gap(
     psp_inputs_train_list,
     "psp_train",
-    # FOR TESTING UPDATED CODES
-    n_copies=5,
+    n_copies=10,
     freq='0.75S',
     dt=0.75,
     min_removal_percent=0,
@@ -522,154 +526,146 @@ print("\nTIME: ", datetime.datetime.now())
 mms1_df_1 = pd.read_pickle("data_processed/mms/mms1_df_1.pkl")
 mms1_df_2 = pd.read_pickle("data_processed/mms/mms1_df_2.pkl")
 
-mms2_df_1 = pd.read_pickle("data_processed/mms/mms2_df_1.pkl")
-mms2_df_2 = pd.read_pickle("data_processed/mms/mms2_df_2.pkl")
+# mms2_df_1 = pd.read_pickle("data_processed/mms/mms2_df_1.pkl")
+# mms2_df_2 = pd.read_pickle("data_processed/mms/mms2_df_2.pkl")
 
-mms3_df_1 = pd.read_pickle("data_processed/mms/mms3_df_1.pkl")
-mms3_df_2 = pd.read_pickle("data_processed/mms/mms3_df_2.pkl")
+# mms3_df_1 = pd.read_pickle("data_processed/mms/mms3_df_1.pkl")
+# mms3_df_2 = pd.read_pickle("data_processed/mms/mms3_df_2.pkl")
 
 # MISSING DATA HERE
 # mms4_df_1 = pd.read_pickle("data_processed/mms/mms4_df_1.pkl") 
-mms4_df_2 = pd.read_pickle("data_processed/mms/mms4_df_2.pkl")
+
+# mms4_df_2 = pd.read_pickle("data_processed/mms/mms4_df_2.pkl")
 
 #################
 
-# Splitting into training and test set
+# GET 100% OF MMS DATA TO TEST ON
 
-(mms_inputs_train_list,
- mms_inputs_validate_list,
- mms_inputs_test_list) = mag_interval_pipeline_split(
+mms_inputs_test_list = mag_interval_pipeline_split(
     df_list=[
             mms1_df_1, 
-            mms1_df_2, 
-            mms2_df_1,
-            mms2_df_2,
-            mms3_df_1,
-            mms3_df_2,
-        # mms4_df_1,
-            mms4_df_2
+            mms1_df_2
             ],
     dataset_name="mms",
-    n_values_list=[290000, 440000]*3 + [440000],
-    n_subsets_list=[290000/10000, 440000/10000]*3 + [440000/10000],
-    # FOR TESTING UPDATED CODES
-    validate_size = 0.1,
-    test_size=0.2)
+    n_values_list=[290000, 440000],
+    n_subsets_list=[290000/10000, 440000/10000],
+    validate_size = 0,
+    test_size=1)
 
 print("\n\nPROCESSING MMS TRAINING DATA \n")
 
-(mms_clean_inputs_train,
- mms_clean_outputs_train,
- mms_gapped_inputs_train,
- mms_gapped_outputs_train,
- mms_filled_inputs_0_train,
- mms_filled_inputs_0_train_flat,
- mms_filled_inputs_9_train,
- mms_filled_inputs_9_train_flat,
- mms_filled_outputs_0_train,
- mms_lint_inputs_train,
- mms_lint_inputs_train_flat,
- mms_lint_outputs_train,
- mms_gapped_inputs_train_prop_removed
- ) = mag_interval_pipeline_gap(
-    mms_inputs_train_list,
-    "mms_train",
-    n_copies=15,
-    freq='0.008S',
-    dt=0.008,
-    min_removal_percent=0,
-    max_removal_percent=50)
+# (mms_clean_inputs_train,
+#  mms_clean_outputs_train,
+#  mms_gapped_inputs_train,
+#  mms_gapped_outputs_train,
+#  mms_filled_inputs_0_train,
+#  mms_filled_inputs_0_train_flat,
+#  mms_filled_inputs_9_train,
+#  mms_filled_inputs_9_train_flat,
+#  mms_filled_outputs_0_train,
+#  mms_lint_inputs_train,
+#  mms_lint_inputs_train_flat,
+#  mms_lint_outputs_train,
+#  mms_gapped_inputs_train_prop_removed
+#  ) = mag_interval_pipeline_gap(
+#     mms_inputs_train_list,
+#     "mms_train",
+#     n_copies=15,
+#     freq='0.008S',
+#     dt=0.008,
+#     min_removal_percent=0,
+#     max_removal_percent=50)
 
-# Saving mms training outputs
-# CHANGE SO AS TO USE FEWER LINES OF CODE
-np.save(file='data_processed/mms/mms_clean_inputs_train',
-        arr=mms_clean_inputs_train)
-np.save(file='data_processed/mms/mms_clean_outputs_train',
-        arr=mms_clean_outputs_train)
-np.save(file='data_processed/mms/mms_gapped_inputs_train',
-        arr=mms_gapped_inputs_train)
-np.save(file='data_processed/mms/mms_gapped_outputs_train',
-        arr=mms_gapped_outputs_train)
-np.save(file='data_processed/mms/mms_filled_inputs_0_train',
-        arr=mms_filled_inputs_0_train)
-np.save(file='data_processed/mms/mms_filled_inputs_0_train_flat',
-        arr=mms_filled_inputs_0_train_flat)
-np.save(file='data_processed/mms/mms_filled_outputs_0_train',
-        arr=mms_filled_outputs_0_train)
-np.save(file='data_processed/mms/mms_filled_inputs_9_train',
-        arr=mms_filled_inputs_9_train)
-np.save(file='data_processed/mms/mms_filled_inputs_9_train_flat',
-        arr=mms_filled_inputs_9_train_flat)
-np.save(file='data_processed/mms/mms_lint_inputs_train',
-        arr=mms_lint_inputs_train)
-np.save(file='data_processed/mms/mms_lint_inputs_train_flat',
-        arr=mms_lint_inputs_train_flat)
-np.save(file='data_processed/mms/mms_lint_outputs_train',
-        arr=mms_lint_outputs_train)
-np.save(file='data_processed/mms/mms_gapped_inputs_train_prop_removed',
-        arr=mms_gapped_inputs_train_prop_removed)
+# # Saving mms training outputs
+# # CHANGE SO AS TO USE FEWER LINES OF CODE
+# np.save(file='data_processed/mms/mms_clean_inputs_train',
+#         arr=mms_clean_inputs_train)
+# np.save(file='data_processed/mms/mms_clean_outputs_train',
+#         arr=mms_clean_outputs_train)
+# np.save(file='data_processed/mms/mms_gapped_inputs_train',
+#         arr=mms_gapped_inputs_train)
+# np.save(file='data_processed/mms/mms_gapped_outputs_train',
+#         arr=mms_gapped_outputs_train)
+# np.save(file='data_processed/mms/mms_filled_inputs_0_train',
+#         arr=mms_filled_inputs_0_train)
+# np.save(file='data_processed/mms/mms_filled_inputs_0_train_flat',
+#         arr=mms_filled_inputs_0_train_flat)
+# np.save(file='data_processed/mms/mms_filled_outputs_0_train',
+#         arr=mms_filled_outputs_0_train)
+# np.save(file='data_processed/mms/mms_filled_inputs_9_train',
+#         arr=mms_filled_inputs_9_train)
+# np.save(file='data_processed/mms/mms_filled_inputs_9_train_flat',
+#         arr=mms_filled_inputs_9_train_flat)
+# np.save(file='data_processed/mms/mms_lint_inputs_train',
+#         arr=mms_lint_inputs_train)
+# np.save(file='data_processed/mms/mms_lint_inputs_train_flat',
+#         arr=mms_lint_inputs_train_flat)
+# np.save(file='data_processed/mms/mms_lint_outputs_train',
+#         arr=mms_lint_outputs_train)
+# np.save(file='data_processed/mms/mms_gapped_inputs_train_prop_removed',
+#         arr=mms_gapped_inputs_train_prop_removed)
 
-print("\nFINISHED PROCESSING MMS TRAINING DATA \n")
+# print("\nFINISHED PROCESSING MMS TRAINING DATA \n")
 
-print("\nTIME: ", datetime.datetime.now())
+# print("\nTIME: ", datetime.datetime.now())
 
 
-print("\n\nPROCESSING mms VALIDATION DATA \n")
+# print("\n\nPROCESSING mms VALIDATION DATA \n")
 
-(mms_clean_inputs_validate,
- mms_clean_outputs_validate,
- mms_gapped_inputs_validate,
- mms_gapped_outputs_validate,
- mms_filled_inputs_0_validate,
- mms_filled_inputs_0_validate_flat,
- mms_filled_inputs_9_validate,
- mms_filled_inputs_9_validate_flat,
- mms_filled_outputs_0_validate,
- mms_lint_inputs_validate,
- mms_lint_inputs_validate_flat,
- mms_lint_outputs_validate,
- mms_gapped_inputs_validate_prop_removed
- ) = mag_interval_pipeline_gap(
-    mms_inputs_validate_list,
-    "mms_validate",
-    n_copies=5,
-    freq='0.008S',
-    dt=0.008,
-    min_removal_percent=0,
-    max_removal_percent=50)
+# (mms_clean_inputs_validate,
+#  mms_clean_outputs_validate,
+#  mms_gapped_inputs_validate,
+#  mms_gapped_outputs_validate,
+#  mms_filled_inputs_0_validate,
+#  mms_filled_inputs_0_validate_flat,
+#  mms_filled_inputs_9_validate,
+#  mms_filled_inputs_9_validate_flat,
+#  mms_filled_outputs_0_validate,
+#  mms_lint_inputs_validate,
+#  mms_lint_inputs_validate_flat,
+#  mms_lint_outputs_validate,
+#  mms_gapped_inputs_validate_prop_removed
+#  ) = mag_interval_pipeline_gap(
+#     mms_inputs_validate_list,
+#     "mms_validate",
+#     n_copies=5,
+#     freq='0.008S',
+#     dt=0.008,
+#     min_removal_percent=0,
+#     max_removal_percent=50)
 
-# Saving mms validation outputs
-# CHANGE SO AS TO USE FEWER LINES OF CODE
-np.save(file='data_processed/mms/mms_clean_inputs_validate',
-        arr=mms_clean_inputs_validate)
-np.save(file='data_processed/mms/mms_clean_outputs_validate',
-        arr=mms_clean_outputs_validate)
-np.save(file='data_processed/mms/mms_gapped_inputs_validate',
-        arr=mms_gapped_inputs_validate)
-np.save(file='data_processed/mms/mms_gapped_outputs_validate',
-        arr=mms_gapped_outputs_validate)
-np.save(file='data_processed/mms/mms_filled_inputs_0_validate',
-        arr=mms_filled_inputs_0_validate)
-np.save(file='data_processed/mms/mms_filled_inputs_0_validate_flat',
-        arr=mms_filled_inputs_0_validate_flat)
-np.save(file='data_processed/mms/mms_filled_outputs_0_validate',
-        arr=mms_filled_outputs_0_validate)
-np.save(file='data_processed/mms/mms_filled_inputs_9_validate',
-        arr=mms_filled_inputs_9_validate)
-np.save(file='data_processed/mms/mms_filled_inputs_9_validate_flat',
-        arr=mms_filled_inputs_9_validate_flat)
-np.save(file='data_processed/mms/mms_lint_inputs_validate',
-        arr=mms_lint_inputs_validate)
-np.save(file='data_processed/mms/mms_lint_inputs_validate_flat',
-        arr=mms_lint_inputs_validate_flat)
-np.save(file='data_processed/mms/mms_lint_outputs_validate',
-        arr=mms_lint_outputs_validate)
-np.save(file='data_processed/mms/mms_gapped_inputs_validate_prop_removed',
-        arr=mms_gapped_inputs_validate_prop_removed)
+# # Saving mms validation outputs
+# # CHANGE SO AS TO USE FEWER LINES OF CODE
+# np.save(file='data_processed/mms/mms_clean_inputs_validate',
+#         arr=mms_clean_inputs_validate)
+# np.save(file='data_processed/mms/mms_clean_outputs_validate',
+#         arr=mms_clean_outputs_validate)
+# np.save(file='data_processed/mms/mms_gapped_inputs_validate',
+#         arr=mms_gapped_inputs_validate)
+# np.save(file='data_processed/mms/mms_gapped_outputs_validate',
+#         arr=mms_gapped_outputs_validate)
+# np.save(file='data_processed/mms/mms_filled_inputs_0_validate',
+#         arr=mms_filled_inputs_0_validate)
+# np.save(file='data_processed/mms/mms_filled_inputs_0_validate_flat',
+#         arr=mms_filled_inputs_0_validate_flat)
+# np.save(file='data_processed/mms/mms_filled_outputs_0_validate',
+#         arr=mms_filled_outputs_0_validate)
+# np.save(file='data_processed/mms/mms_filled_inputs_9_validate',
+#         arr=mms_filled_inputs_9_validate)
+# np.save(file='data_processed/mms/mms_filled_inputs_9_validate_flat',
+#         arr=mms_filled_inputs_9_validate_flat)
+# np.save(file='data_processed/mms/mms_lint_inputs_validate',
+#         arr=mms_lint_inputs_validate)
+# np.save(file='data_processed/mms/mms_lint_inputs_validate_flat',
+#         arr=mms_lint_inputs_validate_flat)
+# np.save(file='data_processed/mms/mms_lint_outputs_validate',
+#         arr=mms_lint_outputs_validate)
+# np.save(file='data_processed/mms/mms_gapped_inputs_validate_prop_removed',
+#         arr=mms_gapped_inputs_validate_prop_removed)
 
-print("\nFINISHED PROCESSING MMS VALIDATION DATA \n")
+# print("\nFINISHED PROCESSING MMS VALIDATION DATA \n")
 
-print("\nTIME: ", datetime.datetime.now())
+# print("\nTIME: ", datetime.datetime.now())
 
 
 # Duplicating, gapping, and calculating structure functions for MMS test set
@@ -692,7 +688,7 @@ print("\n\nPROCESSING MMS TEST DATA \n")
  ) = mag_interval_pipeline_gap(
     mms_inputs_test_list,
     "mms_test",
-    n_copies=15,
+    n_copies=5,
     freq='0.008S',
     dt=0.008,
     min_removal_percent=0,
