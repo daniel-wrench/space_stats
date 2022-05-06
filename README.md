@@ -5,15 +5,32 @@ This code was used to explore solar wind data and implement a study of using neu
 - Mean-imputed interval
 - Linearly interpolated interval
 
-
 ## AIM
 
 Aiming to predict structure functions directly from solar wind magnetic field intervals with gaps using a neural network trained on many input-output pairs with artificial gaps in order to attempt to make the network robust to these data gaps (‘noise’).
 
+## NEXT STEPS
+
+Put `3_train_neural_net.py` and `keras_tuner.py` side-by-side and implement hyperparameter tuning. Then, run this locally, before beefing it up for Raapoi.
+
+## CURRENT DATA USED
+
+2 intervals from PSP (`psp_fld_l2_mag_rtn_...cdf`)
+- 2018-11-01 - 2018-11-17 = 1,950,000 continuous observations
+- 2018-11-21 - 2018-11-30 = 1,150,000 continuous observations
+
+**= 310 intervals of length 10,000**
+
+2 intervals from MMS-1 (`mms1_fgm_brst_l2_...cdf`
+- 2017-12-26 06:12:43 - 06:49:53 = 290,000 continuous observations
+- 2018-01-08 04:00:03 - 04:57:33 = 440,000 continuous observations
+
+**= 29 + 44 = 73 intervals of length 10,000**
+
 ## BUGS
 
 - `1_read_data.py`, line 268: The version of `pandas` in Raapoi does not like this line, nor will it read the pkl that this has been applied to if I upload the file from my local machine. For now I am just not using this file (`mms4_df_1.pkl`) in `2_process_data.py`.
-- `2_process_data.py`: Some output plots are not correct. Something to do with `plt.show` or equivalent functions. 
+- `2_process_data.py`: The MMS_example_input... plots are not correct. Something to do with `plt.show()` or equivalent functions. 
 
 ### HELPER FUNCTIONS
 
@@ -28,7 +45,7 @@ See also:
 - [Rāpoi documentation](https://vuw-research-computing.github.io/raapoi-docs/)
 
 1. Install Oracle VM VirtualBox and create a Linux VM with 20GB disk space. Also install Singularity according to the code provided [here](https://sylabs.io/guides/3.0/user-guide/installation.html). _At the point where installing dep for Go, this would not work, so I used the sudo command found [here](https://github.com/golang/dep/cmd/dep)_.
-2. Build a Singularity Tensorflow container in Linux on local computer. I had to do this using Linux on a Virtual Machine, following the instructions from [the documentation](https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example). It is a large file (1.2GB) that takes a few minutes to build. (There are more tips [here](https://clusterdeiguide.readthedocs.io/en/latest/SingularityExamples.html)
+2. Build a Singularity Tensorflow container in Linux on local computer. I had to do this using Linux on a Virtual Machine, following the instructions from [the documentation](https://vuw-research-computing.github.io/raapoi-docs/examples/#singularitytensorflow-example). It is a large file (1.2GB) that takes a few minutes to build. (There are more tips [here](https://clusterdeiguide.readthedocs.io/en/latest/SingularityExamples.html))
 3. Connect to the cluster with ssh username@clustername (raapoi.vuw.ac.nz). _This may require connecting to the VUW vpn (`vpn.wgtn.ac.nz`) through Cisco. The best interface on a Windows computer is MobaXTerm - if you are on Linux simply type sftp://username@raapoi.vuw.ac.nz into the Dolphin file explorer._
 4. Use `sftp` to copy across `tensor.sif`, as well as the `bin` and `galaxenv` repositories (these allow you to access a virtual environment).
 5. Use `lftp` to download NASA datasets from SPDF (`https://spdf.gsfc.nasa.gov/pub/data`) into the `data_raw` folder.
@@ -52,7 +69,7 @@ View that state of cluster jobs with `vuw-myjobs`.
     4. Return the amount of missing data, both before and after re-sampling
     5. Output the final tidy data as pkl files
 
-2. `sbatch 2_batch_job.sh` *Only have to do this once, depending on the number of duplicate intervals to make, how much to gap each one, and what proportion of data to use for test set.* **Takes about 50min with 10 CPUs and 10G per CPU.**
+2. `sbatch 2_batch_job.sh` *Only have to do this once, depending on the number of duplicate intervals to make, how much to gap each one, and what proportion of data to use for test set.* **Takes about 30min with 10 CPUs and 5G per CPU.**
 
     `2_process_data.py` takes the .pkl data (currently majority PSP) applies two major functions. **`mag_interval_pipeline_split()`** specifies the length of the data and the number of intervals to split it into, and the proportion to set aside for testing. This function splits the dataset into standardised intervals (mean 0 and standard deviation 1), then groups them into a training and test set, both of which are lists of dataframes. The intermediate outputs are a plot and the summary statistics of the first interval, before and after standardisation, and the dimensions of the final outputs. *The arguments I have specified to this function are to separate out 80% of input-output pairs for training, 20% for testing, for PSP. For MMS, use 100% of intervals for testing.*
 
