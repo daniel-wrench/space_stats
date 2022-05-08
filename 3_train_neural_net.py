@@ -26,10 +26,10 @@ model_name = "may_6/mod_2/"
 random.seed(5)
 
 # Load PSP data - NOW ALL WITHOUT MASK VECTOR
-inputs_train_npy = np.load('data_processed/psp/psp_filled_inputs_0_train_flat.npy')
+inputs_train_npy = np.load('data_processed/psp/psp_filled_inputs_0_train.npy')
 outputs_train_npy = np.load('data_processed/psp/psp_clean_outputs_train.npy')
 
-inputs_validate_npy = np.load('data_processed/psp/psp_filled_inputs_0_validate_flat.npy')
+inputs_validate_npy = np.load('data_processed/psp/psp_filled_inputs_0_validate.npy')
 outputs_validate_npy = np.load('data_processed/psp/psp_clean_outputs_validate.npy')
 
 print("\nThe dimensions of the input training data are", inputs_train_npy.shape)
@@ -50,19 +50,20 @@ print("\nHere is the first training output:\n", outputs_train[0], "\n")
 #### CONSTRUCTING NETWORK ####
 
 # Layers
-sf_ann = tf.keras.Sequential()
-sf_ann.add(tf.keras.Input(shape=30000,))
+model = tf.keras.Sequential()
+model.add(tf.keras.layers.Flatten(input_shape=(3,10000)))
+#model.add(tf.keras.Input(shape=30000,))
 
-sf_ann.add(tf.keras.layers.Dense(10, activation='relu'))
-sf_ann.add(tf.keras.layers.Dense(10, activation='relu'))
+model.add(tf.keras.layers.Dense(10, activation='relu'))
+model.add(tf.keras.layers.Dense(10, activation='relu'))
 
 # Optional dropout layer for preventing overfitting
-# sf_ann.add(tf.keras.layers.Dropout(0.25))
+# model.add(tf.keras.layers.Dropout(0.25))
 
-sf_ann.add(tf.keras.layers.Dense(2000))
+model.add(tf.keras.layers.Dense(2000))
 
 # Specifying an optimizer, learning rate, and loss function
-sf_ann.compile(optimizer=tf.keras.optimizers.Adam(
+model.compile(optimizer=tf.keras.optimizers.Adam(
     learning_rate=0.001), loss=tf.keras.losses.MeanSquaredError())
 
 # Specifying early stopping criteria
@@ -80,7 +81,7 @@ callbacks = [
 
 # Training the model (remove callbacks argument for no early stopping)
 # NB: Data is automatically shuffled before each epoch
-history = sf_ann.fit(inputs_train,
+history = model.fit(inputs_train,
                      outputs_train,
                      shuffle=True,
                      callbacks=callbacks,
@@ -92,30 +93,33 @@ np.save(file='results/' + model_name + 'val_loss', arr=history.history['val_loss
 
 ######################################################################################
 
+eval_result = model.evaluate(inputs_validate, outputs_validate)
+print("\nFinal validation loss =", eval_result)
+
 # Saving predictions on validation sets
 
-validate_predictions = sf_ann.predict(inputs_validate)
+validate_predictions = model.predict(inputs_validate)
 np.save(file='results/' + model_name + 'outputs_validate_predict', arr=validate_predictions)
 
 ######################################################################################
 
 # Evaluating final model on test sets - LEAVE TILL THE VERY END
 
-# print(sf_ann.summary())
-# print('MSE on PSP test set=', sf_ann.evaluate(inputs_test_psp, outputs_test_psp))
-# print('MSE on MMS test set=', sf_ann.evaluate(inputs_test_mms, outputs_test_mms))
+# print(model.summary())
+# print('MSE on PSP test set=', model.evaluate(inputs_test_psp, outputs_test_psp))
+# print('MSE on MMS test set=', model.evaluate(inputs_test_mms, outputs_test_mms))
 
-# test_predictions_mms = sf_ann.predict(inputs_test_psp)
+# test_predictions_mms = model.predict(inputs_test_psp)
 # np.save(file='results/' + model_name +
 #         'psp_outputs_test_predict', arr=test_predictions_mms)
 
-# test_predictions_mms = sf_ann.predict(inputs_test_mms)
+# test_predictions_mms = model.predict(inputs_test_mms)
 # np.save(file='results/' + model_name +
 #         'mms_outputs_test_predict', arr=test_predictions_mms)
 
 ######################################################################################
 
-#test_predictions_psp_2020 = sf_ann.predict(inputs_test_2020)
+#test_predictions_psp_2020 = model.predict(inputs_test_2020)
 #np.save(file = 'results/' + model_name + 'psp_2020_outputs_test_predict', arr = test_predictions_psp_2020)
 
 ########################################################################
