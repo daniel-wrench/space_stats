@@ -189,8 +189,8 @@ def mag_interval_pipeline_gap(
         filled_input_0 = gapped_input_std.fillna(0)
         filled_inputs_0_list.append(filled_input_0)
 
-        # Alternatively, using 99990000000 as a placeholder value. We don't calculate the sfn mathematically from these, as we do for the mean-imputed version above
-        filled_input_9 = gapped_input_std.fillna(999999)
+        # Alternatively, using 100 as a placeholder value. We don't calculate the sfn mathematically from these, as we do for the mean-imputed version above
+        filled_input_9 = gapped_input_std.fillna(100)
         filled_inputs_9_list.append(filled_input_9)
 
         # Linear interpolating the artificially gapped inputs, as another alternative
