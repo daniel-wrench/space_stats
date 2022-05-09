@@ -18,7 +18,61 @@ import seaborn as sns
 
 #######################################
 
+### FOR SAVING ARRAYS OF ONLY THE INTERVALS TO PLOT (saves space when sharing)
+
 # Importing test data and results
+
+## PSP: 39 outputs gapped 5 times each
+
+# psp_clean_inputs_test = np.load(file = 'results_for_paper/psp_clean_inputs_test.npy')
+# psp_clean_outputs_test = np.load(file = 'results_for_paper/psp_clean_outputs_test.npy')
+
+# psp_gapped_inputs_test = np.load(file = 'results_for_paper/psp_gapped_inputs_test.npy')
+# psp_gapped_outputs_test = np.load(file = 'results_for_paper/psp_gapped_outputs_test.npy')
+
+# psp_filled_inputs_test = np.load(file = 'results_for_paper/psp_filled_inputs_test.npy')
+# psp_filled_outputs_test = np.load(file = 'results_for_paper/psp_filled_outputs_test.npy')
+
+# psp_lint_inputs_test = np.load(file = 'results_for_paper/psp_lint_inputs_test.npy')
+# psp_lint_outputs_test = np.load(file = 'results_for_paper/psp_lint_outputs_test.npy')
+
+#psp_gapped_inputs_test_prop_removed = np.load(file = 'oct_10_results/psp_gapped_inputs_test_prop_removed.npy')
+
+# psp_outputs_test_predict = np.load('results_for_paper/psp_outputs_test_predict.npy')
+
+# Select the intervals to plot
+# psp_indices = [12, 90, 93, 15]
+
+# psp_clean_inputs_test = psp_clean_inputs_test[psp_indices]
+# np.save(file = 'psp_clean_inputs_test', arr = psp_clean_inputs_test)
+
+# psp_clean_outputs_test = psp_clean_outputs_test[psp_indices]
+# np.save(file = 'psp_clean_outputs_test', arr = psp_clean_outputs_test)
+
+# psp_gapped_inputs_test = psp_gapped_inputs_test[psp_indices]
+# np.save(file = 'psp_gapped_inputs_test', arr = psp_gapped_inputs_test)
+
+# psp_gapped_outputs_test = psp_gapped_outputs_test[psp_indices]
+# np.save(file = 'psp_gapped_outputs_test', arr = psp_gapped_outputs_test)
+
+# psp_filled_inputs_test = psp_filled_inputs_test[psp_indices]
+# np.save(file = 'psp_filled_inputs_test', arr = psp_filled_inputs_test)
+
+# psp_filled_outputs_test = psp_filled_outputs_test[psp_indices]
+# np.save(file = 'psp_filled_outputs_test', arr = psp_filled_outputs_test)
+
+# psp_lint_inputs_test = psp_lint_inputs_test[psp_indices]
+# np.save(file = 'psp_lint_inputs_test', arr = psp_lint_inputs_test)
+
+# psp_lint_outputs_test = psp_lint_outputs_test[psp_indices]
+# np.save(file = 'psp_lint_outputs_test', arr = psp_lint_outputs_test)
+
+# psp_outputs_test_predict = psp_outputs_predictions[psp_indices]
+# np.save(file = 'psp_outputs_test_predict', arr = psp_outputs_test_predict)
+
+#######################################
+
+# Importing selected test intervals and predictions
 
 ## PSP: 39 outputs gapped 5 times each
 
@@ -38,58 +92,7 @@ psp_lint_outputs_test_selected = np.load(file = 'results_for_paper/psp_lint_outp
 
 psp_outputs_test_predict_selected = np.load('results_for_paper/psp_outputs_test_predict_selected.npy')
 
-### FOR SAVING ARRAYS OF ONLY THE INTERVALS TO PLOT (saves space when sharing)
-
-# Select the intervals to plot
-# psp_indices = [12, 90, 93, 15]
-
-# psp_clean_inputs_test_selected = psp_clean_inputs_test[psp_indices]
-# np.save(file = 'psp_clean_inputs_test_selected', arr = psp_clean_inputs_test_selected)
-
-# psp_clean_outputs_test_selected = psp_clean_outputs_test[psp_indices]
-# np.save(file = 'psp_clean_outputs_test_selected', arr = psp_clean_outputs_test_selected)
-
-# psp_gapped_inputs_test_selected = psp_gapped_inputs_test[psp_indices]
-# np.save(file = 'psp_gapped_inputs_test_selected', arr = psp_gapped_inputs_test_selected)
-
-# psp_gapped_outputs_test_selected = psp_gapped_outputs_test[psp_indices]
-# np.save(file = 'psp_gapped_outputs_test_selected', arr = psp_gapped_outputs_test_selected)
-
-# psp_filled_inputs_test_selected = psp_filled_inputs_test[psp_indices]
-# np.save(file = 'psp_filled_inputs_test_selected', arr = psp_filled_inputs_test_selected)
-
-# psp_filled_outputs_test_selected = psp_filled_outputs_test[psp_indices]
-# np.save(file = 'psp_filled_outputs_test_selected', arr = psp_filled_outputs_test_selected)
-
-# psp_lint_inputs_test_selected = psp_lint_inputs_test[psp_indices]
-# np.save(file = 'psp_lint_inputs_test_selected', arr = psp_lint_inputs_test_selected)
-
-# psp_lint_outputs_test_selected = psp_lint_outputs_test[psp_indices]
-# np.save(file = 'psp_lint_outputs_test_selected', arr = psp_lint_outputs_test_selected)
-
-# psp_outputs_test_predict_selected = psp_outputs_predictions[psp_indices]
-# np.save(file = 'psp_outputs_test_predict_selected', arr = psp_outputs_test_predict_selected)
-
 ##############################
-
-## PSP 2020: 27 outputs gapped 5 times each
-
-# psp_clean_inputs_test_2020 = np.load(file = 'nov_5_results/datasets/psp_clean_inputs_test_2020.npy')
-# psp_clean_outputs_test_2020 = np.load(file = 'nov_5_results/datasets/psp_clean_outputs_test_2020.npy')
-
-# psp_gapped_inputs_test_2020 = np.load(file = 'nov_5_results/datasets/psp_gapped_inputs_test_2020.npy')
-# psp_gapped_outputs_test_2020 = np.load(file = 'nov_5_results/datasets/psp_gapped_outputs_test_2020.npy')
-
-# psp_filled_inputs_test_2020 = np.load(file = 'nov_5_results/datasets/psp_filled_inputs_test_2020.npy')
-# psp_filled_outputs_test_2020 = np.load(file = 'nov_5_results/datasets/psp_filled_outputs_test_2020.npy')
-
-# psp_lint_inputs_test_2020 = np.load(file = 'nov_5_results/datasets/psp_lint_inputs_test_2020.npy')
-# psp_lint_outputs_test_2020 = np.load(file = 'nov_5_results/datasets/psp_lint_outputs_test_2020.npy')
-
-# psp_gapped_inputs_test_2020_prop_removed = np.load(file = 'nov_5_results/datasets/psp_gapped_inputs_test_prop_removed_2020.npy')
-
-# psp_outputs_predictions_2020 = np.load('nov_5_results/datasets/psp_2020_outputs_test_predict.npy')
-
 
 ## MMS: 29 outputs gapped 5 times each
 

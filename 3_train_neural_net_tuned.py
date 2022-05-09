@@ -1,5 +1,8 @@
 #############################################################################
 # TENSORFLOW PROGRAM TO 'OPTIMALLY' CONSTRUCT AND EVALUATE NEURAL NETWORK 
+
+model_name = "may_9/mod_4/"
+
 #############################################################################
 
 # NEXT STEPS
@@ -15,17 +18,14 @@ import numpy as np
 # Getting issue with allow_pickle being set to False (implicitly) for some reason. Here is the stack overflow work-around
 
 # save np.load
-np_load_old = np.load
+#np_load_old = np.load
 
 # modify the default parameters of np.load
-np.load = lambda *a, **k: np_load_old(*a, allow_pickle=True, **k)
-
-
-model_name = "may_6/mod_2/"
+#np.load = lambda *a, **k: np_load_old(*a, allow_pickle=True, **k)
 
 random.seed(5)
 
-# Load PSP data - NOW ALL WITHOUT MASK VECTOR
+# Load PSP data
 inputs_train_npy = np.load('data_processed/psp/psp_filled_inputs_0_train.npy')
 outputs_train_npy = np.load('data_processed/psp/psp_clean_outputs_train.npy')
 
@@ -47,9 +47,9 @@ outputs_validate = tf.constant(outputs_validate_npy)
 print("\nHere is the first training input:\n", inputs_train[0])
 print("\nHere is the first training output:\n", outputs_train[0], "\n")
 
-#### CONSTRUCTING NETWORK ####
- 
-# TUNED MODEL USING KERAS_TUNER LIBRARY
+#################################################################
+
+#### CONSTRUCT NETWORK USING KERAS_TUNER LIBRARY ####
 
 def model_builder(hp):
   model = tf.keras.Sequential()
@@ -68,7 +68,7 @@ def model_builder(hp):
   if hp.Boolean("dropout"):
         model.add(tf.keras.layers.Dropout(rate=0.25))
 
-  model.add(tf.keras.layers.Dense(2000))
+  model.add(tf.keras.layers.Dense(units=2000))
 
   # Specify an optimizer, learning rate, and loss function
   # Tune the learning rate for the optimizer
@@ -90,8 +90,9 @@ model_builder(kt.HyperParameters())
 
 tuner = kt.RandomSearch(model_builder,
                      objective='val_loss',
-                     #max_trials=10, # No. of trials to run (different combinations of hyperparameters)
-                     #executions_per_trial=1, # No. of models to fit for each trial (same hyperparams for each execution within a trial)
+                     max_trials=4, # No. of trials to run (different combinations of hyperparameters)
+                     executions_per_trial=5, # No. of models to fit for each trial (same hyperparams for each execution within a trial),
+                     # removes need to run this multiple times
                      directory='my_dir',
                      project_name=model_name) 
 
@@ -102,7 +103,11 @@ print(tuner.search_space_summary())
 stop_early = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
 
 # Run the search
-tuner.search(inputs_train, outputs_train, epochs=10, validation_data=(inputs_validate, outputs_validate), callbacks=[stop_early])
+tuner.search(inputs_train, 
+              outputs_train,  
+              callbacks=[stop_early],
+              validation_data=(inputs_validate, outputs_validate),
+              epochs=10)
 
 # Get the optimal hyperparameters
 best_hps=tuner.get_best_hyperparameters(num_trials=1)[0]
@@ -129,6 +134,7 @@ history = best_model.fit(inputs_train,
                           callbacks=stop_early,
                           validation_data=(inputs_validate, outputs_validate),
                           epochs=500)
+
 # Alternatively, create best_model with model = tuner.hypermodel.build(best_hps)
 
 # You can now use this as your final model, OR use the following code to only train
@@ -151,7 +157,7 @@ history = best_model.fit(inputs_train,
 print(best_model.summary())
 
 # Save the model
-best_model.save(file='results/' + model_name + 'model')
+best_model.save('results/' + model_name + 'model')
 
 # Save loss over time
 np.save(file='results/' + model_name + 'loss', arr=history.history['loss'])

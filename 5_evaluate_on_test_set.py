@@ -1,7 +1,7 @@
 
 # Evaluating final model on test sets - LEAVE TILL THE VERY END
 
-model_name = "may_6/mod_1/"
+model_name = "may_9/mod_4/"
 
 ########################################################################
 
@@ -16,7 +16,7 @@ inputs_test_mms_npy = np.load('data_processed/mms/mms_filled_inputs_0_test.npy')
 outputs_test_mms_npy = np.load('data_processed/mms/mms_clean_outputs_test.npy')
 
 print("\nThe dimensions of the PSP input testing data are", inputs_test_psp_npy.shape)
-print("The dimensions of the PSPoutput testing data are", outputs_test_psp_npy.shape)
+print("The dimensions of the PSP output testing data are", outputs_test_psp_npy.shape)
 
 print("\nThe dimensions of the MMS input testing data are", inputs_test_mms_npy.shape)
 print("The dimensions of the MMS output testing data are", outputs_test_mms_npy.shape)
@@ -26,7 +26,7 @@ inputs_test_psp = tf.constant(inputs_test_psp_npy)
 outputs_test_psp = tf.constant(outputs_test_psp_npy)
 
 inputs_test_mms = tf.constant(inputs_test_mms_npy)
-outputs_test_mms = tf.constant(inputs_test_mms_npy)
+outputs_test_mms = tf.constant(outputs_test_mms_npy)
 
 print("\nHere is the first PSP testing input:\n", inputs_test_psp[0])
 print("\nHere is the first PSP testing output:\n", outputs_test_psp[0], "\n")

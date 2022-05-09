@@ -1,7 +1,7 @@
 #############################################################################
 # TENSORFLOW PROGRAM TO 'MANUALLY' CONSTRUCT AND EVALUATE NEURAL NETWORK
 
-model_name = "may_6/mod_1/"
+model_name = "may_9/mod_3/"
 
 #############################################################################
 
@@ -14,13 +14,14 @@ import random
 import tensorflow as tf
 import numpy as np
 
+
 # Getting issue with allow_pickle being set to False (implicitly) for some reason. Here is the stack overflow work-around
 
 # save np.load
-np_load_old = np.load
+#np_load_old = np.load
 
 # modify the default parameters of np.load
-np.load = lambda *a, **k: np_load_old(*a, allow_pickle=True, **k)
+#np.load = lambda *a, **k: np_load_old(*a, allow_pickle=True, **k)
 
 random.seed(5)
 
@@ -46,23 +47,24 @@ outputs_validate = tf.constant(outputs_validate_npy)
 print("\nHere is the first training input:\n", inputs_train[0])
 print("\nHere is the first training output:\n", outputs_train[0], "\n")
 
-#### CONSTRUCT NETWORK ####
+print("\nHere is the first validation input:\n", inputs_train[0])
+print("\nHere is the first validation output:\n", outputs_train[0], "\n")
 
 #################################################################
- 
-# MANUAL MODEL
+
+#### CONSTRUCT NETWORK USING MANUAL SPECIFICATION NETWORK ####
 
 # Layers
 model = tf.keras.Sequential()
 model.add(tf.keras.layers.Flatten(input_shape=(3,10000)))
 
-model.add(tf.keras.layers.Dense(10, activation='relu'))
-model.add(tf.keras.layers.Dense(10, activation='relu'))
+model.add(tf.keras.layers.Dense(units=10, activation='relu'))
+model.add(tf.keras.layers.Dense(units=10, activation='relu'))
 
 # Optional dropout layer for preventing overfitting
 # model.add(tf.keras.layers.Dropout(0.25))
 
-model.add(tf.keras.layers.Dense(2000))
+model.add(tf.keras.layers.Dense(units=2000))
 
 # Specify an optimizer, learning rate, and loss function
 model.compile(
@@ -72,8 +74,6 @@ model.compile(
 # Create EarlyStoppingCriteria callback
 stop_early = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
 
-# Train the model (remove callbacks argument for no early stopping)
-# NB: Data is automatically shuffled before each epoch
 history = model.fit(inputs_train,
                      outputs_train,
                      shuffle=True,
