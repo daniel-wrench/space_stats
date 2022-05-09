@@ -1,9 +1,11 @@
 # Plot results of neural network on validation set
 # Use these to inform the choice of ANN architecture
 
-import calculate_stats as calc
+model_name = 'may_6/mod_2/'
 
-model_name = 'may_6/mod_1/'
+#############################################################################
+
+import calculate_stats as calc
 
 calc.plot_validation_error(path = 'results/' + model_name)
 
