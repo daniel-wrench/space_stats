@@ -90,7 +90,7 @@ model_builder(kt.HyperParameters())
 
 tuner = kt.RandomSearch(model_builder,
                      objective='val_loss',
-                     max_trials=4, # No. of trials to run (different combinations of hyperparameters)
+                     max_trials=10, # No. of trials to run (different combinations of hyperparameters)
                      executions_per_trial=5, # No. of models to fit for each trial (same hyperparams for each execution within a trial),
                      # removes need to run this multiple times
                      directory='my_dir',
