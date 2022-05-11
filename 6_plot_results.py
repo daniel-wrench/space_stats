@@ -554,11 +554,11 @@ def plot_final_results(pregapped_in, out, filled_in, filled_out, lint_in, lint_o
   ax[2,0].set( ylabel = '', title = '')
   ax[3,0].set( ylabel = '', title = '')
 
-  ax[0,1].set(ylabel = '', title = '$S_2$ linear')
+  ax[0,1].set(ylabel = '', title = '$S^{fn}$ linear')
   ax[1,1].set(ylabel = '', title = '')
   ax[2,1].set(ylabel = '', title = '')
   ax[3,1].set(ylabel = '', title = '')
-  ax[0,2].set(ylabel = '', title = '$S_2$ log-log')
+  ax[0,2].set(ylabel = '', title = '$S^{fn}$ log-log')
   ax[1,2].set(ylabel = '', title = '')
   ax[2,2].set(ylabel = '', title = '')
   ax[3,2].set(ylabel = '', title = '')

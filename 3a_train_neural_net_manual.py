@@ -47,8 +47,8 @@ outputs_validate = tf.constant(outputs_validate_npy)
 print("\nHere is the first training input:\n", inputs_train[0])
 print("\nHere is the first training output:\n", outputs_train[0], "\n")
 
-print("\nHere is the first validation input:\n", inputs_train[0])
-print("\nHere is the first validation output:\n", outputs_train[0], "\n")
+print("\nHere is the first validation input:\n", inputs_validate[0])
+print("\nHere is the first validation output:\n", outputs_validate[0], "\n")
 
 #################################################################
 
