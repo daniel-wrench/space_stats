@@ -1,7 +1,7 @@
 #############################################################################
 # TENSORFLOW PROGRAM TO 'MANUALLY' CONSTRUCT AND EVALUATE NEURAL NETWORK
 
-model_name = "may_9/mod_3/"
+model_name = "may_9/mod_14/"
 
 #############################################################################
 
@@ -14,7 +14,6 @@ import random
 import tensorflow as tf
 import numpy as np
 
-
 # Getting issue with allow_pickle being set to False (implicitly) for some reason. Here is the stack overflow work-around
 
 # save np.load
@@ -26,10 +25,10 @@ import numpy as np
 random.seed(5)
 
 # Load PSP data
-inputs_train_npy = np.load('data_processed/psp/psp_filled_inputs_0_train.npy')
+inputs_train_npy = np.load('data_processed/psp/psp_lint_inputs_train.npy')
 outputs_train_npy = np.load('data_processed/psp/psp_clean_outputs_train.npy')
 
-inputs_validate_npy = np.load('data_processed/psp/psp_filled_inputs_0_validate.npy')
+inputs_validate_npy = np.load('data_processed/psp/psp_lint_inputs_validate.npy')
 outputs_validate_npy = np.load('data_processed/psp/psp_clean_outputs_validate.npy')
 
 print("\nThe dimensions of the input training data are", inputs_train_npy.shape)
@@ -58,8 +57,8 @@ print("\nHere is the first validation output:\n", outputs_validate[0], "\n")
 model = tf.keras.Sequential()
 model.add(tf.keras.layers.Flatten(input_shape=(3,10000)))
 
-model.add(tf.keras.layers.Dense(units=10, activation='relu'))
-model.add(tf.keras.layers.Dense(units=10, activation='relu'))
+model.add(tf.keras.layers.Dense(units=10000, activation='relu'))
+model.add(tf.keras.layers.Dense(units=10000, activation='relu'))
 
 # Optional dropout layer for preventing overfitting
 # model.add(tf.keras.layers.Dropout(0.25))
@@ -68,16 +67,16 @@ model.add(tf.keras.layers.Dense(units=2000))
 
 # Specify an optimizer, learning rate, and loss function
 model.compile(
-    optimizer=tf.keras.optimizers.Adam(learning_rate=1e-3), 
+    optimizer=tf.keras.optimizers.Adam(learning_rate=0.001), 
     loss=tf.keras.losses.MeanSquaredError())
 
 # Create EarlyStoppingCriteria callback
-stop_early = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5)
+stop_early = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, min_delta=0.01)
 
 history = model.fit(inputs_train,
                      outputs_train,
                      shuffle=True,
-                     callbacks=stop_early,
+                     #callbacks=stop_early,
                      validation_data=(inputs_validate, outputs_validate),
                      epochs=500)
 

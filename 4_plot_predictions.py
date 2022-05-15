@@ -1,7 +1,7 @@
 # Plot results of neural network on validation set
 # Use these to inform the choice of ANN architecture
 
-model_name = 'may_6/mod_2/'
+model_name = 'may_9/mod_14/'
 
 #############################################################################
 
@@ -12,7 +12,7 @@ calc.plot_validation_error(path = 'results/' + model_name)
 calc.plot_results(
     predictions_arr = 'results/' + model_name + 'outputs_validate_predict.npy', 
     observed_arr = 'data_processed/psp/psp_clean_outputs_validate.npy',
-    no_samples = 5, 
+    no_samples = 9, 
     spacecraft = 'PSP', 
     model = model_name
 )
@@ -20,7 +20,7 @@ calc.plot_results(
 calc.plot_results(
     predictions_arr = 'results/' + model_name + 'outputs_validate_predict.npy', 
     observed_arr = 'data_processed/psp/psp_clean_outputs_validate.npy',
-    no_samples = 5, 
+    no_samples = 9, 
     spacecraft = 'PSP_log', 
     model = model_name,
     log = True
