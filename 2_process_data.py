@@ -155,7 +155,9 @@ def mag_interval_pipeline_gap(
 
     gapped_inputs_list = []
     filled_inputs_0_list = []
-    filled_inputs_9_list = []
+    filled_inputs_5_list = []
+    filled_inputs_10_list = []
+    filled_inputs_100_list = []
     lint_inputs_list = []
     prop_removed = np.array([])
 
@@ -190,8 +192,14 @@ def mag_interval_pipeline_gap(
         filled_inputs_0_list.append(filled_input_0)
 
         # Alternatively, using 100 as a placeholder value. We don't calculate the sfn mathematically from these, as we do for the mean-imputed version above
-        filled_input_9 = gapped_input_std.fillna(100)
-        filled_inputs_9_list.append(filled_input_9)
+        filled_input_5 = gapped_input_std.fillna(5)
+        filled_inputs_5_list.append(filled_input_5)
+
+        filled_input_10 = gapped_input_std.fillna(10)
+        filled_inputs_10_list.append(filled_input_10)
+
+        filled_input_100 = gapped_input_std.fillna(100)
+        filled_inputs_100_list.append(filled_input_100)
 
         # Linear interpolating the artificially gapped inputs, as another alternative
         lint_input = gapped_input_std.interpolate()
@@ -234,9 +242,9 @@ def mag_interval_pipeline_gap(
     axs[4, 0].set_xticks([])
     axs[5, 0].set_xticks([])
 
-    axs[6, 0].plot(filled_inputs_9_list[0])
-    axs[7, 0].plot(filled_inputs_9_list[ind])
-    axs[6, 0].set_title("Huge-filled copies of interval (sfns not calculated)")
+    axs[6, 0].plot(filled_inputs_5_list[0])
+    axs[7, 0].plot(filled_inputs_5_list[ind])
+    axs[6, 0].set_title("5-filled copies of interval (sfns not calculated)")
     axs[6, 0].set_xticks([])
     axs[7, 0].set_xticks([])
 
@@ -259,7 +267,9 @@ def mag_interval_pipeline_gap(
 
     gapped_inputs = convert_df_list_to_arrays(gapped_inputs_list)
     filled_inputs_0 = convert_df_list_to_arrays(filled_inputs_0_list)
-    filled_inputs_9 = convert_df_list_to_arrays(filled_inputs_9_list)
+    filled_inputs_5 = convert_df_list_to_arrays(filled_inputs_5_list)
+    filled_inputs_10 = convert_df_list_to_arrays(filled_inputs_10_list)
+    filled_inputs_100 = convert_df_list_to_arrays(filled_inputs_100_list)
     lint_inputs = convert_df_list_to_arrays(lint_inputs_list)
 
     clean_outputs = np.array(clean_outputs_list)
@@ -274,7 +284,9 @@ def mag_interval_pipeline_gap(
           "\n  Clean:", clean_inputs.shape,
           "\n  Gapped:", gapped_inputs.shape,
           "\n  Filled with 0s:", filled_inputs_0.shape,
-          "\n  Filled with 9s:", filled_inputs_9.shape,
+          "\n  Filled with 5s:", filled_inputs_5.shape,
+          "\n  Filled with 10s:", filled_inputs_10.shape,
+          "\n  Filled with 100s:", filled_inputs_100.shape,
           "\n  Lint:", lint_inputs.shape)
 
     print("\nFinal output dimensions:",
@@ -288,7 +300,9 @@ def mag_interval_pipeline_gap(
             gapped_inputs,
             gapped_outputs,
             filled_inputs_0,
-            filled_inputs_9,
+            filled_inputs_5,
+            filled_inputs_10,
+            filled_inputs_100,
             filled_outputs_0,
             lint_inputs,
             lint_outputs,
@@ -325,7 +339,9 @@ print("\n\nPROCESSING PSP TRAINING DATA \n")
  psp_gapped_inputs_train,
  psp_gapped_outputs_train,
  psp_filled_inputs_0_train,
- psp_filled_inputs_9_train,
+ psp_filled_inputs_5_train,
+ psp_filled_inputs_10_train,
+ psp_filled_inputs_100_train,
  psp_filled_outputs_0_train,
  psp_lint_inputs_train,
  psp_lint_outputs_train,
@@ -352,10 +368,14 @@ np.save(file='data_processed/psp/psp_gapped_outputs_train',
         arr=psp_gapped_outputs_train)
 np.save(file='data_processed/psp/psp_filled_inputs_0_train',
         arr=psp_filled_inputs_0_train)
+np.save(file='data_processed/psp/psp_filled_inputs_5_train',
+        arr=psp_filled_inputs_5_train)
+np.save(file='data_processed/psp/psp_filled_inputs_10_train',
+        arr=psp_filled_inputs_10_train)
+np.save(file='data_processed/psp/psp_filled_inputs_100_train',
+        arr=psp_filled_inputs_100_train)
 np.save(file='data_processed/psp/psp_filled_outputs_0_train',
         arr=psp_filled_outputs_0_train)
-np.save(file='data_processed/psp/psp_filled_inputs_9_train',
-        arr=psp_filled_inputs_9_train)
 np.save(file='data_processed/psp/psp_lint_inputs_train',
         arr=psp_lint_inputs_train)
 np.save(file='data_processed/psp/psp_lint_outputs_train',
@@ -375,7 +395,9 @@ print("\n\nPROCESSING PSP VALIDATION DATA \n")
  psp_gapped_inputs_validate,
  psp_gapped_outputs_validate,
  psp_filled_inputs_0_validate,
- psp_filled_inputs_9_validate,
+ psp_filled_inputs_5_validate,
+ psp_filled_inputs_10_validate,
+ psp_filled_inputs_100_validate,
  psp_filled_outputs_0_validate,
  psp_lint_inputs_validate,
  psp_lint_outputs_validate,
@@ -400,10 +422,14 @@ np.save(file='data_processed/psp/psp_gapped_outputs_validate',
         arr=psp_gapped_outputs_validate)
 np.save(file='data_processed/psp/psp_filled_inputs_0_validate',
         arr=psp_filled_inputs_0_validate)
+np.save(file='data_processed/psp/psp_filled_inputs_5_validate',
+        arr=psp_filled_inputs_5_validate)
+np.save(file='data_processed/psp/psp_filled_inputs_10_validate',
+        arr=psp_filled_inputs_10_validate)
+np.save(file='data_processed/psp/psp_filled_inputs_100_validate',
+        arr=psp_filled_inputs_100_validate)
 np.save(file='data_processed/psp/psp_filled_outputs_0_validate',
         arr=psp_filled_outputs_0_validate)
-np.save(file='data_processed/psp/psp_filled_inputs_9_validate',
-        arr=psp_filled_inputs_9_validate)
 np.save(file='data_processed/psp/psp_lint_inputs_validate',
         arr=psp_lint_inputs_validate)
 np.save(file='data_processed/psp/psp_lint_outputs_validate',
@@ -425,7 +451,9 @@ print("\n\nPROCESSING PSP TEST DATA \n")
  psp_gapped_inputs_test,
  psp_gapped_outputs_test,
  psp_filled_inputs_0_test,
- psp_filled_inputs_9_test,
+ psp_filled_inputs_5_test,
+ psp_filled_inputs_10_test,
+ psp_filled_inputs_100_test,
  psp_filled_outputs_0_test,
  psp_lint_inputs_test,
  psp_lint_outputs_test,
@@ -451,10 +479,14 @@ np.save(file='data_processed/psp/psp_gapped_outputs_test',
         arr=psp_gapped_outputs_test)
 np.save(file='data_processed/psp/psp_filled_inputs_0_test',
         arr=psp_filled_inputs_0_test)
+np.save(file='data_processed/psp/psp_filled_inputs_5_test',
+        arr=psp_filled_inputs_5_test)
+np.save(file='data_processed/psp/psp_filled_inputs_10_test',
+        arr=psp_filled_inputs_10_test)
+np.save(file='data_processed/psp/psp_filled_inputs_100_test',
+        arr=psp_filled_inputs_100_test)
 np.save(file='data_processed/psp/psp_filled_outputs_0_test',
         arr=psp_filled_outputs_0_test)
-np.save(file='data_processed/psp/psp_filled_inputs_9_test',
-        arr=psp_filled_inputs_9_test)
 np.save(file='data_processed/psp/psp_lint_inputs_test',
         arr=psp_lint_inputs_test)
 np.save(file='data_processed/psp/psp_lint_outputs_test',
@@ -628,7 +660,9 @@ print("\n\nPROCESSING MMS TEST DATA \n")
  mms_gapped_inputs_test,
  mms_gapped_outputs_test,
  mms_filled_inputs_0_test,
- mms_filled_inputs_9_test,
+ mms_filled_inputs_5_test,
+ mms_filled_inputs_10_test,
+ mms_filled_inputs_100_test,
  mms_filled_outputs_0_test,
  mms_lint_inputs_test,
  mms_lint_outputs_test,
@@ -654,10 +688,14 @@ np.save(file='data_processed/mms/mms_gapped_outputs_test',
         arr=mms_gapped_outputs_test)
 np.save(file='data_processed/mms/mms_filled_inputs_0_test',
         arr=mms_filled_inputs_0_test)
+np.save(file='data_processed/mms/mms_filled_inputs_5_test',
+        arr=mms_filled_inputs_5_test)
+np.save(file='data_processed/mms/mms_filled_inputs_10_test',
+        arr=mms_filled_inputs_10_test)
+np.save(file='data_processed/mms/mms_filled_inputs_100_test',
+        arr=mms_filled_inputs_100_test)
 np.save(file='data_processed/mms/mms_filled_outputs_0_test',
         arr=mms_filled_outputs_0_test)
-np.save(file='data_processed/mms/mms_filled_inputs_9_test',
-        arr=mms_filled_inputs_9_test)
 np.save(file='data_processed/mms/mms_lint_inputs_test',
         arr=mms_lint_inputs_test)
 np.save(file='data_processed/mms/mms_lint_outputs_test',
