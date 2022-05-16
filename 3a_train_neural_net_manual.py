@@ -49,6 +49,25 @@ print("\nHere is the first training output:\n", outputs_train[0], "\n")
 print("\nHere is the first validation input:\n", inputs_validate[0])
 print("\nHere is the first validation output:\n", outputs_validate[0], "\n")
 
+# Draft code for a manual grid search that plots results for each model
+
+# layers = [2, 5, 10, 20, 50]
+# nodes = [10, 20, 50, 100, 1000]
+# inputs = ["lint", "filled_9", "filled_0"]
+
+# x = 0
+# for i in range(len(layers)):
+#     for j in range(len(nodes)):
+#         for k in range(len(inputs)):
+#             x += 1
+#             print("mod_" + str(x))
+#             print("Layers = " + str(layers[i]))
+#             print("Nodes in each layer = " + str(nodes[j]))
+#             print("Input version = " + inputs[k])
+            
+
+
+
 #################################################################
 
 #### CONSTRUCT NETWORK USING MANUAL SPECIFICATION NETWORK ####
@@ -57,8 +76,9 @@ print("\nHere is the first validation output:\n", outputs_validate[0], "\n")
 model = tf.keras.Sequential()
 model.add(tf.keras.layers.Flatten(input_shape=(3,10000)))
 
-model.add(tf.keras.layers.Dense(units=10000, activation='relu'))
-model.add(tf.keras.layers.Dense(units=10000, activation='relu'))
+model.add(tf.keras.layers.Dense(units=15000, activation='relu'))
+model.add(tf.keras.layers.Dense(units=7500, activation='relu'))
+model.add(tf.keras.layers.Dense(units=3750, activation='relu'))
 
 # Optional dropout layer for preventing overfitting
 # model.add(tf.keras.layers.Dropout(0.25))
@@ -76,7 +96,7 @@ stop_early = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, m
 history = model.fit(inputs_train,
                      outputs_train,
                      shuffle=True,
-                     #callbacks=stop_early,
+                     callbacks=stop_early,
                      validation_data=(inputs_validate, outputs_validate),
                      epochs=500)
 
