@@ -1,7 +1,7 @@
 # Plot results of neural network on validation set
 # Use these to inform the choice of ANN architecture
 
-model_name = 'may_9/mod_14/'
+model_name = 'may_18/mod_1/'
 
 #############################################################################
 

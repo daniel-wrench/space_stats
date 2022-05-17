@@ -1,7 +1,7 @@
 #############################################################################
 # TENSORFLOW PROGRAM TO 'MANUALLY' CONSTRUCT AND EVALUATE NEURAL NETWORK
 
-model_name = "may_9/mod_14/"
+model_name = 'may_18/mod_1/'
 
 #############################################################################
 
@@ -76,9 +76,9 @@ print("\nHere is the first validation output:\n", outputs_validate[0], "\n")
 model = tf.keras.Sequential()
 model.add(tf.keras.layers.Flatten(input_shape=(3,10000)))
 
-model.add(tf.keras.layers.Dense(units=15000, activation='relu'))
-model.add(tf.keras.layers.Dense(units=7500, activation='relu'))
-model.add(tf.keras.layers.Dense(units=3750, activation='relu'))
+model.add(tf.keras.layers.Dense(units=10, activation='relu'))
+model.add(tf.keras.layers.Dense(units=10, activation='relu'))
+
 
 # Optional dropout layer for preventing overfitting
 # model.add(tf.keras.layers.Dropout(0.25))
@@ -91,12 +91,16 @@ model.compile(
     loss=tf.keras.losses.MeanSquaredError())
 
 # Create EarlyStoppingCriteria callback
-stop_early = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, min_delta=0.01)
+stop_early = tf.keras.callbacks.EarlyStopping(
+    monitor='val_loss',
+    patience=10, 
+    #min_delta=0.01
+    )
 
 history = model.fit(inputs_train,
                      outputs_train,
                      shuffle=True,
-                     callbacks=stop_early,
+                     #callbacks=stop_early,
                      validation_data=(inputs_validate, outputs_validate),
                      epochs=500)
 
