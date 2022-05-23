@@ -1,7 +1,7 @@
 
 # Evaluating final model on test sets - LEAVE TILL THE VERY END
 
-model_name = "may_9/mod_4/"
+model_name = "may_9/mod_13/"
 
 ########################################################################
 
@@ -9,10 +9,10 @@ import numpy as np
 import tensorflow as tf
 
 # Load PSP data
-inputs_test_psp_npy = np.load('data_processed/psp/psp_filled_inputs_0_test.npy')
+inputs_test_psp_npy = np.load('data_processed/psp/psp_lint_inputs_test.npy')
 outputs_test_psp_npy = np.load('data_processed/psp/psp_clean_outputs_test.npy')
 
-inputs_test_mms_npy = np.load('data_processed/mms/mms_filled_inputs_0_test.npy')
+inputs_test_mms_npy = np.load('data_processed/mms/mms_lint_inputs_test.npy')
 outputs_test_mms_npy = np.load('data_processed/mms/mms_clean_outputs_test.npy')
 
 print("\nThe dimensions of the PSP input testing data are", inputs_test_psp_npy.shape)

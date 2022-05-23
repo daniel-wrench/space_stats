@@ -1,7 +1,7 @@
 #############################################################################
 # TENSORFLOW PROGRAM TO 'OPTIMALLY' CONSTRUCT AND EVALUATE NEURAL NETWORK 
 
-model_name = "may_9/mod_4/"
+model_name = "may_9/mod_9/"
 
 #############################################################################
 
@@ -26,10 +26,10 @@ import numpy as np
 random.seed(5)
 
 # Load PSP data
-inputs_train_npy = np.load('data_processed/psp/psp_filled_inputs_0_train.npy')
+inputs_train_npy = np.load('data_processed/psp/psp_lint_inputs_train.npy')
 outputs_train_npy = np.load('data_processed/psp/psp_clean_outputs_train.npy')
 
-inputs_validate_npy = np.load('data_processed/psp/psp_filled_inputs_0_validate.npy')
+inputs_validate_npy = np.load('data_processed/psp/psp_lint_inputs_validate.npy')
 outputs_validate_npy = np.load('data_processed/psp/psp_clean_outputs_validate.npy')
 
 print("\nThe dimensions of the input training data are", inputs_train_npy.shape)

@@ -1,5 +1,7 @@
 ####### ANALYSING AND PLOTTING RESULTS OF NEURAL NETWORK ######
 
+model_name = "may_9/mod_13/"
+
 #NB  has been removed due to standardisation of input series
 
 # As well as this script for analysing and visualisation of my final model,
@@ -22,159 +24,74 @@ import seaborn as sns
 
 # Importing test data and results
 
-## PSP: 39 outputs gapped 5 times each
+# PSP: 39 outputs gapped 5 times each
 
-# psp_clean_inputs_test = np.load(file = 'results_for_paper/psp_clean_inputs_test.npy')
-# psp_clean_outputs_test = np.load(file = 'results_for_paper/psp_clean_outputs_test.npy')
+psp_clean_inputs_test = np.load(file = 'data_processed/psp/psp_clean_inputs_test.npy')
+psp_clean_outputs_test = np.load(file = 'data_processed/psp/psp_clean_outputs_test.npy')
 
-# psp_gapped_inputs_test = np.load(file = 'results_for_paper/psp_gapped_inputs_test.npy')
-# psp_gapped_outputs_test = np.load(file = 'results_for_paper/psp_gapped_outputs_test.npy')
+psp_gapped_inputs_test = np.load(file = 'data_processed/psp/psp_gapped_inputs_test.npy')
+psp_gapped_outputs_test = np.load(file = 'data_processed/psp/psp_gapped_outputs_test.npy')
 
-# psp_filled_inputs_test = np.load(file = 'results_for_paper/psp_filled_inputs_test.npy')
-# psp_filled_outputs_test = np.load(file = 'results_for_paper/psp_filled_outputs_test.npy')
+psp_filled_inputs_test = np.load(file = 'data_processed/psp/psp_filled_inputs_0_test.npy')
+psp_filled_outputs_test = np.load(file = 'data_processed/psp/psp_filled_outputs_0_test.npy')
 
-# psp_lint_inputs_test = np.load(file = 'results_for_paper/psp_lint_inputs_test.npy')
-# psp_lint_outputs_test = np.load(file = 'results_for_paper/psp_lint_outputs_test.npy')
+psp_lint_inputs_test = np.load(file = 'data_processed/psp/psp_lint_inputs_test.npy')
+psp_lint_outputs_test = np.load(file = 'data_processed/psp/psp_lint_outputs_test.npy')
 
-#psp_gapped_inputs_test_prop_removed = np.load(file = 'oct_10_results/psp_gapped_inputs_test_prop_removed.npy')
+#psp_gapped_inputs_test_prop_removed = np.load(file = 'data_processed/psp/psp_gapped_inputs_test_prop_removed.npy')
 
-# psp_outputs_test_predict = np.load('results_for_paper/psp_outputs_test_predict.npy')
-
-# Select the intervals to plot
-# psp_indices = [12, 90, 93, 15]
-
-# psp_clean_inputs_test = psp_clean_inputs_test[psp_indices]
-# np.save(file = 'psp_clean_inputs_test', arr = psp_clean_inputs_test)
-
-# psp_clean_outputs_test = psp_clean_outputs_test[psp_indices]
-# np.save(file = 'psp_clean_outputs_test', arr = psp_clean_outputs_test)
-
-# psp_gapped_inputs_test = psp_gapped_inputs_test[psp_indices]
-# np.save(file = 'psp_gapped_inputs_test', arr = psp_gapped_inputs_test)
-
-# psp_gapped_outputs_test = psp_gapped_outputs_test[psp_indices]
-# np.save(file = 'psp_gapped_outputs_test', arr = psp_gapped_outputs_test)
-
-# psp_filled_inputs_test = psp_filled_inputs_test[psp_indices]
-# np.save(file = 'psp_filled_inputs_test', arr = psp_filled_inputs_test)
-
-# psp_filled_outputs_test = psp_filled_outputs_test[psp_indices]
-# np.save(file = 'psp_filled_outputs_test', arr = psp_filled_outputs_test)
-
-# psp_lint_inputs_test = psp_lint_inputs_test[psp_indices]
-# np.save(file = 'psp_lint_inputs_test', arr = psp_lint_inputs_test)
-
-# psp_lint_outputs_test = psp_lint_outputs_test[psp_indices]
-# np.save(file = 'psp_lint_outputs_test', arr = psp_lint_outputs_test)
-
-# psp_outputs_test_predict = psp_outputs_predictions[psp_indices]
-# np.save(file = 'psp_outputs_test_predict', arr = psp_outputs_test_predict)
-
-#######################################
-
-# Importing selected test intervals and predictions
-
-## PSP: 39 outputs gapped 5 times each
-
-psp_clean_inputs_test_selected = np.load(file = 'results_for_paper/psp_clean_inputs_test_selected.npy')
-psp_clean_outputs_test_selected = np.load(file = 'results_for_paper/psp_clean_outputs_test_selected.npy')
-
-psp_gapped_inputs_test_selected = np.load(file = 'results_for_paper/psp_gapped_inputs_test_selected.npy')
-psp_gapped_outputs_test_selected = np.load(file = 'results_for_paper/psp_gapped_outputs_test_selected.npy')
-
-psp_filled_inputs_test_selected = np.load(file = 'results_for_paper/psp_filled_inputs_test_selected.npy')
-psp_filled_outputs_test_selected = np.load(file = 'results_for_paper/psp_filled_outputs_test_selected.npy')
-
-psp_lint_inputs_test_selected = np.load(file = 'results_for_paper/psp_lint_inputs_test_selected.npy')
-psp_lint_outputs_test_selected = np.load(file = 'results_for_paper/psp_lint_outputs_test_selected.npy')
-
-#psp_gapped_inputs_test_prop_removed = np.load(file = 'oct_10_results/psp_gapped_inputs_test_prop_removed.npy')
-
-psp_outputs_test_predict_selected = np.load('results_for_paper/psp_outputs_test_predict_selected.npy')
+psp_outputs_test_predict = np.load('results/' + model_name + 'psp_outputs_test_predict.npy')
 
 ##############################
 
 ## MMS: 29 outputs gapped 5 times each
 
-# mms_clean_inputs_test = np.load(file = 'datasets/mms_clean_inputs_test_selected.npy')
-# mms_clean_outputs_test = np.load(file = 'datasets/mms_clean_outputs_test_selected.npy')
+mms_clean_inputs_test = np.load(file = 'data_processed/mms/mms_clean_inputs_test.npy')
+mms_clean_outputs_test = np.load(file = 'data_processed/mms/mms_clean_outputs_test.npy')
 
-# mms_gapped_inputs_test = np.load(file = 'datasets/mms_gapped_inputs_test_selected.npy')
-# mms_gapped_outputs_test = np.load(file = 'datasets/mms_gapped_outputs_test_selected.npy')
+mms_gapped_inputs_test = np.load(file = 'data_processed/mms/mms_gapped_inputs_test.npy')
+mms_gapped_outputs_test = np.load(file = 'data_processed/mms/mms_gapped_outputs_test.npy')
 
-# mms_filled_inputs_test = np.load(file = 'datasets/mms_filled_inputs_test_selected.npy')
-# mms_filled_outputs_test = np.load(file = 'datasets/mms_filled_outputs_test_selected.npy')
+mms_filled_inputs_test = np.load(file = 'data_processed/mms/mms_filled_inputs_0_test.npy')
+mms_filled_outputs_test = np.load(file = 'data_processed/mms/mms_filled_outputs_0_test.npy')
 
-# mms_lint_inputs_test = np.load(file = 'datasets/mms_lint_inputs_test_selected.npy')
-# mms_lint_outputs_test = np.load(file = 'datasets/mms_lint_outputs_test_selected.npy')
+mms_lint_inputs_test = np.load(file = 'data_processed/mms/mms_lint_inputs_test.npy')
+mms_lint_outputs_test = np.load(file = 'data_processed/mms/mms_lint_outputs_test.npy')
 
-# mms_gapped_inputs_test_prop_removed = np.load(file = 'mms_gapped_inputs_test_prop_removed.npy')
+mms_gapped_inputs_test_prop_removed = np.load(file = 'data_processed/mms/mms_gapped_inputs_test_prop_removed.npy')
 
-# mms_outputs_predictions = np.load('datasets/mms_outputs_test_predict.npy')
+mms_outputs_predictions = np.load('results/' + model_name + 'mms_outputs_test_predict.npy')
 
 #######################################
 
 # Plotting all predicted vs. expected structure functions
 
-# fig, ax = plt.subplots(2,2, sharey=True, figsize = [7, 7])
-# [ax[0,0].plot(psp_clean_outputs_test[i]) for i in range(len(psp_clean_outputs_test))]
-# [ax[0,1].plot(psp_outputs_predictions[i]) for i in range(len(psp_outputs_predictions))]
-# ax[0,0].set(title = "PSP true structure functions")
-# ax[0,1].set(title = "PSP predicted structure functions")
+fig, ax = plt.subplots(2,2, sharey=True, figsize = [7, 7])
 
-# [ax[1,0].plot(mms_clean_outputs_test[i]) for i in range(len(mms_clean_outputs_test))]
-# [ax[1,1].plot(mms_outputs_predictions[i]) for i in range(len(mms_outputs_predictions))]
-# ax[1,0].set(title = "MMS true structure functions")
-# ax[1,1].set(title = "MMS predicted structure functions")
+[ax[0,0].plot(psp_clean_outputs_test[i]) for i in range(len(psp_clean_outputs_test))]
+[ax[0,1].plot(psp_outputs_test_predict[i]) for i in range(len(psp_outputs_test_predict))]
+ax[0,0].set(title = "PSP true structure functions")
+ax[0,1].set(title = "PSP predicted structure functions")
 
-# ax[0,0].semilogx()
-# ax[0,0].semilogy()
-# ax[0,1].semilogx()
-# ax[0,1].semilogy()
-# ax[1,0].semilogx()
-# ax[1,0].semilogy()
-# ax[1,1].semilogx()
-# ax[1,1].semilogy()
+# STRANGE BIMODAL DISTRIBUTION IN TRUE MMS SFNss
 
-# plt.savefig('plots/all_sfs.png')
-# #plt.show()
+[ax[1,0].plot(mms_clean_outputs_test[i]) for i in range(len(mms_clean_outputs_test))]
+[ax[1,1].plot(mms_outputs_predictions[i]) for i in range(len(mms_outputs_predictions))]
+ax[1,0].set(title = "MMS true structure functions")
+ax[1,1].set(title = "MMS predicted structure functions")
 
-# # Plotting all predicted vs. expected structure functions FOR DIFFERENT PSP YEARS
+ax[0,0].semilogx()
+ax[0,0].semilogy()
+ax[0,1].semilogx()
+ax[0,1].semilogy()
+ax[1,0].semilogx()
+ax[1,0].semilogy()
+ax[1,1].semilogx()
+ax[1,1].semilogy()
 
-# fig, ax = plt.subplots(2,2, sharey=True, figsize = [7, 7])
-# [ax[0,0].plot(psp_clean_outputs_test[i]) for i in range(130)]
-# [ax[0,1].plot(psp_outputs_predictions[i]) for i in range(130)]
-# ax[0,0].set(title = "PSP true structure functions")
-# ax[0,1].set(title = "PSP predicted structure functions")
-
-# [ax[1,0].plot(psp_clean_outputs_test_2020[i]) for i in range(130)]
-# [ax[1,1].plot(psp_outputs_predictions_2020[i]) for i in range(130)]
-# ax[1,0].set(title = "PSP 2020 true structure functions")
-# ax[1,1].set(title = "PSP 2020 predicted structure functions")
-
-# ax[0,0].semilogx()
-# ax[0,0].semilogy()
-# ax[0,1].semilogx()
-# ax[0,1].semilogy()
-# ax[1,0].semilogx()
-# ax[1,0].semilogy()
-# ax[1,1].semilogx()
-# ax[1,1].semilogy()
-
-# ax[0,0].semilogx()
-# ax[0,0].semilogy()
-# ax[0,1].semilogx()
-# ax[0,1].semilogy()
-# ax[1,0].semilogx()
-# ax[1,0].semilogy()
-# ax[1,1].semilogx()
-# ax[1,1].semilogy()
-
-# ax[0,0].set(ylim = [0.005, 15])
-
-# plt.savefig('nov_5_results/plots/all_psp_sfs.png')
-# #plt.show()
-
+plt.savefig('plots/' + model_name + 'all_sfs.png')
+plt.clf()
+#plt.show()
 
 #######################################
 
@@ -238,38 +155,76 @@ def calc_all_Methods(gapped_inputs, gapped_outputs, clean_outputs, filled_output
 
   return all_metrics
 
-# psp_test_metrics = calc_all_Methods(
-#   psp_gapped_inputs_test, 
-#   psp_gapped_outputs_test,
-#   psp_clean_outputs_test, 
-#   psp_filled_outputs_test, 
-#   psp_lint_outputs_test, 
-#   psp_outputs_predictions)
+psp_test_metrics = calc_all_Methods(
+  psp_gapped_inputs_test, 
+  psp_gapped_outputs_test,
+  psp_clean_outputs_test, 
+  psp_filled_outputs_test, 
+  psp_lint_outputs_test, 
+  psp_outputs_test_predict)
 
-# psp_test_metrics['spacecraft'] = 'PSP'
-# #psp_test_metrics.head()
+psp_test_metrics['spacecraft'] = 'PSP'
+psp_test_metrics.head()
 
-# psp_test_metrics.to_csv("psp_test_metrics.csv")
+psp_test_metrics.to_csv("plots/" + model_name + "psp_test_metrics.csv")
 
+# Based on the missingness results for these metrics,
 
-# psp_test_2020_metrics = calc_all_Methods(
-#   psp_gapped_inputs_test_2020, 
-#   psp_gapped_outputs_test_2020,
-#   psp_clean_outputs_test_2020, 
-#   psp_filled_outputs_test_2020, 
-#   psp_lint_outputs_test_2020, 
-#   psp_outputs_predictions_2020)
+# Select the intervals to plot, subset them and save
+#psp_indices = [28+63*2, 28+63*3, 28, 28+63*4]
+psp_indices = [123, 123-63, 123+63*2, 123+63*3]
 
-# psp_test_2020_metrics['spacecraft'] = 'PSP'
-# psp_test_2020_metrics.head()
+missingness = psp_test_metrics.loc[psp_indices, 'missingness']
 
-# psp_test_2020_metrics.to_csv("nov_5_results/psp_test_2020_metrics.csv")
+psp_clean_inputs_test_selected = psp_clean_inputs_test[psp_indices]
+np.save(file = 'plots/' + model_name + 'psp_clean_inputs_test_selected', arr = psp_clean_inputs_test_selected)
 
-# psp_clean_inputs_test[psp_indices[1]][0]
-# psp_pregapped_in[1][0]
+psp_clean_outputs_test_selected = psp_clean_outputs_test[psp_indices]
+np.save(file = 'plots/' + model_name + 'psp_clean_outputs_test_selected', arr = psp_clean_outputs_test_selected)
 
+psp_gapped_inputs_test_selected = psp_gapped_inputs_test[psp_indices]
+np.save(file = 'plots/' + model_name + 'psp_gapped_inputs_test_selected', arr = psp_gapped_inputs_test_selected)
 
-psp_2020_indices = [3, 30, 7, 34]
+psp_gapped_outputs_test_selected = psp_gapped_outputs_test[psp_indices]
+np.save(file = 'plots/' + model_name + 'psp_gapped_outputs_test_selected', arr = psp_gapped_outputs_test_selected)
+
+psp_filled_inputs_test_selected = psp_filled_inputs_test[psp_indices]
+np.save(file = 'plots/' + model_name + 'psp_filled_inputs_test_selected', arr = psp_filled_inputs_test_selected)
+
+psp_filled_outputs_test_selected = psp_filled_outputs_test[psp_indices]
+np.save(file = 'plots/' + model_name + 'psp_filled_outputs_test_selected', arr = psp_filled_outputs_test_selected)
+
+psp_lint_inputs_test_selected = psp_lint_inputs_test[psp_indices]
+np.save(file = 'plots/' + model_name + 'psp_lint_inputs_test_selected', arr = psp_lint_inputs_test_selected)
+
+psp_lint_outputs_test_selected = psp_lint_outputs_test[psp_indices]
+np.save(file = 'plots/' + model_name + 'psp_lint_outputs_test_selected', arr = psp_lint_outputs_test_selected)
+
+psp_outputs_test_predict_selected = psp_outputs_test_predict[psp_indices]
+np.save(file = 'plots/' + model_name + 'psp_outputs_test_selected_predict', arr = psp_outputs_test_predict_selected)
+
+#######################################
+
+# Importing selected test intervals and predictions
+
+## PSP: 39 outputs gapped 5 times each
+
+# psp_clean_inputs_test_selected = np.load(file = 'data_processed/psp/psp_clean_inputs_test_selected.npy')
+# psp_clean_outputs_test_selected = np.load(file = 'data_processed/psp/psp_clean_outputs_test_selected.npy')
+
+# psp_gapped_inputs_test_selected = np.load(file = 'data_processed/psp/psp_gapped_inputs_test_selected.npy')
+# psp_gapped_outputs_test_selected = np.load(file = 'data_processed/psp/psp_gapped_outputs_test_selected.npy')
+
+# psp_filled_inputs_test_selected = np.load(file = 'data_processed/psp/psp_filled_inputs_test_selected.npy')
+# psp_filled_outputs_test_selected = np.load(file = 'data_processed/psp/psp_filled_outputs_test_selected.npy')
+
+# psp_lint_inputs_test_selected = np.load(file = 'data_processed/psp/psp_lint_inputs_test_selected.npy')
+# psp_lint_outputs_test_selected = np.load(file = 'data_processed/psp/psp_lint_outputs_test_selected.npy')
+
+# #psp_gapped_inputs_test_prop_removed = np.load(file = 'oct_10_results/psp_gapped_inputs_test_prop_removed.npy')
+
+# psp_outputs_test_predict_selected = np.load('data_processed/psp/psp_outputs_test_predict_selected.npy')
+
 
 # Checking they are the same
 #psp_clean_inputs_test[psp_indices]
@@ -303,7 +258,7 @@ def get_regression_output(metrics, spacecraft, indices):
 
   print("\nMeans over all " + spacecraft + " intervals")
   print(metrics.mean())
-  print("\nMethodistics for selected " + spacecraft + " intervals")
+  print("\nStatistics for selected " + spacecraft + " intervals")
   print(metrics.iloc[indices])
 
   print("\nPSP pair-wise Pearson correlations \n\n", metrics.corr())
@@ -396,8 +351,8 @@ def get_regression_output(metrics, spacecraft, indices):
     # ax1.set_ylabels(metric)
 
     #plt.xlim([0.05,0.55])
-    #plt.savefig('plots/' + spacecraft + '_scatter_plot' + metric + '.pdf')
-    plt.savefig('plots/' + spacecraft + '_scatter_plot' + metric + '.pdf',bbox_inches='tight')
+    #plt.savefig('plots/' + model_name + '' + spacecraft + '_scatter_plot' + metric + '.pdf')
+    plt.savefig('plots/' + model_name + '' + spacecraft + '_scatter_plot' + metric + '.pdf',bbox_inches='tight')
     #plt.show()
 
 
@@ -415,12 +370,13 @@ def get_regression_output(metrics, spacecraft, indices):
 
     # plt.ylim([-0.1,20]) # Previously upper limit 1.5
     # #plt.xlim([0,0.6])
-    # plt.savefig('plots/' + spacecraft + '_regression_lines' + metric + '.pdf')
+    # plt.savefig('plots/' + model_name + '' + spacecraft + '_regression_lines' + metric + '.pdf')
     #plt.show()
 
 # get_regression_output(psp_test_2020_metrics, 'PSP_2020', psp_2020_indices)
-# get_regression_output(psp_test_metrics, 'PSP', psp_indices)
+get_regression_output(psp_test_metrics, 'PSP', psp_indices)
 # get_regression_output(mms_test_metrics, 'MMS', mms_indices)
+
 
 #### LARGE PLOT COMPARING DIFFERENT INPUTS AND OUTPUTS FOR TWO INTERVALS, GAPPED IN TWO DIFFERENT WAYS ####
 
@@ -436,7 +392,7 @@ def plot_final_results(pregapped_in, out, filled_in, filled_out, lint_in, lint_o
   ax[0,0].plot(filled_in[0][0], linestyle = 'dotted', lw = 1, color = '#66c2a5', label = 'M-IMP')
   ax[0,0].plot(lint_in[0][0], linestyle = 'dashed', lw = 1, color = '#377eb8', label = 'L-INT')
   ax[0,0].plot(gapped_in[0][0], lw = 0.01, color = '#fc8d62', label = 'Gapped')
-  ax[0,0].text(0.1, 0.85, 'Interval 1a:\n10% removed', size = 12, bbox = {'facecolor': 'white', 'alpha': 0.7, 'pad': 2, 'edgecolor':'white'}, verticalalignment='top', horizontalalignment='left', transform=ax[0,0].transAxes)
+  ax[0,0].text(0.1, 0.85, f'Interval 1a:\n{missingness.iloc[0]*100:.1f}% removed', size = 12, bbox = {'facecolor': 'white', 'alpha': 0.7, 'pad': 2, 'edgecolor':'white'}, verticalalignment='top', horizontalalignment='left', transform=ax[0,0].transAxes)
 
   ax[0,1].plot(out[0], lw = 2.5, color = '#4daf4a', label = 'Original complete')
   ax[0,1].plot(predict[0], lw = 2, color = '#e78ac3', label = 'ANN')
@@ -457,7 +413,7 @@ def plot_final_results(pregapped_in, out, filled_in, filled_out, lint_in, lint_o
   ax[1,0].plot(filled_in[1][0], linestyle = 'dotted', lw = 1, color = '#66c2a5', label = 'M-IMP')
   ax[1,0].plot(lint_in[1][0], linestyle = 'dashed', lw = 1, color = '#377eb8', label = 'L-INT')
   ax[1,0].plot(gapped_in[1][0], lw = 0.01, color = '#fc8d62', label = 'Gapped')
-  ax[1,0].text(0.1, 0.85, 'Interval 1b:\n43% removed', size = 12, bbox = {'facecolor': 'white', 'edgecolor': 'white', 'alpha': 0.7, 'pad': 2}, verticalalignment='top', horizontalalignment='left', transform=ax[1,0].transAxes)
+  ax[1,0].text(0.1, 0.85, f'Interval 1b:\n{missingness.iloc[1]*100:.1f}% removed', size = 12, bbox = {'facecolor': 'white', 'edgecolor': 'white', 'alpha': 0.7, 'pad': 2}, verticalalignment='top', horizontalalignment='left', transform=ax[1,0].transAxes)
 
   ax[1,1].plot(out[1], lw = 2.5, color = '#4daf4a', label = 'Original complete')
   ax[1,1].plot(predict[1], lw = 2, color = '#e78ac3', label = 'ANN')
@@ -478,7 +434,7 @@ def plot_final_results(pregapped_in, out, filled_in, filled_out, lint_in, lint_o
   ax[2,0].plot(filled_in[2][0], linestyle = 'dotted', lw = 1, color = '#66c2a5', label = 'M-IMP')
   ax[2,0].plot(lint_in[2][0], linestyle = 'dashed', lw = 1, color = '#377eb8', label = 'L-INT')
   ax[2,0].plot(gapped_in[2][0], lw = 0.01, color = '#fc8d62', label = 'Gapped')
-  ax[2,0].text(0.35, 0.85, 'Interval 2a:\n37% removed', size = 12, bbox = {'facecolor': 'white', 'edgecolor': 'white', 'alpha': 0.7, 'pad': 2}, verticalalignment='top', horizontalalignment='left', transform=ax[2,0].transAxes)
+  ax[2,0].text(0.35, 0.85, f'Interval 1c:\n{missingness.iloc[2]*100:.1f}% removed', size = 12, bbox = {'facecolor': 'white', 'edgecolor': 'white', 'alpha': 0.7, 'pad': 2}, verticalalignment='top', horizontalalignment='left', transform=ax[2,0].transAxes)
 
   ax[2,1].plot(out[2], lw = 2.5, color = '#4daf4a', label = 'Original complete')
   ax[2,1].plot(predict[2], lw = 2, color = '#e78ac3', label = 'ANN')
@@ -503,7 +459,7 @@ def plot_final_results(pregapped_in, out, filled_in, filled_out, lint_in, lint_o
   ax[3,0].plot(filled_in[3][0], linestyle = 'dotted', lw = 1, color = '#66c2a5', label = 'M-IMP')
   ax[3,0].plot(lint_in[3][0], linestyle = 'dashed', lw = 1, color = '#377eb8', label = 'L-INT')
   ax[3,0].plot(gapped_in[3][0], lw = 0.01, color = '#fc8d62', label = 'Gapped')
-  ax[3,0].text(0.35, 0.85, 'Interval 2b\n87% removed', size = 12, bbox = {'facecolor': 'white', 'edgecolor': 'white', 'alpha': 0.7, 'pad': 2}, verticalalignment='top', horizontalalignment='left', transform=ax[3,0].transAxes)
+  ax[3,0].text(0.35, 0.85, f'Interval 1d\n{missingness.iloc[3]*100:.1f}% removed', size = 12, bbox = {'facecolor': 'white', 'edgecolor': 'white', 'alpha': 0.7, 'pad': 2}, verticalalignment='top', horizontalalignment='left', transform=ax[3,0].transAxes)
 
   ax[3,1].plot(out[3], lw = 2.5, color = '#4daf4a', label = 'Original complete')
   ax[3,1].plot(predict[3], lw = 2, color = '#e78ac3', label = 'ANN')
@@ -593,7 +549,7 @@ plot_final_results(
   psp_gapped_inputs_test_selected, 
   psp_gapped_outputs_test_selected, 
   psp_outputs_test_predict_selected, 
-  title = 'plots/PSP_case_studies_plot.pdf')
+  title = 'plots/' + model_name + 'test_PSP_case_studies_plot_int_123.pdf')
 
 # # PSP 2020 results
 # plot_final_results(
@@ -605,9 +561,9 @@ plot_final_results(
 #   psp_lint_outputs_test_2020, 
 #   psp_gapped_inputs_test_2020, 
 #   psp_gapped_outputs_test_2020, 
-#   psp_outputs_predictions_2020, 
+#   psp_outputs_test_predict_2020, 
 #   psp_2020_indices, psp_2020=1,
-#   title = 'nov_5_results/plots/psp_2020_case_studies.png')
+#   title = 'nov_5_results/plots/' + model_name + 'psp_2020_case_studies.png')
 
 
 # # MMS results
@@ -622,4 +578,21 @@ plot_final_results(
 #   mms_gapped_outputs_test, 
 #   mms_outputs_predictions, 
 #   mms_indices, 
-#   title = 'plots/mms_case_studies.png', mms = 1)
+#   title = 'plots/' + model_name + 'mms_case_studies.png', mms = 1)
+
+# Doing quick plotting of different estimations on validation set, INCLUDING THE EVALUATION VALUES
+for i in range(100, 120):
+  plt.plot(psp_clean_outputs_test[i], color = "#4daf4a", label = "True sfn")
+  plt.plot(psp_filled_outputs_test[i], color = "#66c2a5", label = "MIMP est:  MSE = {0:.2f}, MAPE = {1:.2f}".format(psp_test_metrics.loc[i,'MIMP_MSE'], psp_test_metrics.loc[i,'MIMP_MAPE']))
+  plt.plot(psp_lint_outputs_test[i], color = "#377eb8", label = "LINT est:  MSE = {0:.2f}, MAPE = {1:.2f}".format(psp_test_metrics.loc[i,'LINT_MSE'], psp_test_metrics.loc[i,'LINT_MAPE']))
+  plt.plot(psp_gapped_outputs_test[i], color = "#fc8d62", label = "GAPPED est:  MSE = {0:.2f}, MAPE = {1:.2f}".format(psp_test_metrics.loc[i,'GAPPED_MSE'], psp_test_metrics.loc[i,'GAPPED_MAPE']))
+  plt.plot(psp_outputs_test_predict[i], color = "#e78ac3", label = "ANN est:  MSE = {0:.2f}, MAPE = {1:.2f}".format(psp_test_metrics.loc[i,'ANN_MSE'], psp_test_metrics.loc[i,'ANN_MAPE']))
+  plt.legend()
+  plt.show()
+
+
+  ax[3,2].plot(out[3], lw = 2.5, color = '#4daf4a', label = 'Original complete')
+  ax[3,2].plot(predict[3], lw = 2, color = '#e78ac3', label = 'ANN output')
+  ax[3,2].plot(filled_out[3], linestyle = 'dotted', lw = 2, color = '#66c2a5', label = 'M-IMP')
+  ax[3,2].plot(lint_out[3], linestyle = 'dashed',  lw = 2, color = '#377eb8', label = 'L-INT')
+  ax[3,2].plot(gapped_out[3], lw = 0.1, color = '#fc8d62', label = 'Gapped')

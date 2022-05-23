@@ -60,7 +60,7 @@ View that state of cluster jobs with `vuw-myjobs`.
 0. `source ~/bin/python_env` *if you are running anything in the terminal using `ipython --pylab`*
 1. `sbatch 1_batch_job.sh` *Only have to do this once, depending on the size, number, and frequency of original unique intervals you want* **Takes about 8min with 6 CPUs and 15G per CPU. Requires > 20GB total and/or > 10GB per CPU** 
 
-    `1_process_data.py` does the following:
+    `1_read_data.py` does the following:
     1. Load data from CDF files and get the time and date column formatted correctly: returns time series dataframe of magnetic field components
     2. Re-sample dataframe to correct freq to get a consistent 13-14 correlation lengths across spacecraft/physical systems
         - For PSP data, resample to 0.75s frequency (correlation time = 500s)
@@ -95,11 +95,9 @@ View that state of cluster jobs with `vuw-myjobs`.
     - `results/…example_input_std.png`
     - `results/…test_preprocessed_plots.png`
 
-4. Create a folder for the results of this model: `mkdir results/date/mod_#`
-
 5. Update `3_train_neural_net.py` with the new model number and adjust the hyperparameters as needed
 
-6. Update `4_plot_predictions.py` with the new model number
+6. Update `4_plot_validation_predictions.py` with the new model number
 
 7. `sbatch 3_batch_job.sh` *Requires > 2 x 8GB CPUs. Do not run when in the `galaxenv` environment.* `3_train_neural_net.py` does the following:
    1. Load n x 40,000 training and test inputs, including MMS test
@@ -113,12 +111,13 @@ View that state of cluster jobs with `vuw-myjobs`.
         - `psp_outputs_test_predictions_loss`.
 
 8. Review `3_train_neural_net.out`
-4. Produce plots of a sample of true vs. predicted test **SHOULD BE VALIDATION** outputs with `python 4_plot_predictions.py`
-5. Review plots in `results/date/mod_#` to see how well the model is performing on unseen data
-6. Add model statistics (and plots if needed) to Results word doc
-7. Repeat 5-11 until a good model is found
-8. Download test data files and model results to local computer
-9. Run `05_results.py` to produce final plots and statistics
+9. Produce plots of a sample of true vs. predicted validation outputs with `python 4_plot_validation_predictions.py`
+10. Review plots in `results/date/mod_#` to see how well the model is performing on unseen data
+11. Add model statistics (and plots if needed) to Results word doc
+12. Repeat 5-11 until a good model is found
+13. Evaluate final model on the test set with `5_evaluate_on_test_set.py`
+14. Download test data files and model results to local computer
+15. Run `06_plot_final_results.py` to produce final plots and statistics
     - For PSP and MMS:
         1. Table with one row for every interval:
            1. Amount missing

@@ -39,7 +39,7 @@ def plot_results(predictions_arr, observed_arr, no_samples, spacecraft, model, l
             axs[r, c].plot(predicted[i], label = "predicted")
 
     axs[0,0].legend()
-    axs[0,0].set(title = "Model predictions on " + spacecraft + " test set")
+    axs[0,0].set(title = "Model predictions on " + spacecraft + " validation set")
     plt.savefig('results/' + model + spacecraft + '_predictions_plot.png')
     plt.cla()
 
