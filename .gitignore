@@ -5,6 +5,9 @@ gmon.out
 __pycache__/
 my_dir/
 
+results_interim/*
+!results_interim/.gitkeep
+
 data_raw/psp/*
 !data_raw/psp/.gitkeep
 
