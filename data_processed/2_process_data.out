@@ -1,0 +1,146 @@
+
+TIME:  2022-05-16 17:11:45.792628
+SPLITTING, NORMALISING AND SHUFFLING psp MAG FIELD DATA
+
+Means of first interval pre-normalisation:B_R   -21.97
+B_T    14.73
+B_N    19.16
+dtype: float64
+
+Standard deviations of first interval pre-normalisation:B_R    22.49
+B_T    11.16
+B_N    10.91
+dtype: float64
+
+
+Means of first interval post-normalisation:B_R    0.0
+B_T   -0.0
+B_N   -0.0
+dtype: float64
+
+Standard deviations of post interval pre-normalisation:B_R    1.0
+B_T    1.0
+B_N    1.0
+dtype: float64
+
+
+Input training data dimensions: 217 x (10000, 3)
+
+Input validation data dimensions: 30 x (10000, 3)
+
+Input test data dimensions: 63 x (10000, 3)
+
+
+PROCESSING PSP TRAINING DATA 
+
+
+Unique input dimensions: 
+ 217 x (10000, 3)
+
+Final input dimensions: 
+  Clean: (2170, 3, 10000) 
+  Gapped: (2170, 3, 10000) 
+  Filled with 0s: (2170, 3, 10000) 
+  Filled with 5s: (2170, 3, 10000) 
+  Filled with 10s: (2170, 3, 10000) 
+  Filled with 100s: (2170, 3, 10000) 
+  Lint: (2170, 3, 10000)
+
+Final output dimensions: 
+  Clean: (2170, 2000) 
+  Gapped: (2170, 2000) 
+  Filled: (2170, 2000) 
+  Lint: (2170, 2000)
+
+FINISHED PROCESSING PSP TRAINING DATA 
+
+
+TIME:  2022-05-16 17:32:53.200353
+
+
+PROCESSING PSP VALIDATION DATA 
+
+
+Unique input dimensions: 
+ 30 x (10000, 3)
+
+Final input dimensions: 
+  Clean: (150, 3, 10000) 
+  Gapped: (150, 3, 10000) 
+  Filled with 0s: (150, 3, 10000) 
+  Filled with 5s: (150, 3, 10000) 
+  Filled with 10s: (150, 3, 10000) 
+  Filled with 100s: (150, 3, 10000) 
+  Lint: (150, 3, 10000)
+
+Final output dimensions: 
+  Clean: (150, 2000) 
+  Gapped: (150, 2000) 
+  Filled: (150, 2000) 
+  Lint: (150, 2000)
+
+FINISHED PROCESSING PSP VALIDATION DATA 
+
+
+TIME:  2022-05-16 17:34:23.679388
+
+
+PROCESSING PSP TEST DATA 
+
+
+Unique input dimensions: 
+ 63 x (10000, 3)
+
+Final input dimensions: 
+  Clean: (315, 3, 10000) 
+  Gapped: (315, 3, 10000) 
+  Filled with 0s: (315, 3, 10000) 
+  Filled with 5s: (315, 3, 10000) 
+  Filled with 10s: (315, 3, 10000) 
+  Filled with 100s: (315, 3, 10000) 
+  Lint: (315, 3, 10000)
+
+Final output dimensions: 
+  Clean: (315, 2000) 
+  Gapped: (315, 2000) 
+  Filled: (315, 2000) 
+  Lint: (315, 2000)
+
+FINISHED PROCESSING PSP TEST DATA 
+
+
+TIME:  2022-05-16 17:37:36.167951
+SPLITTING, NORMALISING AND SHUFFLING mms MAG FIELD DATA
+
+
+Input test data dimensions: 73 x (10000, 3)
+
+
+PROCESSING MMS TEST DATA 
+
+
+Unique input dimensions: 
+ 73 x (10000, 3)
+
+Final input dimensions: 
+  Clean: (365, 3, 10000) 
+  Gapped: (365, 3, 10000) 
+  Filled with 0s: (365, 3, 10000) 
+  Filled with 5s: (365, 3, 10000) 
+  Filled with 10s: (365, 3, 10000) 
+  Filled with 100s: (365, 3, 10000) 
+  Lint: (365, 3, 10000)
+
+Final output dimensions: 
+  Clean: (365, 2000) 
+  Gapped: (365, 2000) 
+  Filled: (365, 2000) 
+  Lint: (365, 2000)
+
+TIME:  2022-05-16 17:41:20.644307
+
+FINISHED PROCESSING MMS TEST DATA
+
+
+FINISHED PROCESSING ALL DATA
+
