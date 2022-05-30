@@ -71,7 +71,7 @@ View that state of cluster jobs with `vuw-myjobs`.
 
 2. `sbatch 2_batch_job.sh` *Only have to do this once, depending on the number of duplicate intervals to make, how much to gap each one, and what proportion of data to use for test set.* **Takes about 30min with 10 CPUs and 5G per CPU.**
 
-    `2_process_data.py` takes the .pkl data (currently majority PSP) applies two major functions. **`mag_interval_pipeline_split()`** specifies the length of the data and the number of intervals to split it into, and the proportion to set aside for testing. This function splits the dataset into standardised intervals (mean 0 and standard deviation 1), then groups them into a training and test set, both of which are lists of dataframes. The intermediate outputs are a plot and the summary statistics of the first interval, before and after standardisation, and the dimensions of the final outputs. *The arguments I have specified to this function are to separate out 80% of input-output pairs for training, 20% for testing, for PSP. For MMS, use 100% of intervals for testing.*
+    `2_process_data.py` takes the .pkl data (currently majority PSP) applies two major functions. **`mag_interval_pipeline_split()`** specifies the length of the data and the number of intervals to split it into, and the proportion to set aside for testing. This function splits the dataset into standardised intervals (mean 0 and standard deviation 1), then groups them into a training, test, and validation set, all of which are lists of dataframes. The intermediate outputs are a plot and the summary statistics of the first interval, before and after standardisation, and the dimensions of the final outputs. *The arguments I have specified to this function are to separate out 70% of input-output pairs for training, 20% for testing, and 10% for validation, for PSP. For MMS, use 100% of intervals for testing.*
 
     To each of these sets, the second major function **`mag_interval_pipeline_gap()`** is applied separately, specifying the number of copies to make of each interval, the re-sampling frequency applied in `1_read_data.py`, and the minimum and maximum proportion of data to remove from each artificially gapped interval. 
 
@@ -84,7 +84,7 @@ View that state of cluster jobs with `vuw-myjobs`.
 
     After this, an intermediate output of a plot of each input and output version of an interval and one of its copies is produced.
 
-    Next, the function `prepare_array_for_output()` is called on each input list, which converts the lists of dataframes into three arrays of vectors: 4-dimensional vectors, 1-d vectors including the missing indicator vector, and 1-d vectors excluding the missing indicator vector. (Only the first of these are output for un-gapped and un-filled input lists.)'
+    Next, the function `convert_df_list_to_arrays()` is called on each input list, which converts the lists of dataframes into a 3D array (one dimension for each vector component. Previously this function returned a 1D and 4D array as well, when we were using a missingness indicator vector.)
 
     The simple 1-d outputs are prepared for output simply using the function `np.array(list)`.
 
@@ -95,25 +95,24 @@ View that state of cluster jobs with `vuw-myjobs`.
     - `results/…example_input_std.png`
     - `results/…test_preprocessed_plots.png`
 
-5. Update `3_train_neural_net.py` with the new model number and adjust the hyperparameters as needed
+4. Optionally run `3b_train_neural_net_tuned.py`, which uses the keras_tuner package to perform a random grid search for the best combination of hyperparameters.
+
+5. Update `3a_train_neural_net.py` with the new model number and adjust the hyperparameters as needed
 
 6. Update `4_plot_validation_predictions.py` with the new model number
 
-7. `sbatch 3_batch_job.sh` *Requires > 2 x 8GB CPUs. Do not run when in the `galaxenv` environment.* `3_train_neural_net.py` does the following:
-   1. Load n x 40,000 training and test inputs, including MMS test
+7. `sbatch 3a_batch_job.sh` *Requires > 2 x 8GB CPUs. Do not run when in the `galaxenv` environment.* `3a_train_neural_net_manual.py` does the following:
+   1. Load n x 30,000 training and test inputs, including MMS test
    2. Load n x 2000 training and test outputs, including MMS test
    3. Define these as Tensorflow objects
    4. Train model (feed-forward ANN/MLP). The number of nodes in the output layer is equal to the length each structure function (2000). As well as the number of nodes, we specify the dropout layers, optimizer, learning rate, loss function, validation split, and number of epochs to train for.
-   5. Output test predictions
+   5. Output validation predictions
    6. Output training and validation loss curve
-   7. Output training and validation losses, and test loss
-        - `psp_outputs_test_predictions`
-        - `psp_outputs_test_predictions_loss`.
 
-8. Review `3_train_neural_net.out`
+8. Review `3a_train_neural_net.out`
 9. Produce plots of a sample of true vs. predicted validation outputs with `python 4_plot_validation_predictions.py`
 10. Review plots in `results/date/mod_#` to see how well the model is performing on unseen data
-11. Add model statistics (and plots if needed) to Results word doc
+11. Add model statistics and plots to Results document
 12. Repeat 5-11 until a good model is found
 13. Evaluate final model on the test set with `5_evaluate_on_test_set.py`
 14. Download test data files and model results to local computer
