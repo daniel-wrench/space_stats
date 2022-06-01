@@ -157,11 +157,11 @@ history = best_model.fit(inputs_train,
 print(best_model.summary())
 
 # Save the model
-best_model.save('results/' + model_name + 'model')
+best_model.save('results_interim/' + model_name + 'model')
 
 # Save loss over time
-np.save(file='results/' + model_name + 'loss', arr=history.history['loss'])
-np.save(file='results/' + model_name + 'val_loss', arr=history.history['val_loss'])
+np.save(file='results_interim/' + model_name + 'loss', arr=history.history['loss'])
+np.save(file='results_interim/' + model_name + 'val_loss', arr=history.history['val_loss'])
 
 # Print performance on validation set
 eval_result = best_model.evaluate(inputs_validate, outputs_validate)
@@ -169,7 +169,7 @@ print("\nFinal validation loss (tuned model)=", eval_result)
 
 # Save predictions on validation set
 validate_predictions = best_model.predict(inputs_validate)
-np.save(file='results/' + model_name + 'outputs_validate_predict', arr=validate_predictions)
+np.save(file='results_interim/' + model_name + 'outputs_validate_predict', arr=validate_predictions)
 
 print("\nFINISHED TRAINING TUNED MODEL\n\n\n")
 
@@ -182,16 +182,16 @@ print("\nFINISHED TRAINING TUNED MODEL\n\n\n")
 # print('MSE on MMS test set=', hypermodel.evaluate(inputs_test_mms, outputs_test_mms))
 
 # test_predictions_mms = model.predict(inputs_test_psp)
-# np.save(file='results/' + model_name +
+# np.save(file='results_interim/' + model_name +
 #         'psp_outputs_test_predict', arr=test_predictions_mms)
 
 # test_predictions_mms = model.predict(inputs_test_mms)
-# np.save(file='results/' + model_name +
+# np.save(file='results_interim/' + model_name +
 #         'mms_outputs_test_predict', arr=test_predictions_mms)
 
 ######################################################################################
 
 #test_predictions_psp_2020 = model.predict(inputs_test_2020)
-#np.save(file = 'results/' + model_name + 'psp_2020_outputs_test_predict', arr = test_predictions_psp_2020)
+#np.save(file = 'results_interim/' + model_name + 'psp_2020_outputs_test_predict', arr = test_predictions_psp_2020)
 
 ########################################################################

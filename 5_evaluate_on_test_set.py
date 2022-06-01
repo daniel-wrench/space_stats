@@ -1,7 +1,7 @@
 
 # Evaluating final model on test sets - LEAVE TILL THE VERY END
 
-model_name = "may_9/mod_13/"
+model_name = "june_1/mod_13/"
 
 ########################################################################
 
@@ -38,7 +38,7 @@ print("\nHere is the first MMS testing output:\n", outputs_test_mms[0], "\n")
 
 # Load model and evaluate on test set
 print("Loading saved model...")
-model = tf.keras.models.load_model('results/' + model_name + 'model')
+model = tf.keras.models.load_model('results_final/' + model_name + 'model')
 
 print(model.summary())
 print('MSE on PSP test set=', model.evaluate(inputs_test_psp, outputs_test_psp))
@@ -47,8 +47,8 @@ print('MSE on MMS test set=', model.evaluate(inputs_test_mms, outputs_test_mms))
 test_predictions_psp = model.predict(inputs_test_psp)
 test_predictions_mms = model.predict(inputs_test_mms)
 
-np.save(file='results/' + model_name + 'psp_outputs_test_predict', arr=test_predictions_psp)
-np.save(file='results/' + model_name + 'mms_outputs_test_predict', arr=test_predictions_mms)
+np.save(file='results_final/' + model_name + 'psp_outputs_test_predict', arr=test_predictions_psp)
+np.save(file='results_final/' + model_name + 'mms_outputs_test_predict', arr=test_predictions_mms)
 
 
 ########################################################################

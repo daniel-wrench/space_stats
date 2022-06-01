@@ -107,11 +107,11 @@ history = model.fit(inputs_train,
 print(model.summary())
 
 # Save the model
-model.save('results/' + model_name + 'model')
+model.save('results_interim/' + model_name + 'model')
 
 # Save loss over time
-np.save(file='results/' + model_name + 'loss', arr=history.history['loss'])
-np.save(file='results/' + model_name + 'val_loss', arr=history.history['val_loss'])
+np.save(file='results_interim/' + model_name + 'loss', arr=history.history['loss'])
+np.save(file='results_interim/' + model_name + 'val_loss', arr=history.history['val_loss'])
 
 # Print performance on validation set
 eval_result = model.evaluate(inputs_validate, outputs_validate)
@@ -119,7 +119,7 @@ print("\nFinal validation loss (manual model)=", eval_result)
 
 # Save predictions on validation set
 validate_predictions = model.predict(inputs_validate)
-np.save(file='results/' + model_name + 'outputs_validate_predict', arr=validate_predictions)
+np.save(file='results_interim/' + model_name + 'outputs_validate_predict', arr=validate_predictions)
 
 print("\nFINISHED TRAINING MANUAL MODEL\n\n\n")
 

@@ -1,6 +1,6 @@
 ####### ANALYSING AND PLOTTING RESULTS OF NEURAL NETWORK ######
 
-model_name = "may_9/mod_13/"
+model_name = "june_1/mod_13/"
 
 #NB  has been removed due to standardisation of input series
 
@@ -40,7 +40,7 @@ psp_lint_outputs_test = np.load(file = 'data_processed/psp/psp_lint_outputs_test
 
 #psp_gapped_inputs_test_prop_removed = np.load(file = 'data_processed/psp/psp_gapped_inputs_test_prop_removed.npy')
 
-psp_outputs_test_predict = np.load('results/' + model_name + 'psp_outputs_test_predict.npy')
+psp_outputs_test_predict = np.load('results_final/' + model_name + 'psp_outputs_test_predict.npy')
 
 ##############################
 
@@ -60,7 +60,7 @@ mms_lint_outputs_test = np.load(file = 'data_processed/mms/mms_lint_outputs_test
 
 mms_gapped_inputs_test_prop_removed = np.load(file = 'data_processed/mms/mms_gapped_inputs_test_prop_removed.npy')
 
-mms_outputs_predictions = np.load('results/' + model_name + 'mms_outputs_test_predict.npy')
+mms_outputs_predictions = np.load('results_final/' + model_name + 'mms_outputs_test_predict.npy')
 
 #######################################
 
@@ -89,7 +89,7 @@ ax[1,0].semilogy()
 ax[1,1].semilogx()
 ax[1,1].semilogy()
 
-plt.savefig('plots/' + model_name + 'all_sfs.png')
+plt.savefig('results_final/' + model_name + 'plots/all_sfs.png')
 plt.clf()
 #plt.show()
 
@@ -166,42 +166,45 @@ psp_test_metrics = calc_all_Methods(
 psp_test_metrics['spacecraft'] = 'PSP'
 psp_test_metrics.head()
 
-psp_test_metrics.to_csv("plots/" + model_name + "psp_test_metrics.csv")
+psp_test_metrics.to_csv('results_final/' + model_name + "plots/" + "psp_test_metrics.csv")
 
 # Based on the missingness results for these metrics,
 
 # Select the intervals to plot, subset them and save
 #psp_indices = [28+63*2, 28+63*3, 28, 28+63*4]
-psp_indices = [123, 123-63, 123+63*2, 123+63*3]
+#psp_indices = [123, 123-63, 123+63*2, 123+63*3]
+
+interval_index = 37
+psp_indices = [interval_index+63*4, interval_index+63*2, interval_index, interval_index+63*3]
 
 missingness = psp_test_metrics.loc[psp_indices, 'missingness']
 
 psp_clean_inputs_test_selected = psp_clean_inputs_test[psp_indices]
-np.save(file = 'plots/' + model_name + 'psp_clean_inputs_test_selected', arr = psp_clean_inputs_test_selected)
+np.save(file = 'results_final/' + model_name + 'plots/' + 'psp_clean_inputs_test_selected', arr = psp_clean_inputs_test_selected)
 
 psp_clean_outputs_test_selected = psp_clean_outputs_test[psp_indices]
-np.save(file = 'plots/' + model_name + 'psp_clean_outputs_test_selected', arr = psp_clean_outputs_test_selected)
+np.save(file = 'results_final/' + model_name + 'plots/' + 'psp_clean_outputs_test_selected', arr = psp_clean_outputs_test_selected)
 
 psp_gapped_inputs_test_selected = psp_gapped_inputs_test[psp_indices]
-np.save(file = 'plots/' + model_name + 'psp_gapped_inputs_test_selected', arr = psp_gapped_inputs_test_selected)
+np.save(file = 'results_final/' + model_name + 'plots/' + 'psp_gapped_inputs_test_selected', arr = psp_gapped_inputs_test_selected)
 
 psp_gapped_outputs_test_selected = psp_gapped_outputs_test[psp_indices]
-np.save(file = 'plots/' + model_name + 'psp_gapped_outputs_test_selected', arr = psp_gapped_outputs_test_selected)
+np.save(file = 'results_final/' + model_name + 'plots/' + 'psp_gapped_outputs_test_selected', arr = psp_gapped_outputs_test_selected)
 
 psp_filled_inputs_test_selected = psp_filled_inputs_test[psp_indices]
-np.save(file = 'plots/' + model_name + 'psp_filled_inputs_test_selected', arr = psp_filled_inputs_test_selected)
+np.save(file = 'results_final/' + model_name + 'plots/' + 'psp_filled_inputs_test_selected', arr = psp_filled_inputs_test_selected)
 
 psp_filled_outputs_test_selected = psp_filled_outputs_test[psp_indices]
-np.save(file = 'plots/' + model_name + 'psp_filled_outputs_test_selected', arr = psp_filled_outputs_test_selected)
+np.save(file = 'results_final/' + model_name + 'plots/' + 'psp_filled_outputs_test_selected', arr = psp_filled_outputs_test_selected)
 
 psp_lint_inputs_test_selected = psp_lint_inputs_test[psp_indices]
-np.save(file = 'plots/' + model_name + 'psp_lint_inputs_test_selected', arr = psp_lint_inputs_test_selected)
+np.save(file = 'results_final/' + model_name + 'plots/' + 'psp_lint_inputs_test_selected', arr = psp_lint_inputs_test_selected)
 
 psp_lint_outputs_test_selected = psp_lint_outputs_test[psp_indices]
-np.save(file = 'plots/' + model_name + 'psp_lint_outputs_test_selected', arr = psp_lint_outputs_test_selected)
+np.save(file = 'results_final/' + model_name + 'plots/' + 'psp_lint_outputs_test_selected', arr = psp_lint_outputs_test_selected)
 
 psp_outputs_test_predict_selected = psp_outputs_test_predict[psp_indices]
-np.save(file = 'plots/' + model_name + 'psp_outputs_test_selected_predict', arr = psp_outputs_test_predict_selected)
+np.save(file = 'results_final/' + model_name + 'plots/' + 'psp_outputs_test_selected_predict', arr = psp_outputs_test_predict_selected)
 
 #######################################
 
@@ -221,7 +224,7 @@ np.save(file = 'plots/' + model_name + 'psp_outputs_test_selected_predict', arr 
 # psp_lint_inputs_test_selected = np.load(file = 'data_processed/psp/psp_lint_inputs_test_selected.npy')
 # psp_lint_outputs_test_selected = np.load(file = 'data_processed/psp/psp_lint_outputs_test_selected.npy')
 
-# #psp_gapped_inputs_test_prop_removed = np.load(file = 'oct_10_results/psp_gapped_inputs_test_prop_removed.npy')
+# #psp_gapped_inputs_test_prop_removed = np.load(file = 'oct_10_results_final/psp_gapped_inputs_test_prop_removed.npy')
 
 # psp_outputs_test_predict_selected = np.load('data_processed/psp/psp_outputs_test_predict_selected.npy')
 
@@ -351,8 +354,8 @@ def get_regression_output(metrics, spacecraft, indices):
     # ax1.set_ylabels(metric)
 
     #plt.xlim([0.05,0.55])
-    #plt.savefig('plots/' + model_name + '' + spacecraft + '_scatter_plot' + metric + '.pdf')
-    plt.savefig('plots/' + model_name + '' + spacecraft + '_scatter_plot' + metric + '.pdf',bbox_inches='tight')
+    #plt.savefig('results_final/' + model_name + 'plots/' + '' + spacecraft + '_scatter_plot' + metric + '.pdf')
+    plt.savefig('results_final/' + model_name + 'plots/' + '' + spacecraft + '_scatter_plot' + metric + '.pdf',bbox_inches='tight')
     #plt.show()
 
 
@@ -370,7 +373,7 @@ def get_regression_output(metrics, spacecraft, indices):
 
     # plt.ylim([-0.1,20]) # Previously upper limit 1.5
     # #plt.xlim([0,0.6])
-    # plt.savefig('plots/' + model_name + '' + spacecraft + '_regression_lines' + metric + '.pdf')
+    # plt.savefig('results_final/' + model_name + 'plots/' + '' + spacecraft + '_regression_lines' + metric + '.pdf')
     #plt.show()
 
 # get_regression_output(psp_test_2020_metrics, 'PSP_2020', psp_2020_indices)
@@ -549,7 +552,7 @@ plot_final_results(
   psp_gapped_inputs_test_selected, 
   psp_gapped_outputs_test_selected, 
   psp_outputs_test_predict_selected, 
-  title = 'plots/' + model_name + 'test_PSP_case_studies_plot_int_123.pdf')
+  title = 'results_final/' + model_name + 'plots/' + 'test_PSP_case_studies_plot_int_' + str(interval_index) + '.pdf')
 
 # # PSP 2020 results
 # plot_final_results(
@@ -563,7 +566,7 @@ plot_final_results(
 #   psp_gapped_outputs_test_2020, 
 #   psp_outputs_test_predict_2020, 
 #   psp_2020_indices, psp_2020=1,
-#   title = 'nov_5_results/plots/' + model_name + 'psp_2020_case_studies.png')
+#   title = 'nov_5_results_final/plots/' + model_name + 'psp_2020_case_studies.png')
 
 
 # # MMS results
@@ -578,21 +581,21 @@ plot_final_results(
 #   mms_gapped_outputs_test, 
 #   mms_outputs_predictions, 
 #   mms_indices, 
-#   title = 'plots/' + model_name + 'mms_case_studies.png', mms = 1)
+#   title = 'results_final/' + model_name + 'plots/' + 'mms_case_studies.png', mms = 1)
 
 # Doing quick plotting of different estimations on validation set, INCLUDING THE EVALUATION VALUES
-for i in range(100, 120):
-  plt.plot(psp_clean_outputs_test[i], color = "#4daf4a", label = "True sfn")
-  plt.plot(psp_filled_outputs_test[i], color = "#66c2a5", label = "MIMP est:  MSE = {0:.2f}, MAPE = {1:.2f}".format(psp_test_metrics.loc[i,'MIMP_MSE'], psp_test_metrics.loc[i,'MIMP_MAPE']))
-  plt.plot(psp_lint_outputs_test[i], color = "#377eb8", label = "LINT est:  MSE = {0:.2f}, MAPE = {1:.2f}".format(psp_test_metrics.loc[i,'LINT_MSE'], psp_test_metrics.loc[i,'LINT_MAPE']))
-  plt.plot(psp_gapped_outputs_test[i], color = "#fc8d62", label = "GAPPED est:  MSE = {0:.2f}, MAPE = {1:.2f}".format(psp_test_metrics.loc[i,'GAPPED_MSE'], psp_test_metrics.loc[i,'GAPPED_MAPE']))
-  plt.plot(psp_outputs_test_predict[i], color = "#e78ac3", label = "ANN est:  MSE = {0:.2f}, MAPE = {1:.2f}".format(psp_test_metrics.loc[i,'ANN_MSE'], psp_test_metrics.loc[i,'ANN_MAPE']))
-  plt.legend()
-  plt.show()
+# for i in range(100, 120):
+#   plt.plot(psp_clean_outputs_test[i], color = "#4daf4a", label = "True sfn")
+#   plt.plot(psp_filled_outputs_test[i], color = "#66c2a5", label = "MIMP est:  MSE = {0:.2f}, MAPE = {1:.2f}".format(psp_test_metrics.loc[i,'MIMP_MSE'], psp_test_metrics.loc[i,'MIMP_MAPE']))
+#   plt.plot(psp_lint_outputs_test[i], color = "#377eb8", label = "LINT est:  MSE = {0:.2f}, MAPE = {1:.2f}".format(psp_test_metrics.loc[i,'LINT_MSE'], psp_test_metrics.loc[i,'LINT_MAPE']))
+#   plt.plot(psp_gapped_outputs_test[i], color = "#fc8d62", label = "GAPPED est:  MSE = {0:.2f}, MAPE = {1:.2f}".format(psp_test_metrics.loc[i,'GAPPED_MSE'], psp_test_metrics.loc[i,'GAPPED_MAPE']))
+#   plt.plot(psp_outputs_test_predict[i], color = "#e78ac3", label = "ANN est:  MSE = {0:.2f}, MAPE = {1:.2f}".format(psp_test_metrics.loc[i,'ANN_MSE'], psp_test_metrics.loc[i,'ANN_MAPE']))
+#   plt.legend()
+#   plt.show()
 
 
-  ax[3,2].plot(out[3], lw = 2.5, color = '#4daf4a', label = 'Original complete')
-  ax[3,2].plot(predict[3], lw = 2, color = '#e78ac3', label = 'ANN output')
-  ax[3,2].plot(filled_out[3], linestyle = 'dotted', lw = 2, color = '#66c2a5', label = 'M-IMP')
-  ax[3,2].plot(lint_out[3], linestyle = 'dashed',  lw = 2, color = '#377eb8', label = 'L-INT')
-  ax[3,2].plot(gapped_out[3], lw = 0.1, color = '#fc8d62', label = 'Gapped')
+#   ax[3,2].plot(out[3], lw = 2.5, color = '#4daf4a', label = 'Original complete')
+#   ax[3,2].plot(predict[3], lw = 2, color = '#e78ac3', label = 'ANN output')
+#   ax[3,2].plot(filled_out[3], linestyle = 'dotted', lw = 2, color = '#66c2a5', label = 'M-IMP')
+#   ax[3,2].plot(lint_out[3], linestyle = 'dashed',  lw = 2, color = '#377eb8', label = 'L-INT')
+#   ax[3,2].plot(gapped_out[3], lw = 0.1, color = '#fc8d62', label = 'Gapped')
