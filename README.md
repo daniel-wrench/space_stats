@@ -30,14 +30,14 @@ Put `3_train_neural_net.py` and `keras_tuner.py` side-by-side and implement hype
 ## BUGS
 
 - `1_read_data.py`, line 268: The version of `pandas` in Raapoi does not like this line, nor will it read the pkl that this has been applied to if I upload the file from my local machine. For now I am just not using this file (`mms4_df_1.pkl`) in `2_process_data.py`.
-- `2_process_data.py`: The MMS_example_input... plots are not correct. Something to do with `plt.show()` or equivalent functions. 
 
 ### HELPER FUNCTIONS
 
-- `data_import_funcs.py`:  Contains functions for importing CDF files and outputting dated pandas DataFrames.
-- `remove_obs_funcs.py`: Contains functions to remove data from dataframes
-- `calculate_stats.py`: Contains a function called plot_results() which is used for visualising the predictions of the neural network on the test data
-- `TurbAn`: contains fast Fortran code for calculating the structure function
+- `data_import_funcs.py`:  functions for importing CDF files and outputting dated pandas DataFrames.
+- `remove_obs_funcs.py`:  functions to remove data from dataframes
+- `calculate_stats.py`: function called plot_results() which is used for visualising the predictions of the neural network on the test data
+- `TurbAn`: fast Fortran code for calculating the structure function
+- `check_missingness.py`: script to check for non-continuous data both in and between a set of CDF files. NB: `sunpy` package (see tutorial) may make this process easier
 
 ### SET-UP
 See also: 
