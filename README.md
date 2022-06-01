@@ -111,9 +111,9 @@ View that state of cluster jobs with `vuw-myjobs`.
 
 8. Review `3a_train_neural_net.out`
 9. Produce plots of a sample of true vs. predicted validation outputs with `python 4_plot_validation_predictions.py`
-10. Review plots in `results/date/mod_#` to see how well the model is performing on unseen data
+10. Review plots in `results_interim/date/mod_#` to see how well the model is performing on unseen data
 11. Add model statistics and plots to Results document
-12. Repeat 5-11 until a good model is found
+12. Repeat 5-11 until a good model is found. Copy across the model folder from `results_interim` to `results_final`.
 13. Evaluate final model on the test set with `5_evaluate_on_test_set.py`
 14. Download test data files and model results to local computer
 15. Run `06_plot_final_results.py` to produce final plots and statistics
