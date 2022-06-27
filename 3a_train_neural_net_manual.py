@@ -1,7 +1,7 @@
 #############################################################################
 # TENSORFLOW PROGRAM TO 'MANUALLY' CONSTRUCT AND EVALUATE NEURAL NETWORK
 
-model_name = 'may_18/mod_1/'
+model_name = 'june_1/mod_2/'
 
 #############################################################################
 

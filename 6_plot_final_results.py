@@ -1,6 +1,6 @@
 ####### ANALYSING AND PLOTTING RESULTS OF NEURAL NETWORK ######
 
-model_name = "june_1/mod_13/"
+model_name = "june_1/mod_2/"
 
 #NB  has been removed due to standardisation of input series
 
@@ -174,10 +174,11 @@ psp_test_metrics.to_csv('results_final/' + model_name + "plots/" + "psp_test_met
 #psp_indices = [28+63*2, 28+63*3, 28, 28+63*4]
 #psp_indices = [123, 123-63, 123+63*2, 123+63*3]
 
-interval_index = 37
-psp_indices = [interval_index+63*4, interval_index+63*2, interval_index, interval_index+63*3]
+interval_index = 3
+psp_indices = [interval_index, interval_index+63*4, interval_index+63*3, interval_index+63*2]
 
 missingness = psp_test_metrics.loc[psp_indices, 'missingness']
+missingness
 
 psp_clean_inputs_test_selected = psp_clean_inputs_test[psp_indices]
 np.save(file = 'results_final/' + model_name + 'plots/' + 'psp_clean_inputs_test_selected', arr = psp_clean_inputs_test_selected)
@@ -212,21 +213,21 @@ np.save(file = 'results_final/' + model_name + 'plots/' + 'psp_outputs_test_sele
 
 ## PSP: 39 outputs gapped 5 times each
 
-# psp_clean_inputs_test_selected = np.load(file = 'data_processed/psp/psp_clean_inputs_test_selected.npy')
-# psp_clean_outputs_test_selected = np.load(file = 'data_processed/psp/psp_clean_outputs_test_selected.npy')
+# psp_clean_inputs_test_selected = np.load(file = 'results_final/' + model_name + 'psp_clean_inputs_test_selected.npy')
+# psp_clean_outputs_test_selected = np.load(file = 'results_final/' + model_name + 'psp_clean_outputs_test_selected.npy')
 
-# psp_gapped_inputs_test_selected = np.load(file = 'data_processed/psp/psp_gapped_inputs_test_selected.npy')
-# psp_gapped_outputs_test_selected = np.load(file = 'data_processed/psp/psp_gapped_outputs_test_selected.npy')
+# psp_gapped_inputs_test_selected = np.load(file = 'results_final/' + model_name + 'psp_gapped_inputs_test_selected.npy')
+# psp_gapped_outputs_test_selected = np.load(file = 'results_final/' + model_name + 'psp_gapped_outputs_test_selected.npy')
 
-# psp_filled_inputs_test_selected = np.load(file = 'data_processed/psp/psp_filled_inputs_test_selected.npy')
-# psp_filled_outputs_test_selected = np.load(file = 'data_processed/psp/psp_filled_outputs_test_selected.npy')
+# psp_filled_inputs_test_selected = np.load(file = 'results_final/' + model_name + 'psp_filled_inputs_test_selected.npy')
+# psp_filled_outputs_test_selected = np.load(file = 'results_final/' + model_name + 'psp_filled_outputs_test_selected.npy')
 
-# psp_lint_inputs_test_selected = np.load(file = 'data_processed/psp/psp_lint_inputs_test_selected.npy')
-# psp_lint_outputs_test_selected = np.load(file = 'data_processed/psp/psp_lint_outputs_test_selected.npy')
+# psp_lint_inputs_test_selected = np.load(file = 'results_final/' + model_name + 'psp_lint_inputs_test_selected.npy')
+# psp_lint_outputs_test_selected = np.load(file = 'results_final/' + model_name + 'psp_lint_outputs_test_selected.npy')
 
 # #psp_gapped_inputs_test_prop_removed = np.load(file = 'oct_10_results_final/psp_gapped_inputs_test_prop_removed.npy')
 
-# psp_outputs_test_predict_selected = np.load('data_processed/psp/psp_outputs_test_predict_selected.npy')
+# psp_outputs_test_predict_selected = np.load('results_final/' + model_name + 'psp_outputs_test_selected_predict.npy')
 
 
 # Checking they are the same

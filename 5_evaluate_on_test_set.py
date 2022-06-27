@@ -1,7 +1,7 @@
 
 # Evaluating final model on test sets - LEAVE TILL THE VERY END
 
-model_name = "june_1/mod_13/"
+model_name = "june_1/mod_2/"
 
 ########################################################################
 
