@@ -13,7 +13,12 @@ Aiming to predict structure functions directly from solar wind magnetic field in
 
 Put `3_train_neural_net.py` and `keras_tuner.py` side-by-side and implement hyperparameter tuning. Then, run this locally, before beefing it up for Raapoi.
 
-## CURRENT DATA USED
+## DATA USED
+
+The data is not committed to this repository, but the codes used to create it are all here and documented.
+
+The raw data described below is downloaded (using ftp) from the Space Physics Data Facility:
+https://spdf.gsfc.nasa.gov/pub/data/
 
 2 intervals from PSP (`psp_fld_l2_mag_rtn_...cdf`)
 - 2018-11-01 - 2018-11-17 = 1,950,000 continuous observations
