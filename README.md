@@ -9,7 +9,9 @@ This code was used to explore solar wind data and implement a study of using neu
 
 Aiming to predict structure functions directly from solar wind magnetic field intervals with gaps using a neural network trained on many input-output pairs with artificial gaps in order to attempt to make the network robust to these data gaps (‘noise’).
 
-## NEXT STEPS
+## SUMMARY OF RESULTS
+
+`results_final/may_9/mod_13` contains the final arrays and plots used in the paper accepted into *Space Weather*.
 
 ## DATA USED
 
